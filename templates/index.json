@@ -1,1 +1,1434 @@
-{"sections":{"1756891114cd830464":{"type":"_blocks","blocks":{"ai_gen_block_9c7700c_VrYPUg":{"type":"ai_gen_block_9c7700c","settings":{"placeholder_text":"Search Cannanore store...","search_all_products":true,"width_type":"percentage","width_pixels":600,"width_percentage":90,"search_height":50,"border_radius":2,"padding_top":12,"padding_bottom":12,"background_color":"#ffffff","text_color":"#000000","placeholder_color":"#666666","border_color":"#e5d8b8","border_hover_color":"#999999","border_focus_color":"#0066cc","icon_color":"#ffffff","icon_hover_color":"#333333","icon_background_color":"#9e0505","icon_background_hover_color":"#f5f5f5","icon_border_radius":2,"hide_on_desktop":true},"blocks":{}}},"block_order":["ai_gen_block_9c7700c_VrYPUg"],"settings":{}},"desktop_collection_menu_AByUpT":{"type":"desktop-collection-menu","disabled":true,"name":"Desktop collection menu","settings":{"enable_sticky_info":true,"color_scheme":"","media_size":"large","constrain_to_viewport":true,"media_fit":"contain","gallery_layout":"stacked","mobile_thumbnails":"hide","media_position":"left","image_zoom":"lightbox","hide_variants":false,"enable_sticky_mobile_atc":true,"sticky_mobile_atc_bg_color":"#ffffff","sticky_mobile_atc_bg_opacity":95,"enable_video_looping":false,"padding_top":36,"padding_bottom":36}},"slideshow_GCKTVq":{"type":"slideshow","blocks":{"slide_NigdcL":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/Copy_of__DSC4363.jpg","image_overlay_opacity":50,"heading":"Drape Tradition in Every Fold","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/sarees","button_style_secondary":true,"show_text_box":false,"box_align":"middle-right","text_alignment":"left","text_alignment_mobile":"left","color_scheme":"scheme-5"}},"slide_hReCRc":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/DSC1299_1_2.jpg","image_overlay_opacity":50,"heading":"Playful Artistry for Every Child","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/toys","button_style_secondary":true,"show_text_box":false,"box_align":"top-center","text_alignment":"center","text_alignment_mobile":"center","color_scheme":"scheme-5"}},"slide_MxfMJb":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/Copy_of__DSC4308_1_3.jpg","image_overlay_opacity":50,"heading":"Adorn Yourself with Timeless Grace","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/jewellery-1","button_style_secondary":true,"show_text_box":false,"box_align":"bottom-right","text_alignment":"left","text_alignment_mobile":"left","color_scheme":"scheme-5"}},"slide_LHm8jb":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/da4fb2bd-e3f9-44d4-b18b-3d128119d6c7_d9f3b5fb-c6ab-40f5-94e0-79961bd6795b.webp","image_overlay_opacity":50,"heading":"Elevate Spaces with Authentic Charm","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/sarees","button_style_secondary":true,"show_text_box":false,"box_align":"middle-right","text_alignment":"left","text_alignment_mobile":"left","color_scheme":"scheme-5"}}},"block_order":["slide_NigdcL","slide_hReCRc","slide_MxfMJb","slide_LHm8jb"],"custom_css":["@media screen and (min-width: 751px) {{display: none !important; }}"],"name":"t:sections.slideshow.presets.name","settings":{"layout":"full_bleed","slide_height":"small","slider_visual":"dots","auto_rotate":false,"change_slides_speed":5,"image_behavior":"none","show_text_below":false,"accessibility_info":"Slideshow about our brand"}},"slideshow_j4jtKm":{"type":"slideshow","blocks":{"slide_yPcMei":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/Sarees_resized_w1600_h821.jpg","image_overlay_opacity":40,"heading":"Drape Tradition in Every Fold","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/sarees","button_style_secondary":true,"show_text_box":false,"box_align":"bottom-left","text_alignment":"left","text_alignment_mobile":"left","color_scheme":"scheme-5"}},"slide_pzBNLX":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/Toys_resized_w1600_h821.jpg","image_overlay_opacity":50,"heading":"Playful Artistry for Every Child","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/toys","button_style_secondary":true,"show_text_box":false,"box_align":"top-center","text_alignment":"center","text_alignment_mobile":"center","color_scheme":"scheme-5"}},"slide_yVFRnm":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/Jewellery_resized_w1600_h821.jpg","image_overlay_opacity":50,"heading":"Adorn Yourself with Timeless Grace","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/jewellery-1","button_style_secondary":true,"show_text_box":false,"box_align":"bottom-left","text_alignment":"left","text_alignment_mobile":"left","color_scheme":"scheme-5"}},"slide_pPbzVe":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/Towels_resized_w1600_h821.jpg","image_overlay_opacity":50,"heading":"Elevate Spaces with Authentic Charm","heading_size":"h2","subheading":"","button_label":"Explore All","link":"shopify:\/\/collections\/bath","button_style_secondary":true,"show_text_box":false,"box_align":"bottom-left","text_alignment":"left","text_alignment_mobile":"left","color_scheme":"scheme-5"}}},"block_order":["slide_yPcMei","slide_pzBNLX","slide_yVFRnm","slide_pPbzVe"],"custom_css":["@media screen and (max-width: 750px) {{display: none !important; }}"],"name":"t:sections.slideshow.presets.name","settings":{"layout":"full_bleed","slide_height":"small","slider_visual":"dots","auto_rotate":false,"change_slides_speed":5,"image_behavior":"none","show_text_below":false,"accessibility_info":"Slideshow about our brand"}},"collection_list_caurosel_QMAxfF":{"type":"collection-list-caurosel","blocks":{"featured_collection_kNw8Cm":{"type":"featured_collection","settings":{"collection":"sarees","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":""}},"featured_collection_m8pNpE":{"type":"featured_collection","settings":{"collection":"skincare","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":""}},"featured_collection_fhTjgW":{"type":"featured_collection","settings":{"collection":"jewellery-1","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":""}},"featured_collection_HAab8r":{"type":"featured_collection","settings":{"collection":"bedsheets","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":"scheme-1"}},"featured_collection_TACYhq":{"type":"featured_collection","settings":{"collection":"toys","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":"scheme-1"}}},"block_order":["featured_collection_kNw8Cm","featured_collection_m8pNpE","featured_collection_fhTjgW","featured_collection_HAab8r","featured_collection_TACYhq"],"custom_css":["@media screen and (min-width: 751px) {{display: none !important; }}"],"name":"Collection list caurosel","settings":{"title":"","title_position":"hidden","heading_size":"h0","title_horizontal_align":"center","title_vertical_align":"middle","color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","default_name_weight":"500","default_name_transform":"none","default_title_color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","clamp_name":true,"name_lines":1,"name_font_size":14,"item_width":"81","item_height":"81","overlay_content":false,"vertical_align":"middle","horizontal_align":"center","overlay_opacity":30,"overlay_radius":8,"description_words":16,"default_cta_text":"","image_shape":"square","force_square":true,"rounded_radius":16,"padding_top":36,"padding_bottom":24}},"collection_list_caurosel_6BDGbr":{"type":"collection-list-caurosel","blocks":{"featured_collection_TctpKN":{"type":"featured_collection","disabled":true,"settings":{"collection":"bestsellers","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":"scheme-1"}},"featured_collection_VNAMCF":{"type":"featured_collection","settings":{"collection":"sarees-2","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":""}},"featured_collection_7epbeV":{"type":"featured_collection","settings":{"collection":"skincare-2","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":""}},"featured_collection_NB6bNz":{"type":"featured_collection","settings":{"collection":"jewellery-2","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":""}},"featured_collection_BCHdPw":{"type":"featured_collection","settings":{"collection":"bedsheets-1","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":"scheme-1"}},"featured_collection_YpUfhA":{"type":"featured_collection","settings":{"collection":"toys-2","description_override":"","cta_text":"","cta_link":"","override_name_style":false,"name_weight":"600","name_transform":"none","use_default_title_color":true,"title_color_scheme":"scheme-1"}}},"block_order":["featured_collection_TctpKN","featured_collection_VNAMCF","featured_collection_7epbeV","featured_collection_NB6bNz","featured_collection_BCHdPw","featured_collection_YpUfhA"],"custom_css":["@media screen and (max-width: 750px) {{display: none !important; }}","ul#HScroll-template--16888628674631__collection_list_caurosel_6BDGbr {justify-content: center; \/* Centers the flex items horizontally *\/}","ul#HScroll-template--16888628674631__collection_list_caurosel_6BDGbr {gap: 40px; \/* Adjust this value for your desired spacing *\/}"],"name":"Collection list caurosel","settings":{"title":"","title_position":"hidden","heading_size":"h0","title_horizontal_align":"center","title_vertical_align":"middle","color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","default_name_weight":"500","default_name_transform":"none","default_title_color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","clamp_name":true,"name_lines":1,"name_font_size":16,"item_width":"208","item_height":"278","overlay_content":false,"vertical_align":"middle","horizontal_align":"center","overlay_opacity":30,"overlay_radius":8,"description_words":16,"default_cta_text":"","image_shape":"square","force_square":false,"rounded_radius":16,"padding_top":36,"padding_bottom":24}},"rich_text_V7Minf":{"type":"rich-text","blocks":{"heading_HFqjTm":{"type":"heading","settings":{"heading":"Bestsellers","heading_size":"h2"}},"text_fL9DFa":{"type":"text","settings":{"text":""}}},"block_order":["heading_HFqjTm","text_fL9DFa"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","full_width":true,"padding_top":40,"padding_bottom":0}},"featured_collection":{"type":"featured-collection","settings":{"collection":"all","products_to_show":5,"title":"","title_max_lines":1,"product_title_font_size":15,"header_align":"center","header_font_weight":"","header_italic":false,"header_font_size":0,"heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":5,"rows_limit":1,"enable_desktop_slider":true,"full_width":true,"show_view_all":true,"view_all_style":"outline","view_all_location":"last_card","view_all_button_size":"lg","view_all_button_radius":40,"view_all_button_padding_y":16,"view_all_button_padding_x":21,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","price_font":"default","price_font_size":"l","price_text_color":"#ffffff","overlay_enable":true,"overlay_use_gradient":true,"overlay_gradient_background":"linear-gradient(0deg, rgba(18, 18, 18, 1), rgba(0, 0, 0, 0.96) 10%, rgba(0, 0, 0, 0.75) 15%, rgba(0, 0, 0, 0.08) 26%)","overlay_gradient_opacity":80,"overlay_vertical_align":"bottom","overlay_horizontal_align":"left","overlay_text_color":"#ffffff","overlay_title_font_size":15,"overlay_vendor_font_size":8,"overlay_price_font_size":16,"image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"quick_add":"none","badge_vertical_align":"top","badge_horizontal_align":"left","columns_mobile":"1","swipe_on_mobile":true,"controls_mode":"none","view_all_overlay_vertical_align":"middle","view_all_overlay_horizontal_align":"center","hide_last_card_bottom_text":true,"padding_top":0,"padding_bottom":0}},"rich_text_E48AU9":{"type":"rich-text","blocks":{"heading_bYNBq3":{"type":"heading","settings":{"heading":"New Arrivals","heading_size":"h2"}},"text_JyTUfn":{"type":"text","settings":{"text":""}}},"block_order":["heading_bYNBq3","text_JyTUfn"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","full_width":true,"padding_top":56,"padding_bottom":0}},"featured_collection_M36YjG":{"type":"featured-collection","settings":{"collection":"towels","products_to_show":5,"title":"","title_max_lines":1,"product_title_font_size":15,"header_align":"center","header_font_weight":"medium","header_italic":false,"header_font_size":22,"heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":5,"rows_limit":1,"enable_desktop_slider":true,"full_width":true,"show_view_all":true,"view_all_style":"outline","view_all_location":"last_card","view_all_button_size":"lg","view_all_button_radius":40,"view_all_button_padding_y":16,"view_all_button_padding_x":21,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","price_font":"default","price_font_size":"xl","price_text_color":"#9e0505","overlay_enable":false,"overlay_use_gradient":true,"overlay_gradient_background":"","overlay_gradient_opacity":100,"overlay_vertical_align":"bottom","overlay_horizontal_align":"left","overlay_text_color":"#ffffff","overlay_title_font_size":16,"overlay_vendor_font_size":14,"overlay_price_font_size":16,"image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"quick_add":"none","badge_vertical_align":"top","badge_horizontal_align":"right","columns_mobile":"1","swipe_on_mobile":true,"controls_mode":"none","view_all_overlay_vertical_align":"middle","view_all_overlay_horizontal_align":"center","hide_last_card_bottom_text":true,"padding_top":0,"padding_bottom":24}},"featured_collection_zXCKBU":{"type":"featured-collection","settings":{"collection":"sarees","products_to_show":5,"title":"One of a kind, thoughtfully handwoven by our artisan partners","title_max_lines":1,"product_title_font_size":15,"header_align":"center","header_font_weight":"medium","header_italic":false,"header_font_size":22,"heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":5,"rows_limit":1,"enable_desktop_slider":false,"full_width":true,"show_view_all":true,"view_all_style":"outline","view_all_location":"last_card","view_all_button_size":"lg","view_all_button_radius":40,"view_all_button_padding_y":16,"view_all_button_padding_x":21,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","price_font":"default","price_font_size":"xl","price_text_color":"#9e0505","overlay_enable":false,"overlay_use_gradient":true,"overlay_gradient_background":"","overlay_gradient_opacity":100,"overlay_vertical_align":"bottom","overlay_horizontal_align":"left","overlay_text_color":"#ffffff","overlay_title_font_size":16,"overlay_vendor_font_size":14,"overlay_price_font_size":16,"image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"quick_add":"none","badge_vertical_align":"top","badge_horizontal_align":"right","columns_mobile":"1","swipe_on_mobile":true,"controls_mode":"none","view_all_overlay_vertical_align":"middle","view_all_overlay_horizontal_align":"center","hide_last_card_bottom_text":true,"padding_top":56,"padding_bottom":24}},"rich_text_7RNCDJ":{"type":"rich-text","blocks":{"heading_4Umd4N":{"type":"heading","settings":{"heading":"Enrich your home with artisanal grace","heading_size":"h2"}},"text_rnnnpf":{"type":"text","settings":{"text":""}}},"block_order":["heading_4Umd4N","text_rnnnpf"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","full_width":true,"padding_top":56,"padding_bottom":0}},"featured_collection_a8Hkpp":{"type":"featured-collection","settings":{"collection":"towels","products_to_show":5,"title":"","title_max_lines":1,"product_title_font_size":15,"header_align":"center","header_font_weight":"medium","header_italic":false,"header_font_size":22,"heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":5,"rows_limit":1,"enable_desktop_slider":false,"full_width":true,"show_view_all":true,"view_all_style":"outline","view_all_location":"last_card","view_all_button_size":"lg","view_all_button_radius":40,"view_all_button_padding_y":16,"view_all_button_padding_x":21,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","price_font":"default","price_font_size":"xl","price_text_color":"#9e0505","overlay_enable":false,"overlay_use_gradient":true,"overlay_gradient_background":"","overlay_gradient_opacity":100,"overlay_vertical_align":"bottom","overlay_horizontal_align":"left","overlay_text_color":"#ffffff","overlay_title_font_size":48,"overlay_vendor_font_size":16,"overlay_price_font_size":21,"image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"quick_add":"none","badge_vertical_align":"top","badge_horizontal_align":"right","columns_mobile":"1","swipe_on_mobile":true,"controls_mode":"none","view_all_overlay_vertical_align":"middle","view_all_overlay_horizontal_align":"center","hide_last_card_bottom_text":true,"padding_top":0,"padding_bottom":24}},"rich_text_4BX9zB":{"type":"rich-text","blocks":{"heading_zbThyb":{"type":"heading","settings":{"heading":"Where modern art blends with ancient crafts","heading_size":"h2"}},"text_MYxxPU":{"type":"text","settings":{"text":""}}},"block_order":["heading_zbThyb","text_MYxxPU"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","full_width":true,"padding_top":56,"padding_bottom":0}},"featured_collection_XJHLgN":{"type":"featured-collection","settings":{"collection":"jewellery-1","products_to_show":5,"title":"","title_max_lines":1,"product_title_font_size":15,"header_align":"center","header_font_weight":"medium","header_italic":false,"header_font_size":22,"heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":5,"rows_limit":1,"enable_desktop_slider":false,"full_width":true,"show_view_all":true,"view_all_style":"outline","view_all_location":"last_card","view_all_button_size":"lg","view_all_button_radius":40,"view_all_button_padding_y":16,"view_all_button_padding_x":21,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","price_font":"default","price_font_size":"xl","price_text_color":"#9e0505","overlay_enable":false,"overlay_use_gradient":true,"overlay_gradient_background":"","overlay_gradient_opacity":100,"overlay_vertical_align":"bottom","overlay_horizontal_align":"left","overlay_text_color":"#ffffff","overlay_title_font_size":16,"overlay_vendor_font_size":14,"overlay_price_font_size":16,"image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"quick_add":"none","badge_vertical_align":"top","badge_horizontal_align":"right","columns_mobile":"1","swipe_on_mobile":true,"controls_mode":"none","view_all_overlay_vertical_align":"middle","view_all_overlay_horizontal_align":"center","hide_last_card_bottom_text":true,"padding_top":0,"padding_bottom":24}},"rich_text_fhBedD":{"type":"rich-text","blocks":{"heading_QgWTgi":{"type":"heading","settings":{"heading":"Our charmingly whimsical crochet toys","heading_size":"h2"}},"text_CdYrEP":{"type":"text","settings":{"text":""}}},"block_order":["heading_QgWTgi","text_CdYrEP"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","full_width":true,"padding_top":56,"padding_bottom":0}},"featured_collection_B3dpfR":{"type":"featured-collection","settings":{"collection":"toys","products_to_show":5,"title":"","title_max_lines":1,"product_title_font_size":15,"header_align":"center","header_font_weight":"medium","header_italic":false,"header_font_size":22,"heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":5,"rows_limit":1,"enable_desktop_slider":false,"full_width":true,"show_view_all":true,"view_all_style":"outline","view_all_location":"last_card","view_all_button_size":"lg","view_all_button_radius":40,"view_all_button_padding_y":16,"view_all_button_padding_x":21,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","price_font":"default","price_font_size":"xl","price_text_color":"#9e0505","overlay_enable":false,"overlay_use_gradient":true,"overlay_gradient_background":"","overlay_gradient_opacity":100,"overlay_vertical_align":"bottom","overlay_horizontal_align":"left","overlay_text_color":"#ffffff","overlay_title_font_size":16,"overlay_vendor_font_size":14,"overlay_price_font_size":16,"image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"quick_add":"none","badge_vertical_align":"top","badge_horizontal_align":"right","columns_mobile":"1","swipe_on_mobile":true,"controls_mode":"none","view_all_overlay_vertical_align":"middle","view_all_overlay_horizontal_align":"center","hide_last_card_bottom_text":true,"padding_top":0,"padding_bottom":24}},"rich_text_rddqbB":{"type":"rich-text","blocks":{"heading_WdTiFm":{"type":"heading","settings":{"heading":"Naturally rejuvenate your skin, no waste in sight","heading_size":"h2"}},"text_XemXDN":{"type":"text","settings":{"text":""}}},"block_order":["heading_WdTiFm","text_XemXDN"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","full_width":true,"padding_top":56,"padding_bottom":0}},"featured_collection_GrNYmX":{"type":"featured-collection","settings":{"collection":"skincare","products_to_show":5,"title":"","title_max_lines":1,"product_title_font_size":15,"header_align":"center","header_font_weight":"medium","header_italic":false,"header_font_size":22,"heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":5,"rows_limit":1,"enable_desktop_slider":false,"full_width":true,"show_view_all":true,"view_all_style":"outline","view_all_location":"last_card","view_all_button_size":"lg","view_all_button_radius":40,"view_all_button_padding_y":16,"view_all_button_padding_x":21,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","price_font":"default","price_font_size":"xl","price_text_color":"#9e0505","overlay_enable":false,"overlay_use_gradient":true,"overlay_gradient_background":"","overlay_gradient_opacity":100,"overlay_vertical_align":"bottom","overlay_horizontal_align":"left","overlay_text_color":"#ffffff","overlay_title_font_size":16,"overlay_vendor_font_size":14,"overlay_price_font_size":16,"image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"quick_add":"none","badge_vertical_align":"top","badge_horizontal_align":"right","columns_mobile":"2","swipe_on_mobile":true,"controls_mode":"none","view_all_overlay_vertical_align":"middle","view_all_overlay_horizontal_align":"center","hide_last_card_bottom_text":true,"padding_top":0,"padding_bottom":24}},"175687434008b0da53":{"type":"_blocks","blocks":{"ai_gen_block_697d554_gmW4fP":{"type":"ai_gen_block_697d554","settings":{"title":"Hear from our community","subtitle":"","section_background":"#e5d8b8","section_padding_top":16,"section_padding_bottom":0,"desktop_cards_to_show":3,"card_spacing":0,"vertical_spacing":8,"card_background":"#e5d8b8","card_border_color":"#e5e5e5","card_border_width":0,"card_border_radius":0,"card_padding":20,"image_height":400,"image_border_radius":0,"title_size":22,"title_color":"#9e0505","subtitle_size":16,"subtitle_color":"#666666","title_subtitle_spacing":8,"review_text_size":14,"review_text_color":"#333333","customer_name_size":16,"customer_name_color":"#000000","product_name_size":14,"product_name_color":"#666666","date_size":12,"date_color":"#999999","star_size":20,"star_filled_color":"#d1b10c","star_empty_color":"#e5e5e5","show_arrows_desktop":false,"show_dots":false,"arrow_size":44,"arrow_background":"#e5d8b8","arrow_hover_background":"#f5f5f5","arrow_color":"#9e0505","navigation_bottom_padding":0,"dot_width":6,"dot_height":11,"dot_active_color":"#9e0505","dot_inactive_color":"#cccccc","autoplay":false,"autoplay_speed":5,"loop":true,"review_1_image":"shopify:\/\/shop_images\/Copy_of_IMG20250419191341_1.jpg","review_1_rating":5,"review_1_text":"<p>\"The Cannanore Shop is a treasure trove for authentic handlooms and handicrafts, bringing the rich art of remote regions to Bengaluru. It's where beauty meets utility, curated by a knowledgeable owner who ensures ethical sourcing and fair pricing. Many products are unique and often more affordable than on popular e-commerce platforms. A genuine business with a heart and purpose\"<\/p>","review_1_name":"Anitha Prasad","review_1_product":"Bangalore","review_1_date":"","review_2_image":"shopify:\/\/shop_images\/Somali_Review.jpg","review_2_rating":5,"review_2_text":"<p>\"I walked in just to browse and ended up discovering so many beautiful things. Everything feels personal and thoughtfully made. From handmade soaps to woven towels, it's all heart. Cannanore is where I find quiet, lovely treasures\"<\/p>","review_2_name":"Somali Panigrahi","review_2_product":"Bangalore","review_2_date":"","review_3_image":"shopify:\/\/shop_images\/Review_3_188a602b-7df1-446f-b5cf-fb42a944adc9.jpg","review_3_rating":5,"review_3_text":"<p>This is a lovely little shop with a very carefully selected curation of items. While all of their products are excellent, I wanted to specifically call out their really unique Thorkish towels. Imagine how a combination of a thick Turkish towel and a thin traditional Indian towel might feel like, and you have it! We’ve been using these towels ever since we first discovered them a few years ago and it’s tough to go back to any other type of towel after this! Try it first and thank me later. 🙂<\/p>","review_3_name":"Srikanth Srinivasan","review_3_product":"Bangalore","review_3_date":""},"blocks":{}}},"block_order":["ai_gen_block_697d554_gmW4fP"],"settings":{}},"rich_text_W6GYk4":{"type":"rich-text","blocks":{"heading_ryjdWe":{"type":"heading","settings":{"heading":"Drop by our store","heading_size":"h2"}}},"block_order":["heading_ryjdWe"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","full_width":true,"padding_top":40,"padding_bottom":24}},"rich_text_c6dHej":{"type":"rich-text","blocks":{"text_WEHapN":{"type":"text","settings":{"text":"<p>Discover our collection in person,  crafted to be experienced up close.<\/p>"}}},"block_order":["text_WEHapN"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","full_width":true,"padding_top":0,"padding_bottom":0}},"image_with_text_Qx79Li":{"type":"image-with-text","blocks":{"heading_NxrNEC":{"type":"heading","settings":{"heading":"Bring a friend, Save together","heading_size":"h2"}},"text_Cm43jW":{"type":"text","settings":{"text":"<p>Invite a friend to join you on your next visit to our store and receive 5% off your purchase.<\/p>","text_style":"body"}},"button_Htr98N":{"type":"button","settings":{"button_label":"Get Directions","button_link":"https:\/\/maps.app.goo.gl\/nUyxuFUJVXM3j5sx8","button_style_secondary":true}}},"block_order":["heading_NxrNEC","text_Cm43jW","button_Htr98N"],"name":"t:sections.image-with-text.presets.name","settings":{"image":"shopify:\/\/shop_images\/Store.jpg","height":"medium","desktop_image_width":"large","layout":"image_first","image_behavior":"none","content_layout":"no-overlap","desktop_content_position":"middle","desktop_content_alignment":"center","mobile_content_alignment":"center","section_color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","color_scheme":"scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087","padding_top":36,"padding_bottom":36}},"collection_bottom_sheet_pExMHR":{"type":"collection-bottom-sheet","blocks":{"collection_AVnTBy":{"type":"collection","settings":{"collection":"sarees","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_RH9UB4":{"type":"collection","settings":{"collection":"skincare","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_nUyLXV":{"type":"collection","settings":{"collection":"toys","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_HgTMRe":{"type":"collection","settings":{"collection":"jewellery-1","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_YgdH9H":{"type":"collection","settings":{"collection":"bedsheets","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_MX9zTm":{"type":"collection","settings":{"collection":"","image_shape":"rounded","name_color":"#111111","name_size":12}}},"block_order":["collection_AVnTBy","collection_RH9UB4","collection_nUyLXV","collection_HgTMRe","collection_YgdH9H","collection_MX9zTm"],"custom_css":[],"name":"Collection bottom sheet","settings":{"sheet_id":"bottom_sheet_collection","title":"Categories","panel_bg":"#e5d8b8","panel_radius":0,"columns_mobile":3,"columns_desktop":4,"grid_gap":12}}},"order":["1756891114cd830464","desktop_collection_menu_AByUpT","slideshow_GCKTVq","slideshow_j4jtKm","collection_list_caurosel_QMAxfF","collection_list_caurosel_6BDGbr","rich_text_V7Minf","featured_collection","rich_text_E48AU9","featured_collection_M36YjG","featured_collection_zXCKBU","rich_text_7RNCDJ","featured_collection_a8Hkpp","rich_text_4BX9zB","featured_collection_XJHLgN","rich_text_fhBedD","featured_collection_B3dpfR","rich_text_rddqbB","featured_collection_GrNYmX","175687434008b0da53","rich_text_W6GYk4","rich_text_c6dHej","image_with_text_Qx79Li","collection_bottom_sheet_pExMHR"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1756891114cd830464": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9c7700c_VrYPUg": {
+          "type": "ai_gen_block_9c7700c",
+          "settings": {
+            "placeholder_text": "Search Cannanore store...",
+            "search_all_products": true,
+            "width_type": "percentage",
+            "width_pixels": 600,
+            "width_percentage": 90,
+            "search_height": 50,
+            "border_radius": 2,
+            "padding_top": 12,
+            "padding_bottom": 12,
+            "background_color": "#ffffff",
+            "text_color": "#000000",
+            "placeholder_color": "#666666",
+            "border_color": "#e5d8b8",
+            "border_hover_color": "#999999",
+            "border_focus_color": "#0066cc",
+            "icon_color": "#ffffff",
+            "icon_hover_color": "#333333",
+            "icon_background_color": "#9e0505",
+            "icon_background_hover_color": "#f5f5f5",
+            "icon_border_radius": 2,
+            "hide_on_desktop": true
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9c7700c_VrYPUg"
+      ],
+      "settings": {}
+    },
+    "desktop_collection_menu_AByUpT": {
+      "type": "desktop-collection-menu",
+      "disabled": true,
+      "name": "Desktop collection menu",
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_sticky_mobile_atc": true,
+        "sticky_mobile_atc_bg_color": "#ffffff",
+        "sticky_mobile_atc_bg_opacity": 95,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "slideshow_GCKTVq": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_NigdcL": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of__DSC4363.jpg",
+            "image_overlay_opacity": 50,
+            "heading": "Drape Tradition in Every Fold",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/sarees",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "middle-right",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_hReCRc": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC1299_1_2.jpg",
+            "image_overlay_opacity": 50,
+            "heading": "Playful Artistry for Every Child",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/toys",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "top-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_MxfMJb": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of__DSC4308_1_3.jpg",
+            "image_overlay_opacity": 50,
+            "heading": "Adorn Yourself with Timeless Grace",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/jewellery-1",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "bottom-right",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_LHm8jb": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/da4fb2bd-e3f9-44d4-b18b-3d128119d6c7_d9f3b5fb-c6ab-40f5-94e0-79961bd6795b.webp",
+            "image_overlay_opacity": 50,
+            "heading": "Elevate Spaces with Authentic Charm",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/sarees",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "middle-right",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-5"
+          }
+        }
+      },
+      "block_order": [
+        "slide_NigdcL",
+        "slide_hReCRc",
+        "slide_MxfMJb",
+        "slide_LHm8jb"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 751px) {{display: none !important; }}"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "small",
+        "slider_visual": "dots",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "slideshow_j4jtKm": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_yPcMei": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Sarees_resized_w1600_h821.jpg",
+            "image_overlay_opacity": 40,
+            "heading": "Drape Tradition in Every Fold",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/sarees",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_pzBNLX": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Toys_resized_w1600_h821.jpg",
+            "image_overlay_opacity": 50,
+            "heading": "Playful Artistry for Every Child",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/toys",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "top-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_yVFRnm": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Jewellery_resized_w1600_h821.jpg",
+            "image_overlay_opacity": 50,
+            "heading": "Adorn Yourself with Timeless Grace",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/jewellery-1",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_pPbzVe": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Towels_resized_w1600_h821.jpg",
+            "image_overlay_opacity": 50,
+            "heading": "Elevate Spaces with Authentic Charm",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Explore All",
+            "link": "shopify://collections/bath",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "bottom-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-5"
+          }
+        }
+      },
+      "block_order": [
+        "slide_yPcMei",
+        "slide_pzBNLX",
+        "slide_yVFRnm",
+        "slide_pPbzVe"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 750px) {{display: none !important; }}"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "small",
+        "slider_visual": "dots",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "marquee_Xa7Ewt": {
+      "type": "marquee",
+      "blocks": {
+        "text_AFpFx4": {
+          "type": "text",
+          "settings": {
+            "text": "Your text here"
+          }
+        },
+        "text_qBf9fT": {
+          "type": "text",
+          "settings": {
+            "text": "Your text here"
+          }
+        },
+        "text_GWraJW": {
+          "type": "text",
+          "settings": {
+            "text": "Your text here"
+          }
+        },
+        "text_HWhW6M": {
+          "type": "text",
+          "settings": {
+            "text": "Your text here"
+          }
+        }
+      },
+      "block_order": [
+        "text_AFpFx4",
+        "text_qBf9fT",
+        "text_GWraJW",
+        "text_HWhW6M"
+      ],
+      "name": "Marquee",
+      "settings": {
+        "speed": 40,
+        "spacing": 60,
+        "divider": "•",
+        "pause_on_hover": true,
+        "bg_color": "#9e0505",
+        "text_color": "#e5d8b8",
+        "divider_color": "#e5d8b8"
+      }
+    },
+    "collection_list_caurosel_QMAxfF": {
+      "type": "collection-list-caurosel",
+      "blocks": {
+        "featured_collection_kNw8Cm": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "sarees",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": ""
+          }
+        },
+        "featured_collection_m8pNpE": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "skincare",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": ""
+          }
+        },
+        "featured_collection_fhTjgW": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "jewellery-1",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": ""
+          }
+        },
+        "featured_collection_HAab8r": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bedsheets",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": "scheme-1"
+          }
+        },
+        "featured_collection_TACYhq": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "toys",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": "scheme-1"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_kNw8Cm",
+        "featured_collection_m8pNpE",
+        "featured_collection_fhTjgW",
+        "featured_collection_HAab8r",
+        "featured_collection_TACYhq"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 751px) {{display: none !important; }}"
+      ],
+      "name": "Collection list caurosel",
+      "settings": {
+        "title": "",
+        "title_position": "hidden",
+        "heading_size": "h0",
+        "title_horizontal_align": "center",
+        "title_vertical_align": "middle",
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "default_name_weight": "500",
+        "default_name_transform": "none",
+        "default_title_color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "clamp_name": true,
+        "name_lines": 1,
+        "name_font_size": 14,
+        "item_width": "81",
+        "item_height": "81",
+        "overlay_content": false,
+        "vertical_align": "middle",
+        "horizontal_align": "center",
+        "overlay_opacity": 30,
+        "overlay_radius": 8,
+        "description_words": 16,
+        "default_cta_text": "",
+        "image_shape": "square",
+        "force_square": true,
+        "rounded_radius": 16,
+        "padding_top": 36,
+        "padding_bottom": 24
+      }
+    },
+    "collection_list_caurosel_6BDGbr": {
+      "type": "collection-list-caurosel",
+      "blocks": {
+        "featured_collection_TctpKN": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "bestsellers",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": "scheme-1"
+          }
+        },
+        "featured_collection_VNAMCF": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "sarees-2",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": ""
+          }
+        },
+        "featured_collection_7epbeV": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "skincare-2",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": ""
+          }
+        },
+        "featured_collection_NB6bNz": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "jewellery-2",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": ""
+          }
+        },
+        "featured_collection_BCHdPw": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bedsheets-1",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": "scheme-1"
+          }
+        },
+        "featured_collection_YpUfhA": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "toys-2",
+            "description_override": "",
+            "cta_text": "",
+            "cta_link": "",
+            "override_name_style": false,
+            "name_weight": "600",
+            "name_transform": "none",
+            "use_default_title_color": true,
+            "title_color_scheme": "scheme-1"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_TctpKN",
+        "featured_collection_VNAMCF",
+        "featured_collection_7epbeV",
+        "featured_collection_NB6bNz",
+        "featured_collection_BCHdPw",
+        "featured_collection_YpUfhA"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 750px) {{display: none !important; }}",
+        "ul#HScroll-template--16888628674631__collection_list_caurosel_6BDGbr {justify-content: center; /* Centers the flex items horizontally */}",
+        "ul#HScroll-template--16888628674631__collection_list_caurosel_6BDGbr {gap: 40px; /* Adjust this value for your desired spacing */}"
+      ],
+      "name": "Collection list caurosel",
+      "settings": {
+        "title": "",
+        "title_position": "hidden",
+        "heading_size": "h0",
+        "title_horizontal_align": "center",
+        "title_vertical_align": "middle",
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "default_name_weight": "500",
+        "default_name_transform": "none",
+        "default_title_color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "clamp_name": true,
+        "name_lines": 1,
+        "name_font_size": 16,
+        "item_width": "208",
+        "item_height": "278",
+        "overlay_content": false,
+        "vertical_align": "middle",
+        "horizontal_align": "center",
+        "overlay_opacity": 30,
+        "overlay_radius": 8,
+        "description_words": 16,
+        "default_cta_text": "",
+        "image_shape": "square",
+        "force_square": false,
+        "rounded_radius": 16,
+        "padding_top": 36,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text_V7Minf": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_HFqjTm": {
+          "type": "heading",
+          "settings": {
+            "heading": "Bestsellers",
+            "heading_size": "h2"
+          }
+        },
+        "text_fL9DFa": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_HFqjTm",
+        "text_fL9DFa"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 5,
+        "title": "",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "",
+        "header_italic": false,
+        "header_font_size": 0,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "l",
+        "price_text_color": "#ffffff",
+        "overlay_enable": true,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "linear-gradient(0deg, rgba(18, 18, 18, 1), rgba(0, 0, 0, 0.96) 10%, rgba(0, 0, 0, 0.75) 15%, rgba(0, 0, 0, 0.08) 26%)",
+        "overlay_gradient_opacity": 80,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 15,
+        "overlay_vendor_font_size": 8,
+        "overlay_price_font_size": 16,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "left",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_E48AU9": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_bYNBq3": {
+          "type": "heading",
+          "settings": {
+            "heading": "New Arrivals",
+            "heading_size": "h2"
+          }
+        },
+        "text_JyTUfn": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_bYNBq3",
+        "text_JyTUfn"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "full_width": true,
+        "padding_top": 56,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_M36YjG": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "towels",
+        "products_to_show": 5,
+        "title": "",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "medium",
+        "header_italic": false,
+        "header_font_size": 22,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "xl",
+        "price_text_color": "#9e0505",
+        "overlay_enable": false,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "",
+        "overlay_gradient_opacity": 100,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 16,
+        "overlay_vendor_font_size": 14,
+        "overlay_price_font_size": 16,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "right",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 0,
+        "padding_bottom": 24
+      }
+    },
+    "featured_collection_zXCKBU": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "sarees",
+        "products_to_show": 5,
+        "title": "One of a kind, thoughtfully handwoven by our artisan partners",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "medium",
+        "header_italic": false,
+        "header_font_size": 22,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "xl",
+        "price_text_color": "#9e0505",
+        "overlay_enable": false,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "",
+        "overlay_gradient_opacity": 100,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 16,
+        "overlay_vendor_font_size": 14,
+        "overlay_price_font_size": 16,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "right",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 56,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text_7RNCDJ": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_4Umd4N": {
+          "type": "heading",
+          "settings": {
+            "heading": "Enrich your home with artisanal grace",
+            "heading_size": "h2"
+          }
+        },
+        "text_rnnnpf": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_4Umd4N",
+        "text_rnnnpf"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "full_width": true,
+        "padding_top": 56,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_a8Hkpp": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "towels",
+        "products_to_show": 5,
+        "title": "",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "medium",
+        "header_italic": false,
+        "header_font_size": 22,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "xl",
+        "price_text_color": "#9e0505",
+        "overlay_enable": false,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "",
+        "overlay_gradient_opacity": 100,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 48,
+        "overlay_vendor_font_size": 16,
+        "overlay_price_font_size": 21,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "right",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 0,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text_4BX9zB": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_zbThyb": {
+          "type": "heading",
+          "settings": {
+            "heading": "Where modern art blends with ancient crafts",
+            "heading_size": "h2"
+          }
+        },
+        "text_MYxxPU": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_zbThyb",
+        "text_MYxxPU"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "full_width": true,
+        "padding_top": 56,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_XJHLgN": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "jewellery-1",
+        "products_to_show": 5,
+        "title": "",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "medium",
+        "header_italic": false,
+        "header_font_size": 22,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "xl",
+        "price_text_color": "#9e0505",
+        "overlay_enable": false,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "",
+        "overlay_gradient_opacity": 100,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 16,
+        "overlay_vendor_font_size": 14,
+        "overlay_price_font_size": 16,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "right",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 0,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text_fhBedD": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_QgWTgi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our charmingly whimsical crochet toys",
+            "heading_size": "h2"
+          }
+        },
+        "text_CdYrEP": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_QgWTgi",
+        "text_CdYrEP"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "full_width": true,
+        "padding_top": 56,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_B3dpfR": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "toys",
+        "products_to_show": 5,
+        "title": "",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "medium",
+        "header_italic": false,
+        "header_font_size": 22,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "xl",
+        "price_text_color": "#9e0505",
+        "overlay_enable": false,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "",
+        "overlay_gradient_opacity": 100,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 16,
+        "overlay_vendor_font_size": 14,
+        "overlay_price_font_size": 16,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "right",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 0,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text_rddqbB": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_WdTiFm": {
+          "type": "heading",
+          "settings": {
+            "heading": "Naturally rejuvenate your skin, no waste in sight",
+            "heading_size": "h2"
+          }
+        },
+        "text_XemXDN": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_WdTiFm",
+        "text_XemXDN"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "full_width": true,
+        "padding_top": 56,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_GrNYmX": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "skincare",
+        "products_to_show": 5,
+        "title": "",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "medium",
+        "header_italic": false,
+        "header_font_size": 22,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "xl",
+        "price_text_color": "#9e0505",
+        "overlay_enable": false,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "",
+        "overlay_gradient_opacity": 100,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 16,
+        "overlay_vendor_font_size": 14,
+        "overlay_price_font_size": 16,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "right",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 0,
+        "padding_bottom": 24
+      }
+    },
+    "175687434008b0da53": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_697d554_gmW4fP": {
+          "type": "ai_gen_block_697d554",
+          "settings": {
+            "title": "Hear from our community",
+            "subtitle": "",
+            "section_background": "#e5d8b8",
+            "section_padding_top": 16,
+            "section_padding_bottom": 0,
+            "desktop_cards_to_show": 3,
+            "card_spacing": 0,
+            "vertical_spacing": 8,
+            "card_background": "#e5d8b8",
+            "card_border_color": "#e5e5e5",
+            "card_border_width": 0,
+            "card_border_radius": 0,
+            "card_padding": 20,
+            "image_height": 400,
+            "image_border_radius": 0,
+            "title_size": 22,
+            "title_color": "#9e0505",
+            "subtitle_size": 16,
+            "subtitle_color": "#666666",
+            "title_subtitle_spacing": 8,
+            "review_text_size": 14,
+            "review_text_color": "#333333",
+            "customer_name_size": 16,
+            "customer_name_color": "#000000",
+            "product_name_size": 14,
+            "product_name_color": "#666666",
+            "date_size": 12,
+            "date_color": "#999999",
+            "star_size": 20,
+            "star_filled_color": "#d1b10c",
+            "star_empty_color": "#e5e5e5",
+            "show_arrows_desktop": false,
+            "show_dots": false,
+            "arrow_size": 44,
+            "arrow_background": "#e5d8b8",
+            "arrow_hover_background": "#f5f5f5",
+            "arrow_color": "#9e0505",
+            "navigation_bottom_padding": 0,
+            "dot_width": 6,
+            "dot_height": 11,
+            "dot_active_color": "#9e0505",
+            "dot_inactive_color": "#cccccc",
+            "autoplay": false,
+            "autoplay_speed": 5,
+            "loop": true,
+            "review_1_image": "shopify://shop_images/Copy_of_IMG20250419191341_1.jpg",
+            "review_1_rating": 5,
+            "review_1_text": "<p>\"The Cannanore Shop is a treasure trove for authentic handlooms and handicrafts, bringing the rich art of remote regions to Bengaluru. It's where beauty meets utility, curated by a knowledgeable owner who ensures ethical sourcing and fair pricing. Many products are unique and often more affordable than on popular e-commerce platforms. A genuine business with a heart and purpose\"</p>",
+            "review_1_name": "Anitha Prasad",
+            "review_1_product": "Bangalore",
+            "review_1_date": "",
+            "review_2_image": "shopify://shop_images/Somali_Review.jpg",
+            "review_2_rating": 5,
+            "review_2_text": "<p>\"I walked in just to browse and ended up discovering so many beautiful things. Everything feels personal and thoughtfully made. From handmade soaps to woven towels, it's all heart. Cannanore is where I find quiet, lovely treasures\"</p>",
+            "review_2_name": "Somali Panigrahi",
+            "review_2_product": "Bangalore",
+            "review_2_date": "",
+            "review_3_image": "shopify://shop_images/Review_3_188a602b-7df1-446f-b5cf-fb42a944adc9.jpg",
+            "review_3_rating": 5,
+            "review_3_text": "<p>This is a lovely little shop with a very carefully selected curation of items. While all of their products are excellent, I wanted to specifically call out their really unique Thorkish towels. Imagine how a combination of a thick Turkish towel and a thin traditional Indian towel might feel like, and you have it! We’ve been using these towels ever since we first discovered them a few years ago and it’s tough to go back to any other type of towel after this! Try it first and thank me later. 🙂</p>",
+            "review_3_name": "Srikanth Srinivasan",
+            "review_3_product": "Bangalore",
+            "review_3_date": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_697d554_gmW4fP"
+      ],
+      "settings": {}
+    },
+    "rich_text_W6GYk4": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_ryjdWe": {
+          "type": "heading",
+          "settings": {
+            "heading": "Drop by our store",
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ryjdWe"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text_c6dHej": {
+      "type": "rich-text",
+      "blocks": {
+        "text_WEHapN": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover our collection in person,  crafted to be experienced up close.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_WEHapN"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_with_text_Qx79Li": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_NxrNEC": {
+          "type": "heading",
+          "settings": {
+            "heading": "Bring a friend, Save together",
+            "heading_size": "h2"
+          }
+        },
+        "text_Cm43jW": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Invite a friend to join you on your next visit to our store and receive 5% off your purchase.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_Htr98N": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get Directions",
+            "button_link": "https://maps.app.goo.gl/nUyxuFUJVXM3j5sx8",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_NxrNEC",
+        "text_Cm43jW",
+        "button_Htr98N"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Store.jpg",
+        "height": "medium",
+        "desktop_image_width": "large",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collection_bottom_sheet_pExMHR": {
+      "type": "collection-bottom-sheet",
+      "blocks": {
+        "collection_AVnTBy": {
+          "type": "collection",
+          "settings": {
+            "collection": "sarees",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_RH9UB4": {
+          "type": "collection",
+          "settings": {
+            "collection": "skincare",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_nUyLXV": {
+          "type": "collection",
+          "settings": {
+            "collection": "toys",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_HgTMRe": {
+          "type": "collection",
+          "settings": {
+            "collection": "jewellery-1",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_YgdH9H": {
+          "type": "collection",
+          "settings": {
+            "collection": "bedsheets",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_MX9zTm": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        }
+      },
+      "block_order": [
+        "collection_AVnTBy",
+        "collection_RH9UB4",
+        "collection_nUyLXV",
+        "collection_HgTMRe",
+        "collection_YgdH9H",
+        "collection_MX9zTm"
+      ],
+      "custom_css": [],
+      "name": "Collection bottom sheet",
+      "settings": {
+        "sheet_id": "bottom_sheet_collection",
+        "title": "Categories",
+        "panel_bg": "#e5d8b8",
+        "panel_radius": 0,
+        "columns_mobile": 3,
+        "columns_desktop": 4,
+        "grid_gap": 12
+      }
+    }
+  },
+  "order": [
+    "1756891114cd830464",
+    "desktop_collection_menu_AByUpT",
+    "slideshow_GCKTVq",
+    "slideshow_j4jtKm",
+    "marquee_Xa7Ewt",
+    "collection_list_caurosel_QMAxfF",
+    "collection_list_caurosel_6BDGbr",
+    "rich_text_V7Minf",
+    "featured_collection",
+    "rich_text_E48AU9",
+    "featured_collection_M36YjG",
+    "featured_collection_zXCKBU",
+    "rich_text_7RNCDJ",
+    "featured_collection_a8Hkpp",
+    "rich_text_4BX9zB",
+    "featured_collection_XJHLgN",
+    "rich_text_fhBedD",
+    "featured_collection_B3dpfR",
+    "rich_text_rddqbB",
+    "featured_collection_GrNYmX",
+    "175687434008b0da53",
+    "rich_text_W6GYk4",
+    "rich_text_c6dHej",
+    "image_with_text_Qx79Li",
+    "collection_bottom_sheet_pExMHR"
+  ]
+}
