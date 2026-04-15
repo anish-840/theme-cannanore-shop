@@ -67,12 +67,7 @@
   ],
   "presets": [
     {
-      "name": "Marquee",
-      "blocks": [
-        { "type": "text" },
-        { "type": "text" },
-        { "type": "text" }
-      ]
+      "name": "Marquee"
     }
   ]
 }
@@ -96,22 +91,20 @@
           {{ block.settings.text }}
         </span>
 
-        {% unless forloop.last %}
-          <span 
-            class="marquee-divider"
-            data-divider="{{ section.settings.divider }}"
-          ></span>
-        {% endunless %}
+        <!-- ALWAYS add divider (even after last for loop continuity) -->
+        <span 
+          class="marquee-divider"
+          data-divider="{{ section.settings.divider }}"
+        ></span>
       {% endfor %}
     {% endcapture %}
 
-    <!-- Duplicate content for seamless infinite scroll -->
-    <div class="marquee-content">
-      {{ marquee_content }}
-    </div>
-    <div class="marquee-content">
-      {{ marquee_content }}
-    </div>
+    <!-- Repeat content multiple times for large screens -->
+    {% for i in (1..6) %}
+      <div class="marquee-content">
+        {{ marquee_content }}
+      </div>
+    {% endfor %}
 
   </div>
 </div>
@@ -142,14 +135,13 @@
   color: var(--text);
 }
 
-/* Divider container */
+/* Divider */
 .marquee-divider {
   margin-right: var(--spacing);
   color: var(--divider);
   opacity: 0.7;
 }
 
-/* Actual divider symbol */
 .marquee-divider::before {
   content: attr(data-divider);
 }
@@ -159,13 +151,13 @@
   animation-play-state: paused;
 }
 
-/* Infinite scroll animation */
+/* TRUE continuous loop */
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-16.66%);
   }
 }
 </style>
