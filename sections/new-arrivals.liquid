@@ -45,6 +45,23 @@
       "max": 50,
       "step": 2,
       "default": 6
+    },
+    {
+      "type": "select",
+      "id": "btn_position",
+      "label": "Button Position",
+      "default": "center",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "center-left", "label": "Center Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "center-right", "label": "Center Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ]
     }
   ],
   "blocks": [
@@ -63,13 +80,7 @@
   ],
   "presets": [
     {
-      "name": "New Arrivals",
-      "blocks": [
-        { "type": "product_card" },
-        { "type": "product_card" },
-        { "type": "product_card" },
-        { "type": "product_card" }
-      ]
+      "name": "New Arrivals"
     }
   ]
 }
@@ -77,6 +88,7 @@
 
 <div 
   class="new-arrivals page-width"
+  data-position="{{ section.settings.btn_position }}"
   style="
     --btn-bg: {{ section.settings.btn_bg }};
     --btn-text: {{ section.settings.btn_text }};
@@ -88,7 +100,7 @@
   <div class="na-header">
     <h2>{{ section.settings.heading }}</h2>
     {% if section.settings.all_products_link != blank %}
-      <a href="{{ section.settings.all_products_link }}" class="na-link">
+      <a href="{{ section.settings.all_products_link }}">
         {{ section.settings.all_products_text }}
       </a>
     {% endif %}
@@ -96,61 +108,59 @@
 
   <div class="na-grid">
 
-    <!-- LEFT FEATURED -->
+    <!-- FEATURED -->
     <div class="na-featured">
       {% assign product = all_products[section.settings.featured_product] %}
       {% if product %}
         <div class="na-card">
-
           <div class="na-image-wrapper">
+
             <a href="{{ product.url }}">
-              <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.title }}">
+              <img src="{{ product.featured_image | image_url: width: 900 }}">
             </a>
 
-            <!-- Overlay -->
             <div class="na-overlay">
               <form method="post" action="/cart/add">
                 <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                <button type="submit">Add to Cart</button>
+                <button>Add to Cart</button>
               </form>
             </div>
+
           </div>
 
           <div class="na-info">
             <h3>{{ product.title }}</h3>
             <span>{{ product.price | money }}</span>
           </div>
-
         </div>
       {% endif %}
     </div>
 
-    <!-- RIGHT GRID -->
+    <!-- GRID -->
     <div class="na-products">
       {% for block in section.blocks %}
         {% assign p = all_products[block.settings.product] %}
         {% if p %}
           <div class="na-card">
-
             <div class="na-image-wrapper">
+
               <a href="{{ p.url }}">
-                <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title }}">
+                <img src="{{ p.featured_image | image_url: width: 600 }}">
               </a>
 
-              <!-- Overlay (FIXED) -->
               <div class="na-overlay">
                 <form method="post" action="/cart/add">
                   <input type="hidden" name="id" value="{{ p.variants.first.id }}">
-                  <button type="submit">Add to Cart</button>
+                  <button>Add to Cart</button>
                 </form>
               </div>
+
             </div>
 
             <div class="na-info">
               <h4>{{ p.title }}</h4>
               <span>{{ p.price | money }}</span>
             </div>
-
           </div>
         {% endif %}
       {% endfor %}
@@ -160,34 +170,20 @@
 </div>
 
 <style>
-.na-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
 .na-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* RIGHT GRID */
 .na-products {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
 
-/* CARD */
-.na-card {
-  position: relative;
-}
-
-/* IMAGE WRAPPER (CRITICAL FIX) */
 .na-image-wrapper {
   position: relative;
-  overflow: hidden;
 }
 
 .na-image-wrapper img {
@@ -195,44 +191,67 @@
   display: block;
 }
 
-/* OVERLAY */
+/* Overlay base */
 .na-overlay {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0.25);
-
+  padding: 15px;
   opacity: 0;
   transition: 0.3s ease;
-  z-index: 2;
 }
 
-/* BUTTON */
+/* Button */
 .na-overlay button {
   background: var(--btn-bg);
   color: var(--btn-text);
-  border: none;
-  padding: 12px 20px;
   border-radius: var(--btn-radius);
+  border: none;
+  padding: 10px 18px;
   cursor: pointer;
 }
 
-/* HOVER */
+/* Hover */
 .na-image-wrapper:hover .na-overlay {
   opacity: 1;
 }
 
-/* INFO */
-.na-info {
-  margin-top: 8px;
+/* POSITION SYSTEM */
+.new-arrivals[data-position="top-left"] .na-overlay {
+  justify-content: flex-start;
+  align-items: flex-start;
 }
-
-.na-info h3,
-.na-info h4 {
-  margin: 0;
-  font-size: 16px;
+.new-arrivals[data-position="top-center"] .na-overlay {
+  justify-content: center;
+  align-items: flex-start;
+}
+.new-arrivals[data-position="top-right"] .na-overlay {
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.new-arrivals[data-position="center-left"] .na-overlay {
+  justify-content: flex-start;
+  align-items: center;
+}
+.new-arrivals[data-position="center"] .na-overlay {
+  justify-content: center;
+  align-items: center;
+}
+.new-arrivals[data-position="center-right"] .na-overlay {
+  justify-content: flex-end;
+  align-items: center;
+}
+.new-arrivals[data-position="bottom-left"] .na-overlay {
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.new-arrivals[data-position="bottom-center"] .na-overlay {
+  justify-content: center;
+  align-items: flex-end;
+}
+.new-arrivals[data-position="bottom-right"] .na-overlay {
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 /* MOBILE */
