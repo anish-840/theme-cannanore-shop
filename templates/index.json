@@ -300,7 +300,7 @@
       "settings": {
         "speed": 40,
         "spacing": 60,
-        "divider": "•",
+        "divider": "❀",
         "pause_on_hover": true,
         "bg_color": "#9e0505",
         "text_color": "#e5d8b8",
