@@ -5,7 +5,7 @@
     {
       "type": "range",
       "id": "speed",
-      "label": "Scroll Speed",
+      "label": "Scroll Speed (seconds)",
       "min": 10,
       "max": 100,
       "step": 5,
@@ -23,7 +23,7 @@
     {
       "type": "text",
       "id": "divider",
-      "label": "Divider",
+      "label": "Divider Symbol",
       "default": "•"
     },
     {
@@ -31,6 +31,24 @@
       "id": "pause_on_hover",
       "label": "Pause on Hover",
       "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#2C2825"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#C17A5A"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider Color",
+      "default": "#C17A5A"
     }
   ],
   "blocks": [
@@ -60,9 +78,18 @@
 }
 {% endschema %}
 
-<div class="marquee-wrapper {% if section.settings.pause_on_hover %}pause-on-hover{% endif %}">
-  <div class="marquee-track" style="--speed: {{ section.settings.speed }}s; --spacing: {{ section.settings.spacing }}px;">
-    
+<div 
+  class="marquee-wrapper {% if section.settings.pause_on_hover %}pause-on-hover{% endif %}"
+  style="
+    --bg: {{ section.settings.bg_color }};
+    --text: {{ section.settings.text_color }};
+    --divider: {{ section.settings.divider_color }};
+    --speed: {{ section.settings.speed }}s;
+    --spacing: {{ section.settings.spacing }}px;
+  "
+>
+  <div class="marquee-track">
+
     {% capture marquee_content %}
       {% for block in section.blocks %}
         <span class="marquee-item">
@@ -70,14 +97,15 @@
         </span>
 
         {% unless forloop.last %}
-          <span class="marquee-divider">
-            {{ section.settings.divider }}
-          </span>
+          <span 
+            class="marquee-divider"
+            data-divider="{{ section.settings.divider }}"
+          ></span>
         {% endunless %}
       {% endfor %}
     {% endcapture %}
 
-    <!-- Duplicate for seamless loop -->
+    <!-- Duplicate content for seamless infinite scroll -->
     <div class="marquee-content">
       {{ marquee_content }}
     </div>
@@ -92,7 +120,7 @@
 .marquee-wrapper {
   overflow: hidden;
   width: 100%;
-  background: transparent;
+  background: var(--bg);
 }
 
 .marquee-track {
@@ -111,17 +139,27 @@
   margin-right: var(--spacing);
   white-space: nowrap;
   font-size: 16px;
+  color: var(--text);
 }
 
+/* Divider container */
 .marquee-divider {
   margin-right: var(--spacing);
-  opacity: 0.6;
+  color: var(--divider);
+  opacity: 0.7;
 }
 
+/* Actual divider symbol */
+.marquee-divider::before {
+  content: attr(data-divider);
+}
+
+/* Pause on hover */
 .pause-on-hover:hover .marquee-track {
   animation-play-state: paused;
 }
 
+/* Infinite scroll animation */
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);
