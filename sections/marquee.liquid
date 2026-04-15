@@ -1,0 +1,133 @@
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll Speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Spacing Between Items",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "default": 60
+    },
+    {
+      "type": "text",
+      "id": "divider",
+      "label": "Divider",
+      "default": "•"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on Hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Your text here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee",
+      "blocks": [
+        { "type": "text" },
+        { "type": "text" },
+        { "type": "text" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="marquee-wrapper {% if section.settings.pause_on_hover %}pause-on-hover{% endif %}">
+  <div class="marquee-track" style="--speed: {{ section.settings.speed }}s; --spacing: {{ section.settings.spacing }}px;">
+    
+    {% capture marquee_content %}
+      {% for block in section.blocks %}
+        <span class="marquee-item">
+          {{ block.settings.text }}
+        </span>
+
+        {% unless forloop.last %}
+          <span class="marquee-divider">
+            {{ section.settings.divider }}
+          </span>
+        {% endunless %}
+      {% endfor %}
+    {% endcapture %}
+
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-content">
+      {{ marquee_content }}
+    </div>
+    <div class="marquee-content">
+      {{ marquee_content }}
+    </div>
+
+  </div>
+</div>
+
+<style>
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  background: transparent;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll linear infinite;
+  animation-duration: var(--speed);
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+}
+
+.marquee-item {
+  margin-right: var(--spacing);
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+.marquee-divider {
+  margin-right: var(--spacing);
+  opacity: 0.6;
+}
+
+.pause-on-hover:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+</style>
