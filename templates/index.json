@@ -592,7 +592,11 @@
         "heading": "New Arrivals",
         "all_products_link": "",
         "all_products_text": "View All",
-        "featured_product": "brick-red-floral-cushion-cover"
+        "featured_product": "brick-red-floral-cushion-cover",
+        "btn_bg": "#9e0505",
+        "btn_text": "#e5d8b8",
+        "btn_radius": 4,
+        "btn_position": "bottom-center"
       }
     },
     "featured_collection": {
