@@ -553,6 +553,48 @@
         "padding_bottom": 24
       }
     },
+    "new_arrivals_NEzLPj": {
+      "type": "new-arrivals",
+      "blocks": {
+        "product_card_Pwrdja": {
+          "type": "product_card",
+          "settings": {
+            "product": "animal-cuties"
+          }
+        },
+        "product_card_gyWweA": {
+          "type": "product_card",
+          "settings": {
+            "product": "bare-necessities-rose-and-green-clay-spa-bar-1"
+          }
+        },
+        "product_card_DeJc7x": {
+          "type": "product_card",
+          "settings": {
+            "product": "dual-tones-bed-cover"
+          }
+        },
+        "product_card_yDGaLw": {
+          "type": "product_card",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_Pwrdja",
+        "product_card_gyWweA",
+        "product_card_DeJc7x",
+        "product_card_yDGaLw"
+      ],
+      "name": "New Arrivals",
+      "settings": {
+        "heading": "New Arrivals",
+        "all_products_link": "",
+        "all_products_text": "View All",
+        "featured_product": "brick-red-floral-cushion-cover"
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -1381,6 +1423,7 @@
     "marquee_Xa7Ewt",
     "collection_list_caurosel_QMAxfF",
     "collection_list_caurosel_6BDGbr",
+    "new_arrivals_NEzLPj",
     "featured_collection",
     "rich_text_E48AU9",
     "featured_collection_M36YjG",

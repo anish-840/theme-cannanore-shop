@@ -23,6 +23,28 @@
       "type": "product",
       "id": "featured_product",
       "label": "Featured Product"
+    },
+
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#C17A5A"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "default": 6
     }
   ],
   "blocks": [
@@ -53,7 +75,14 @@
 }
 {% endschema %}
 
-<div class="new-arrivals-section page-width">
+<div 
+  class="new-arrivals page-width"
+  style="
+    --btn-bg: {{ section.settings.btn_bg }};
+    --btn-text: {{ section.settings.btn_text }};
+    --btn-radius: {{ section.settings.btn_radius }}px;
+  "
+>
 
   <!-- Header -->
   <div class="na-header">
@@ -67,47 +96,61 @@
 
   <div class="na-grid">
 
-    <!-- LEFT: FEATURED -->
+    <!-- LEFT FEATURED -->
     <div class="na-featured">
       {% assign product = all_products[section.settings.featured_product] %}
       {% if product %}
-        <div class="na-card featured-card">
-          <a href="{{ product.url }}">
-            <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}">
-          </a>
+        <div class="na-card">
+
+          <div class="na-image-wrapper">
+            <a href="{{ product.url }}">
+              <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.title }}">
+            </a>
+
+            <!-- Overlay -->
+            <div class="na-overlay">
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button type="submit">Add to Cart</button>
+              </form>
+            </div>
+          </div>
 
           <div class="na-info">
             <h3>{{ product.title }}</h3>
             <span>{{ product.price | money }}</span>
           </div>
 
-          <form method="post" action="/cart/add" class="na-atc">
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-            <button type="submit">Add to Cart</button>
-          </form>
         </div>
       {% endif %}
     </div>
 
-    <!-- RIGHT: GRID -->
+    <!-- RIGHT GRID -->
     <div class="na-products">
       {% for block in section.blocks %}
         {% assign p = all_products[block.settings.product] %}
         {% if p %}
           <div class="na-card">
-            <a href="{{ p.url }}">
-              <img src="{{ p.featured_image | image_url: width: 500 }}" alt="{{ p.title }}">
-            </a>
+
+            <div class="na-image-wrapper">
+              <a href="{{ p.url }}">
+                <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title }}">
+              </a>
+
+              <!-- Overlay (FIXED) -->
+              <div class="na-overlay">
+                <form method="post" action="/cart/add">
+                  <input type="hidden" name="id" value="{{ p.variants.first.id }}">
+                  <button type="submit">Add to Cart</button>
+                </form>
+              </div>
+            </div>
 
             <div class="na-info">
               <h4>{{ p.title }}</h4>
               <span>{{ p.price | money }}</span>
             </div>
 
-            <form method="post" action="/cart/add" class="na-atc">
-              <input type="hidden" name="id" value="{{ p.variants.first.id }}">
-              <button type="submit">Add to Cart</button>
-            </form>
           </div>
         {% endif %}
       {% endfor %}
@@ -117,98 +160,85 @@
 </div>
 
 <style>
-.new-arrivals-section {
-  padding: 40px 0;
-}
-
-/* Header */
 .na-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-.na-header h2 {
-  font-size: 24px;
-}
-
-.na-link {
-  text-decoration: none;
-  font-size: 14px;
-}
-
-/* Layout */
 .na-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* Featured */
-.na-featured img {
-  width: 100%;
-  height: auto;
-}
-
-/* Right grid */
+/* RIGHT GRID */
 .na-products {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
 
-/* Card */
+/* CARD */
 .na-card {
+  position: relative;
+}
+
+/* IMAGE WRAPPER (CRITICAL FIX) */
+.na-image-wrapper {
   position: relative;
   overflow: hidden;
 }
 
-.na-card img {
+.na-image-wrapper img {
   width: 100%;
   display: block;
 }
 
+/* OVERLAY */
+.na-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.25);
+
+  opacity: 0;
+  transition: 0.3s ease;
+  z-index: 2;
+}
+
+/* BUTTON */
+.na-overlay button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 12px 20px;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+}
+
+/* HOVER */
+.na-image-wrapper:hover .na-overlay {
+  opacity: 1;
+}
+
+/* INFO */
 .na-info {
   margin-top: 8px;
 }
 
 .na-info h3,
 .na-info h4 {
-  font-size: 16px;
   margin: 0;
+  font-size: 16px;
 }
 
-/* Add to Cart */
-.na-atc {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  opacity: 0;
-  transition: 0.3s ease;
-}
-
-.na-atc button {
-  padding: 10px 16px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Hover Effect */
-.na-card:hover .na-atc {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Mobile */
-@media screen and (max-width: 768px) {
+/* MOBILE */
+@media (max-width: 768px) {
   .na-grid {
     grid-template-columns: 1fr;
-  }
-
-  .na-products {
-    grid-template-columns: 1fr 1fr;
   }
 }
 </style>
