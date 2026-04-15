@@ -553,43 +553,12 @@
         "padding_bottom": 24
       }
     },
-    "rich_text_V7Minf": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_HFqjTm": {
-          "type": "heading",
-          "settings": {
-            "heading": "Bestsellers",
-            "heading_size": "h2"
-          }
-        },
-        "text_fL9DFa": {
-          "type": "text",
-          "settings": {
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "heading_HFqjTm",
-        "text_fL9DFa"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
-      }
-    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
         "collection": "all",
         "products_to_show": 5,
-        "title": "",
+        "title": "Bestsellers",
         "title_max_lines": 1,
         "product_title_font_size": 15,
         "header_align": "center",
@@ -1412,7 +1381,6 @@
     "marquee_Xa7Ewt",
     "collection_list_caurosel_QMAxfF",
     "collection_list_caurosel_6BDGbr",
-    "rich_text_V7Minf",
     "featured_collection",
     "rich_text_E48AU9",
     "featured_collection_M36YjG",
