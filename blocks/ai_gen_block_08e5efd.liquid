@@ -1,0 +1,350 @@
+{% doc %}
+  @prompt
+    Create a responsive breadcrumb navigation block for product pages with customizable settings. Include options for text font size (px/rem), text color picker, and breadcrumb separator customization (/, >, etc.). The breadcrumb should show Home > Collection > Product and be positioned above the product image. Make it fully responsive for mobile and desktop with proper spacing and hover effects.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-breadcrumb-nav-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.bottom_spacing }}px;
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+  }
+
+  .ai-breadcrumb-list-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: {{ block.settings.item_spacing }}px;
+  }
+
+  .ai-breadcrumb-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.item_spacing }}px;
+  }
+
+  .ai-breadcrumb-link-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+    {% if block.settings.font_size_unit == 'px' %}
+      font-size: {{ block.settings.font_size }}px;
+    {% else %}
+      font-size: {{ block.settings.font_size | divided_by: 10.0 }}rem;
+    {% endif %}
+    transition: color 0.3s ease;
+    word-break: break-word;
+  }
+
+  .ai-breadcrumb-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.hover_color }};
+    text-decoration: {{ block.settings.hover_underline | default: 'underline' }};
+  }
+
+  .ai-breadcrumb-current-{{ ai_gen_id }} {
+    color: {{ block.settings.current_color }};
+    {% if block.settings.font_size_unit == 'px' %}
+      font-size: {{ block.settings.font_size }}px;
+    {% else %}
+      font-size: {{ block.settings.font_size | divided_by: 10.0 }}rem;
+    {% endif %}
+    font-weight: {{ block.settings.current_font_weight }};
+    word-break: break-word;
+  }
+
+  .ai-breadcrumb-separator-{{ ai_gen_id }} {
+    color: {{ block.settings.separator_color }};
+    {% if block.settings.font_size_unit == 'px' %}
+      font-size: {{ block.settings.font_size }}px;
+    {% else %}
+      font-size: {{ block.settings.font_size | divided_by: 10.0 }}rem;
+    {% endif %}
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-breadcrumb-nav-{{ ai_gen_id }} {
+      margin-bottom: {{ block.settings.bottom_spacing | times: 0.8 }}px;
+      padding: {{ block.settings.vertical_padding | times: 0.8 }}px {{ block.settings.horizontal_padding | times: 0.8 }}px;
+    }
+
+    .ai-breadcrumb-list-{{ ai_gen_id }} {
+      gap: {{ block.settings.item_spacing | times: 0.8 }}px;
+    }
+
+    .ai-breadcrumb-item-{{ ai_gen_id }} {
+      gap: {{ block.settings.item_spacing | times: 0.8 }}px;
+    }
+
+    .ai-breadcrumb-link-{{ ai_gen_id }},
+    .ai-breadcrumb-current-{{ ai_gen_id }},
+    .ai-breadcrumb-separator-{{ ai_gen_id }} {
+      {% if block.settings.font_size_unit == 'px' %}
+        font-size: {{ block.settings.font_size | times: 0.9 }}px;
+      {% else %}
+        font-size: {{ block.settings.font_size | divided_by: 10.0 | times: 0.9 }}rem;
+      {% endif %}
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-breadcrumb-link-{{ ai_gen_id }},
+    .ai-breadcrumb-current-{{ ai_gen_id }},
+    .ai-breadcrumb-separator-{{ ai_gen_id }} {
+      {% if block.settings.font_size_unit == 'px' %}
+        font-size: {{ block.settings.font_size | times: 0.8 }}px;
+      {% else %}
+        font-size: {{ block.settings.font_size | divided_by: 10.0 | times: 0.8 }}rem;
+      {% endif %}
+    }
+  }
+{% endstyle %}
+
+<nav
+  class="ai-breadcrumb-nav-{{ ai_gen_id }}"
+  aria-label="Breadcrumb navigation"
+  {{ block.shopify_attributes }}
+>
+  <ol class="ai-breadcrumb-list-{{ ai_gen_id }}">
+    <li class="ai-breadcrumb-item-{{ ai_gen_id }}">
+      <a
+        href="{{ routes.root_url }}"
+        class="ai-breadcrumb-link-{{ ai_gen_id }}"
+        aria-label="Go to homepage"
+      >
+        {{ block.settings.home_text }}
+      </a>
+    </li>
+
+    {% if product and product.collections.size > 0 %}
+      {% assign primary_collection = product.collections.first %}
+      {% if collection and product.collections contains collection %}
+        {% assign primary_collection = collection %}
+      {% endif %}<li class="ai-breadcrumb-item-{{ ai_gen_id }}">
+        <span class="ai-breadcrumb-separator-{{ ai_gen_id }}" aria-hidden="true">
+          {{ block.settings.separator }}
+        </span>
+        <a
+          href="{{ primary_collection.url }}"
+          class="ai-breadcrumb-link-{{ ai_gen_id }}"
+          aria-label="Go to {{ primary_collection.title }} collection"
+        >
+          {{ primary_collection.title }}
+        </a>
+      </li>
+    {% endif %}
+
+    {% if product %}
+      <li class="ai-breadcrumb-item-{{ ai_gen_id }}">
+        <span class="ai-breadcrumb-separator-{{ ai_gen_id }}" aria-hidden="true">
+          {{ block.settings.separator }}
+        </span>
+        <span class="ai-breadcrumb-current-{{ ai_gen_id }}" aria-current="page">
+          {{ product.title }}
+        </span>
+      </li>
+    {% endif %}
+  </ol>
+</nav>
+
+{% schema %}
+{
+  "name": "Breadcrumb navigation",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "home_text",
+      "label": "Home text",
+      "default": "Home"
+    },
+    {
+      "type": "select",
+      "id": "separator",
+      "label": "Separator",
+      "options": [
+        {
+          "value": "/",
+          "label": "/ (Slash)"
+        },
+        {
+          "value": ">",
+          "label": "> (Greater than)"
+        },
+        {
+          "value": "→",
+          "label": "→ (Arrow)"
+        },
+        {
+          "value": "•",
+          "label": "• (Bullet)"
+        },
+        {
+          "value": "|",
+          "label": "| (Pipe)"
+        }
+      ],
+      "default": ">"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "font_size_unit",
+      "label": "Font size unit",
+      "options": [
+        {
+          "value": "px",
+          "label": "Pixels (px)"
+        },
+        {
+          "value": "rem",
+          "label": "Rem units"
+        }
+      ],
+      "default": "px"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "info": "For rem units, value will be divided by 10 (e.g., 14 = 1.4rem)"
+    },
+    {
+      "type": "select",
+      "id": "current_font_weight",
+      "label": "Current page font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Link color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "hover_color",
+      "label": "Link hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "current_color",
+      "label": "Current page color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Hover effects"
+    },
+    {
+      "type": "select",
+      "id": "hover_underline",
+      "label": "Hover underline",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        }
+      ],
+      "default": "underline"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Item spacing",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Breadcrumb navigation"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

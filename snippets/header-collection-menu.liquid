@@ -1,0 +1,186 @@
+{%- comment -%}
+  Header Collection Menu block
+  - Renders a horizontal menu bar, configurable per block
+  - Can be shown/hidden on desktop/mobile
+  - Z-index respects header overlays (drawer, search, predictive search)
+{%- endcomment -%}
+
+{%- liquid
+  assign menu = block.settings.menu
+  assign gap_px = block.settings.item_gap | default: 16
+  assign font_size_px = block.settings.font_size | default: 14
+  assign font_weight_val = block.settings.font_weight | default: '500'
+  assign text_transform_val = block.settings.text_transform | default: 'none'
+  assign use_full_width = block.settings.full_width
+  assign pad_top_raw = block.settings.container_pad_top | default: '0'
+  assign pad_bottom_raw = block.settings.container_pad_bottom | default: '0'
+  assign pad_left_raw = block.settings.container_pad_left | default: '0'
+
+  assign pad_top = pad_top_raw
+  if pad_top contains 'px' or pad_top contains 'rem' or pad_top contains 'em' or pad_top contains '%' or pad_top contains 'vw' or pad_top contains 'vh' or pad_top contains 'calc'
+  else
+    assign pad_top = pad_top | append: 'px'
+  endif
+
+  assign pad_bottom = pad_bottom_raw
+  if pad_bottom contains 'px' or pad_bottom contains 'rem' or pad_bottom contains 'em' or pad_bottom contains '%' or pad_bottom contains 'vw' or pad_bottom contains 'vh' or pad_bottom contains 'calc'
+  else
+    assign pad_bottom = pad_bottom | append: 'px'
+  endif
+
+  assign pad_left = pad_left_raw
+  if pad_left contains 'px' or pad_left contains 'rem' or pad_left contains 'em' or pad_left contains '%' or pad_left contains 'vw' or pad_left contains 'vh' or pad_left contains 'calc'
+  else
+    assign pad_left = pad_left | append: 'px'
+  endif
+-%}
+
+{%- style -%}
+  .block-{{ block.id }}-menu {
+    --menu-gap: {{ gap_px }}px;
+    --menu-font-size: {{ font_size_px }}px;
+    --menu-font-weight: {{ font_weight_val }};
+    --menu-text-transform: {{ text_transform_val }};
+    --menu-bar-bg: {{ block.settings.bar_bg | default: 'transparent' }};
+    --menu-bar-border: {{ block.settings.bar_border | default: 'rgba(0,0,0,0.08)' }};
+    --menu-link: {{ block.settings.link_color | default: 'currentColor' }};
+    --menu-link-hover: {{ block.settings.link_hover_color | default: 'currentColor' }};
+    --submenu-bg: {{ block.settings.submenu_bg | default: 'rgb(255,255,255)' }};
+    --submenu-link: {{ block.settings.submenu_link_color | default: 'currentColor' }};
+    --submenu-link-hover: {{ block.settings.submenu_link_hover | default: 'currentColor' }};
+    --menu-pad-top: {{ pad_top }};
+    --menu-pad-bottom: {{ pad_bottom }};
+    --menu-pad-left: {{ pad_left }};
+  }
+
+  .block-{{ block.id }}-menu .menu-bar {
+    background: var(--menu-bar-bg);
+    border-bottom: 1px solid var(--menu-bar-border);
+    position: relative;
+    z-index: 30;
+  }
+
+  .block-{{ block.id }}-menu .menu-bar__inner {
+    display: flex;
+    /* Use margins instead of padding so spacing sits outside the container */
+    margin: var(--menu-pad-top) 0 var(--menu-pad-bottom) var(--menu-pad-left);
+  }
+  .block-{{ block.id }}-menu .menu-list {
+    display: flex;
+    align-items: center;
+    gap: var(--menu-gap);
+    column-gap: var(--menu-gap);
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .block-{{ block.id }}-menu .menu-item { list-style: none !important; }
+  .block-{{ block.id }}-menu .menu-item { position: static; }
+  .block-{{ block.id }}-menu .menu-link,
+  .block-{{ block.id }}-menu .menu-link:visited {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: var(--menu-font-size);
+    font-weight: var(--menu-font-weight);
+    text-transform: var(--menu-text-transform);
+    line-height: 1.2;
+    color: var(--menu-link) !important;
+    text-decoration: none !important;
+    padding: .9rem 0;
+    white-space: nowrap;
+  }
+  .block-{{ block.id }}-menu .menu-link:hover { color: var(--menu-link-hover); }
+
+  .block-{{ block.id }}-menu .submenu {
+    position: absolute;
+    left: 0; right: 0;
+    top: 100%;
+    display: grid;
+    row-gap: .6rem;
+    padding: 1rem 0;
+    background: var(--submenu-bg);
+    opacity: 0; transform: translateY(.6rem);
+    pointer-events: none; visibility: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    z-index: 40;
+  }
+  .block-{{ block.id }}-menu .menu-bar__inner { position: relative; width: 100%; }
+  .block-{{ block.id }}-menu .menu-item.has-children:hover > .submenu {
+    opacity: 1; transform: translateY(0);
+    pointer-events: auto; visibility: visible;
+  }
+  .block-{{ block.id }}-menu .submenu-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; row-gap: .4rem;
+  }
+  .block-{{ block.id }}-menu .submenu a {
+    color: var(--submenu-link);
+    text-decoration: none;
+    padding: .35rem 1rem;
+    display: block;
+  }
+  .block-{{ block.id }}-menu .submenu a:hover { color: var(--submenu-link-hover); }
+
+  .block-{{ block.id }}-menu .submenu::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--menu-bar-border);
+  }
+
+  @media screen and (min-width: 990px) {
+    /* Ensure overlays sit above the bar */
+    body:has(#Details-menu-drawer-container[open]) .block-{{ block.id }}-menu .menu-bar,
+    body:has(#Details-menu-drawer-container[open]) .block-{{ block.id }}-menu .submenu,
+    body:has(.section-header .header__search details[open]) .block-{{ block.id }}-menu .menu-bar,
+    body:has(predictive-search[open]) .block-{{ block.id }}-menu .menu-bar,
+    body:has(.section-header .header__search details[open]) .block-{{ block.id }}-menu .submenu,
+    body:has(predictive-search[open]) .block-{{ block.id }}-menu .submenu {
+      z-index: 1;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign visibility_classes = ''
+  unless block.settings.show_on_mobile
+    assign visibility_classes = visibility_classes | append: ' small-hide'
+  endunless
+  unless block.settings.show_on_desktop
+    assign visibility_classes = visibility_classes | append: ' large-up-hide'
+  endunless
+-%}
+
+<div class="block-{{ block.id }}-menu{{ visibility_classes }}" {{ block.shopify_attributes }}>
+  <div class="menu-bar">
+    <div class="menu-bar__inner {% unless use_full_width %}page-width{% endunless %}">
+      {%- if menu != blank and menu.links.size > 0 -%}
+        <ul class="menu-list list-menu list-menu--inline" role="menubar">
+          {%- for link in menu.links -%}
+            {%- liquid
+              assign has_children = false
+              if link.links and link.links.size > 0
+                assign has_children = true
+              endif
+            -%}
+            <li class="menu-item{% if has_children %} has-children{% endif %}" role="none">
+              <a class="menu-link" href="{{ link.url }}" role="menuitem">{{ link.title | escape }}</a>
+              {%- if has_children -%}
+                <div class="submenu">
+                  <ul class="submenu-list {% unless use_full_width %}page-width{% endunless %}">
+                    {%- for child in link.links -%}
+                      <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <div class="{% unless use_full_width %}page-width{% endunless %}">
+          <p style="margin: .75rem 0; opacity:.6;">Select a menu in this block’s settings.</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  </div>

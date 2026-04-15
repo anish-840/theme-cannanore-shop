@@ -1,0 +1,661 @@
+{% doc %}
+  @prompt
+    Create a customizable text section that displays multiple text items directly below the header with the following features:
+    
+    **Section Placement & Behavior:**
+    - Position immediately below the main header
+    - Toggle option for sticky/fixed positioning on scroll or normal scrolling behavior
+    - Desktop visibility by default with optional mobile visibility toggle
+    
+    **Text Items Management:**
+    - Support for multiple text items that can be added/removed
+    - Each text item includes: customizable text content, configurable font size/color/weight, optional linking to collections/products/pages/external URLs
+    - Layout options to arrange text items horizontally in a row or vertically in a column
+    - Text alignment controls (left, center, right)
+    - Optional separators between items (pipe | or bullet • symbols)
+    
+    **Styling & Customization:**
+    - Configurable horizontal padding (left/right spacing)
+    - Configurable vertical padding (top/bottom spacing) 
+    - Background color or background image options for the section
+    - Responsive design that works well on both desktop and mobile when enabled
+    
+    **Settings Structure:**
+    - Section-level settings for positioning, layout, padding, background, and device visibility
+    - Block-level settings for individual text items with their content, styling, and links
+    - Intuitive admin interface for easy content management, Make it like 10 text items, Add settings for hover text color and font name, Add a bottom and top padding and fix the sticky position is not working, Make it sticky below the header, The sticky is not working below the header. Fix this, Remove the white parts in the beginningn and fix this, Few white patches are coming. Fix this.  Give an option to select a theme for the section, Horizontal and vertical padding Make it proper
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-text-section-{{ ai_gen_id }} {
+    {% if block.settings.color_scheme %}
+      background-color: rgb(var(--color-{{ block.settings.color_scheme }}-background));
+      color: rgb(var(--color-{{ block.settings.color_scheme }}-text));
+    {% else %}
+      background-color: {{ block.settings.background_color }};
+      color: {{ block.settings.text_color }};
+    {% endif %}
+    {% if block.settings.background_image %}
+      background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% endif %}
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+    width: 100%;
+    margin: 0;
+    border: none;
+    {% if block.settings.sticky_position %}
+      position: sticky;
+      top: 0;
+      z-index: 98;
+    {% else %}
+      position: relative;
+      z-index: 1;
+    {% endif %}
+  }
+
+  .ai-text-section-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    {% if block.settings.layout == 'column' %}
+      flex-direction: column;
+      gap: {{ block.settings.item_spacing }}px;
+    {% else %}
+      flex-direction: row;
+      align-items: center;
+      gap: {{ block.settings.item_spacing }}px;
+      flex-wrap: wrap;
+    {% endif %}
+    {% if block.settings.text_alignment == 'center' %}
+      justify-content: center;text-align: center;
+    {% elsif block.settings.text_alignment == 'right' %}
+      justify-content: flex-end;
+      text-align: right;
+    {% else %}
+      justify-content: flex-start;
+      text-align: left;
+    {% endif %}
+  }
+
+  .ai-text-item-{{ ai_gen_id }} {
+    {% if block.settings.color_scheme %}
+      color: rgb(var(--color-{{ block.settings.color_scheme }}-text));
+    {% else %}
+      color: {{ block.settings.text_color }};
+    {% endif %}
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-style: {{ block.settings.font_family.style }};
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  .ai-text-item-{{ ai_gen_id }}:hover {
+    {% if block.settings.color_scheme %}
+      color: rgb(var(--color-{{ block.settings.color_scheme }}-secondary-button-label));
+    {% else %}
+      color: {{ block.settings.hover_text_color }};
+    {% endif %}
+  }
+
+  .ai-text-separator-{{ ai_gen_id }} {
+    {% if block.settings.color_scheme %}
+      color: rgb(var(--color-{{ block.settings.color_scheme }}-text));
+    {% else %}
+      color: {{ block.settings.text_color }};
+    {% endif %}
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-style: {{ block.settings.font_family.style }};
+    font-size: {{ block.settings.font_size }}px;
+    opacity: 0.6;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;{% if block.settings.layout == 'column' %}
+      display: none;
+    {% endif %}
+  }
+
+  body.ai-sticky-active-{{ ai_gen_id }} .ai-text-section-{{ ai_gen_id }} {
+    top: var(--ai-header-height-{{ ai_gen_id }}, 0px);
+  }
+
+  .ai-text-section-{{ ai_gen_id }} * {
+    box-sizing: border-box;
+  }
+
+  .ai-text-section-{{ ai_gen_id }}::before,
+  .ai-text-section-{{ ai_gen_id }}::after {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-text-section-{{ ai_gen_id }} {
+      {% unless block.settings.show_on_mobile %}
+        display: none;
+      {% endunless %}
+      padding: {{ block.settings.vertical_padding | times: 0.7 }}px {{ block.settings.horizontal_padding | times: 0.7 }}px;
+    }
+
+    .ai-text-section-container-{{ ai_gen_id }} {
+      {% if block.settings.mobile_layout == 'column' %}
+        flex-direction: column;
+        gap: {{ block.settings.item_spacing | times: 0.7 }}px;
+      {% endif %}
+    }
+
+    .ai-text-item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+    }
+
+    .ai-text-separator-{{ ai_gen_id }} {
+      {% if block.settings.mobile_layout == 'column' %}
+        display: none;
+      {% endif %}
+    }
+  }
+{% endstyle %}
+
+<sticky-text-section-{{ ai_gen_id }} class="ai-text-section-{{ ai_gen_id }} color-{{ block.settings.color_scheme }}" {{ block.shopify_attributes }}>
+  <div class="ai-text-section-container-{{ ai_gen_id }}">
+    {% assign text_items = 'text_item_1,text_item_2,text_item_3,text_item_4,text_item_5,text_item_6,text_item_7,text_item_8,text_item_9,text_item_10' | split: ',' %}
+    {% assign link_items = 'link_item_1,link_item_2,link_item_3,link_item_4,link_item_5,link_item_6,link_item_7,link_item_8,link_item_9,link_item_10' | split: ',' %}
+    
+    {% for i in (0..9) %}
+      {% assign text_key = text_items[i] %}
+      {% assign link_key = link_items[i] %}
+      {% assign text_value = block.settings[text_key] %}
+      {% assign link_value = block.settings[link_key] %}
+      
+      {% if text_value != blank %}
+        {% if link_value != blank %}<a href="{{ link_value }}" class="ai-text-item-{{ ai_gen_id }}">
+            {{ text_value }}
+          </a>
+        {% else %}
+          <span class="ai-text-item-{{ ai_gen_id }}">
+            {{ text_value }}
+          </span>
+        {% endif %}{% assign next_index = i | plus: 1 %}
+        {% if next_index < 10 %}
+          {% assign next_text_key = text_items[next_index] %}
+          {% assign next_text_value = block.settings[next_text_key] %}
+          {% if next_text_value != blank and block.settings.show_separators %}
+            <span class="ai-text-separator-{{ ai_gen_id }}">
+              {% if block.settings.separator_type == 'bullet' %}
+                •
+              {% else %}
+                |
+              {% endif %}
+            </span>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</sticky-text-section-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class StickyTextSection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.isSticky = {{ block.settings.sticky_position | json }};
+        this.headerHeight = 0;
+      }
+
+      connectedCallback() {
+        if (this.isSticky) {
+          this.setupStickyBehavior();
+          window.addEventListener('resize', () => this.calculateHeaderHeight());
+          window.addEventListener('scroll', () => this.updateStickyPosition());
+          document.addEventListener('shopify:section:load', () => this.setupStickyBehavior());
+        }
+      }
+
+      setupStickyBehavior() {
+        this.calculateHeaderHeight();
+        this.updateStickyPosition();document.body.classList.add('ai-sticky-active-{{ ai_gen_id }}');
+      }
+
+      calculateHeaderHeight() {
+        const possibleHeaders = [
+          'header',
+          '.header',
+          '[data-section-type="header"]',
+          '.shopify-section-group-header-group',
+          '.site-header',
+          '#shopify-section-header',
+          '.header-wrapper'
+        ];
+
+        let header = null;
+        for (const selector of possibleHeaders) {
+          header = document.querySelector(selector);
+          if (header) break;
+        }
+
+        if (header) {
+          const headerRect = header.getBoundingClientRect();
+          this.headerHeight = headerRect.height;
+          
+          if (header.style.position === 'sticky' || header.style.position === 'fixed' || 
+              getComputedStyle(header).position === 'sticky' || getComputedStyle(header).position === 'fixed') {
+            document.documentElement.style.setProperty('--ai-header-height-{{ ai_gen_id }}', this.headerHeight + 'px');
+          } else {
+            document.documentElement.style.setProperty('--ai-header-height-{{ ai_gen_id }}', '0px');
+          }
+        } else {
+          document.documentElement.style.setProperty('--ai-header-height-{{ ai_gen_id }}', '0px');
+        }
+      }
+
+      updateStickyPosition() {
+        if (!this.isSticky) return;
+        
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const elementTop = this.offsetTop;
+        
+        if (scrollTop >= elementTop - this.headerHeight) {
+          this.style.position = 'sticky';
+        }
+      }
+
+      disconnectedCallback() {
+        if (this.isSticky) {
+          document.body.classList.remove('ai-sticky-active-{{ ai_gen_id }}');
+          window.removeEventListener('resize', () => this.calculateHeaderHeight());
+          window.removeEventListener('scroll', () => this.updateStickyPosition());
+        }
+      }
+    }
+
+    customElements.define('sticky-text-section-{{ ai_gen_id }}', StickyTextSection{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Customizable text section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Position and behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_position",
+      "label": "Sticky position",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Theme"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "row",
+          "label": "Horizontal row"
+        },
+        {
+          "value": "column",
+          "label": "Vertical column"
+        }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "row",
+          "label": "Horizontal row"
+        },
+        {
+          "value": "column",
+          "label": "Vertical column"
+        }
+      ],
+      "default": "column"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing between items",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Separators"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separators",
+      "label": "Show separators",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "separator_type",
+      "label": "Separator type",
+      "options": [
+        {
+          "value": "pipe",
+          "label": "Pipe (|)"
+        },
+        {
+          "value": "bullet",
+          "label": "Bullet (•)"
+        }
+      ],
+      "default": "pipe"
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color (custom)",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "hover_text_color",
+      "label": "Hover text color (custom)",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Background (custom)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color (custom)",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Text item 1"
+    },
+    {
+      "type": "text",
+      "id": "text_item_1",
+      "label": "Text",
+      "default": "Free shipping over $50"
+    },
+    {
+      "type": "url",
+      "id": "link_item_1",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 2"
+    },
+    {
+      "type": "text",
+      "id": "text_item_2",
+      "label": "Text",
+      "default": "30-day returns"
+    },
+    {
+      "type": "url",
+      "id": "link_item_2",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 3"
+    },
+    {
+      "type": "text",
+      "id": "text_item_3",
+      "label": "Text",
+      "default": "Customer support"
+    },
+    {
+      "type": "url",
+      "id": "link_item_3",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 4"
+    },
+    {
+      "type": "text",
+      "id": "text_item_4",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_item_4",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 5"
+    },
+    {
+      "type": "text",
+      "id": "text_item_5",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_item_5",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 6"
+    },
+    {
+      "type": "text",
+      "id": "text_item_6",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_item_6",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 7"
+    },
+    {
+      "type": "text",
+      "id": "text_item_7",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_item_7",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 8"
+    },
+    {
+      "type": "text",
+      "id": "text_item_8",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_item_8",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 9"
+    },
+    {
+      "type": "text",
+      "id": "text_item_9",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_item_9",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 10"
+    },
+    {
+      "type": "text",
+      "id": "text_item_10",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_item_10",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customizable text section"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

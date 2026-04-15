@@ -1,0 +1,183 @@
+{%- comment -%}
+  Mobile sticky Add to Cart / Buy Now bar.
+  - Expects `section` and `product`.
+  - Mirrors the main product form buttons so variant, quantity, and validation stay in sync.
+{%- endcomment -%}
+
+{{ 'component-sticky-atc.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign sticky_bg_rgb = section.settings.sticky_mobile_atc_bg_color | default: '#ffffff' | color_to_rgb
+  assign sticky_bg_opacity = section.settings.sticky_mobile_atc_bg_opacity | default: 100 | times: 0.01
+  assign sticky_bg_rgba = sticky_bg_rgb | replace: 'rgb(', 'rgba(' | replace: ')', ', ' | append: sticky_bg_opacity | append: ')'
+  assign use_scheme_bg = section.settings.sticky_mobile_atc_use_color_scheme
+  assign has_inner_bg = true
+-%}
+
+<div id="StickyATC-{{ section.id }}" class="mobile-sticky-atc gradient color-{{ section.settings.color_scheme }} mobile-sticky-atc--hidden{% if has_inner_bg %} mobile-sticky-atc--has-inner-bg{% endif %}" role="region" aria-label="Sticky purchase actions">
+  <div class="page-width">
+    <div class="mobile-sticky-atc__inner" style="--sticky-atc-inner-bg: {%- if use_scheme_bg -%}rgba(var(--color-background), {{ sticky_bg_opacity }}){%- else -%}{{ sticky_bg_rgba }}{%- endif -%};{%- if section.settings.sticky_mobile_atc_inner_radius %} --sticky-atc-inner-radius: {{ section.settings.sticky_mobile_atc_inner_radius }}px;{%- endif -%}{%- if section.settings.sticky_mobile_atc_inner_padding %} --sticky-atc-inner-padding: {{ section.settings.sticky_mobile_atc_inner_padding }}px;{%- endif -%}">
+      <button type="button" class="button button--secondary mobile-sticky-atc__btn mobile-sticky-atc__btn--add">
+        <span>{{ 'products.product.add_to_cart' | t }}</span>
+      </button>
+      <button type="button" class="button button--primary mobile-sticky-atc__btn mobile-sticky-atc__btn--buy" style="display:none">
+        <span>{{ 'products.product.buy_it_now' | t | default: 'Buy now' }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="mobile-sticky-atc__spacer" aria-hidden="true"></div>
+
+<script>
+  (function(){
+    var rootId = 'StickyATC-{{ section.id }}';
+    var productInfoId = 'ProductInfo-{{ section.id }}';
+    var root = document.getElementById(rootId);
+    if (!root) return;
+
+    function qs(sel, ctx){ return (ctx || document).querySelector(sel); }
+
+    var addBtn = qs('.mobile-sticky-atc__btn--add', root);
+    var buyBtn = qs('.mobile-sticky-atc__btn--buy', root);
+
+    function getMainSubmit(){
+      return document.getElementById('ProductSubmitButton-{{ section.id }}');
+    }
+    function getPaymentBtn(){
+      var info = document.getElementById(productInfoId);
+      if (!info) return null;
+      return info.querySelector('.shopify-payment-button__button, shopify-payment-button button');
+    }
+
+    function syncState(){
+      var mainSubmit = getMainSubmit();
+      var payBtn = getPaymentBtn();
+      if (addBtn) addBtn.disabled = !!(mainSubmit && mainSubmit.disabled);
+      if (buyBtn) {
+        if (!payBtn) {
+          buyBtn.style.display = 'none';
+          buyBtn.disabled = true;
+        } else {
+          buyBtn.style.display = '';
+          buyBtn.disabled = !!(payBtn.disabled || (mainSubmit && mainSubmit.disabled));
+          // Sync text label from the Shopify payment button if present
+          try {
+            var payLabel = (payBtn.getAttribute('aria-label') || payBtn.textContent || '').trim();
+            if (payLabel) {
+              var span = buyBtn.querySelector('span');
+              if (span) span.textContent = payLabel;
+            }
+          } catch(e) {}
+        }
+      }
+    }
+
+    function wireClicks(){
+      var mainSubmit = getMainSubmit();
+      var payBtn = getPaymentBtn();
+      if (addBtn) addBtn.addEventListener('click', function(){ if (mainSubmit) mainSubmit.click(); });
+      if (buyBtn) buyBtn.addEventListener('click', function(){
+        var p = getPaymentBtn();
+        if (p) { p.click(); }
+        else if (mainSubmit) { mainSubmit.click(); }
+      });
+    }
+
+    function observe(){
+      var info = document.getElementById(productInfoId);
+      var mainSubmit = getMainSubmit();
+
+      if (mainSubmit && window.MutationObserver) {
+        var mo = new MutationObserver(syncState);
+        mo.observe(mainSubmit, { attributes: true, attributeFilter: ['disabled'] });
+      }
+      if (info && window.MutationObserver) {
+        var mo2 = new MutationObserver(syncState);
+        mo2.observe(info, { childList: true, subtree: true, attributes: true });
+      }
+
+      // Also re-sync on variant change events if Dawn’s pub/sub is present
+      if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined' && PUB_SUB_EVENTS.variantChange) {
+        try { subscribe(PUB_SUB_EVENTS.variantChange, syncState); } catch(e) {}
+      }
+
+      // Initial sync after payment button renders
+      setTimeout(syncState, 50);
+      setTimeout(syncState, 400);
+      setTimeout(syncState, 1200);
+    }
+
+    var mainButtonsVisible = false;
+    var relatedVisible = false;
+
+    function applyVisibility(){
+      var shouldHide = !!(mainButtonsVisible || relatedVisible);
+      if (shouldHide) {
+        root.classList.add('mobile-sticky-atc--hidden');
+        root.classList.remove('is-active');
+      } else {
+        root.classList.remove('mobile-sticky-atc--hidden');
+        root.classList.add('is-active');
+      }
+      // Keep spacer height in sync with actual bar height (accounts for padding/safe-area)
+      var spacer = root.nextElementSibling;
+      if (spacer && spacer.classList.contains('mobile-sticky-atc__spacer')) {
+        spacer.style.height = root.classList.contains('is-active') ? root.offsetHeight + 'px' : '0px';
+      }
+    }
+
+    // Show the sticky bar only when the main product form buttons are not visible
+    function setupVisibilityToggle(){
+      var info = document.getElementById(productInfoId);
+      if (!('IntersectionObserver' in window) || !info) {
+        // Fallback: always show
+        mainButtonsVisible = false;
+        relatedVisible = false;
+        applyVisibility();
+        return;
+      }
+      // Try to observe the primary buttons container
+      var target = info.querySelector('.product-form__buttons') || getMainSubmit();
+      if (!target) {
+        mainButtonsVisible = false;
+        applyVisibility();
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        var entry = entries[0];
+        mainButtonsVisible = !!(entry && entry.isIntersecting && entry.intersectionRatio > 0.1);
+        applyVisibility();
+      }, { threshold: [0, 0.1, 0.25], rootMargin: '0px 0px -80px 0px' });
+      io.observe(target);
+
+      // Also observe the "Related products" section and hide when it is in view
+      function tryObserveRelated() {
+        var relatedTarget = document.querySelector('product-recommendations.related-products, .related-products, section.related-products, [id^="shopify-section"][class*="related-products"] product-recommendations, product-recommendations[data-section-id][class*="related-products"]');
+        if (!relatedTarget) return false;
+        var io2 = new IntersectionObserver(function(entries){
+          var entry = entries[0];
+          // Treat as visible even when partially intersecting; trigger sooner with bottom rootMargin
+          relatedVisible = !!(entry && entry.isIntersecting);
+          applyVisibility();
+        }, { threshold: [0], rootMargin: '0px 0px -40% 0px' });
+        io2.observe(relatedTarget);
+        return true;
+      }
+      if (!tryObserveRelated()) {
+        // If not present yet (e.g., theme editor lazy render), observe DOM until it appears
+        if (window.MutationObserver) {
+          var finder = new MutationObserver(function(){
+            if (tryObserveRelated()) { try { finder.disconnect(); } catch(e) {} }
+          });
+          finder.observe(document.documentElement || document.body, { childList: true, subtree: true });
+        }
+      }
+    }
+
+    wireClicks();
+    observe();
+    setupVisibilityToggle();
+    syncState();
+  })();
+</script>

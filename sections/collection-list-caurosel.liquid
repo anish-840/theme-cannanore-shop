@@ -1,0 +1,451 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Scoped styles for this section */
+  .collection-caurosel-{{ section.id }} .carousel__slide { position: relative; }
+
+  /* Reset list bullets and spacing */
+  .collection-caurosel-{{ section.id }} .collection-list { list-style: none; margin: 0; padding: 0; }
+
+  .collection-caurosel-{{ section.id }} .slide-media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: var(--item-h, 300px);
+  }
+  .collection-caurosel-{{ section.id }} .slide-media .cover-link {
+    position: absolute;
+    inset: 0;
+    display: block;
+    z-index: 1;
+  }
+  .collection-caurosel-{{ section.id }} .slide-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Image shapes */
+  .collection-caurosel-{{ section.id }} .shape--square img { border-radius: 0; }
+  .collection-caurosel-{{ section.id }} .shape--rounded img { border-radius: {{ section.settings.rounded_radius }}px; }
+  .collection-caurosel-{{ section.id }} .shape--circle { aspect-ratio: 1 / 1; }
+  .collection-caurosel-{{ section.id }} .shape--circle img { border-radius: 50%; }
+
+  /* If a fixed square is desired when using rounded/circle, ensure container squares up */
+  .collection-caurosel-{{ section.id }} .force-square { aspect-ratio: 1 / 1; }
+
+  /* Overlay content positioning */
+  .collection-caurosel-{{ section.id }} .slide-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: grid;
+  }
+  .collection-caurosel-{{ section.id }} .slide-overlay .overlay-inner {
+    pointer-events: auto;
+    padding: 1rem 1.25rem;
+    gap: .5rem;
+  }
+  /* Vertical alignment via grid */
+  .collection-caurosel-{{ section.id }} .va-top { align-content: start; }
+  .collection-caurosel-{{ section.id }} .va-middle { align-content: center; }
+  .collection-caurosel-{{ section.id }} .va-bottom { align-content: end; }
+  /* Horizontal alignment via text alignment and margins */
+  .collection-caurosel-{{ section.id }} .ha-left .overlay-inner { margin-left: 0; margin-right: auto; text-align: left; }
+  .collection-caurosel-{{ section.id }} .ha-center .overlay-inner { margin: 0 auto; text-align: center; }
+  .collection-caurosel-{{ section.id }} .ha-right .overlay-inner { margin-left: auto; margin-right: 0; text-align: right; }
+
+  .collection-caurosel-{{ section.id }} .overlay-bg {
+    background: rgba(var(--color-foreground), {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    color: rgb(var(--color-background));
+    border-radius: {{ section.settings.overlay_radius }}px;
+  }
+
+  .collection-caurosel-{{ section.id }} .slide-content-below { padding-top: 0.75rem; display: flex; flex-direction: column; gap: .5rem; }
+  .collection-caurosel-{{ section.id }} .ha-left.slide-content-below { text-align: left; align-items: flex-start; }
+  .collection-caurosel-{{ section.id }} .ha-center.slide-content-below { text-align: center; align-items: center; }
+  .collection-caurosel-{{ section.id }} .ha-right.slide-content-below { text-align: right; align-items: flex-end; }
+  .collection-caurosel-{{ section.id }} .slide-title { font: inherit; font-weight: 600; }
+  .collection-caurosel-{{ section.id }} .slide-desc { opacity: .9; }
+
+  /* Above-title horizontal alignment helpers */
+  .collection-caurosel-{{ section.id }} .title-wrapper-with-link { display: flex; width: 100%; }
+  .collection-caurosel-{{ section.id }} .title-align-left { text-align: left; justify-content: flex-start; }
+  .collection-caurosel-{{ section.id }} .title-align-center { text-align: center; justify-content: center; }
+  .collection-caurosel-{{ section.id }} .title-align-right { text-align: right; justify-content: flex-end; }
+
+  /* Non-overlay title slide vertical alignment container */
+  .collection-caurosel-{{ section.id }} .title-slide-nonoverlay {
+    display: flex;
+    height: var(--item-h, 300px);
+  }
+  .collection-caurosel-{{ section.id }} .title-slide-nonoverlay.va-top { justify-content: flex-start; }
+  .collection-caurosel-{{ section.id }} .title-slide-nonoverlay.va-middle { justify-content: center; }
+  .collection-caurosel-{{ section.id }} .title-slide-nonoverlay.va-bottom { justify-content: flex-end; }
+
+  /* Title typography variables */
+  .collection-caurosel-{{ section.id }} .slide-title { font: inherit; font-weight: var(--name-fw, 600); text-transform: var(--name-tt, none); font-size: var(--name-fs, inherit); }
+
+  /* Horizontal scroll grid without visible scrollbar */
+  .collection-caurosel-{{ section.id }} .hscroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none; /* Firefox */
+  }
+  .collection-caurosel-{{ section.id }} .hscroll-wrap::-webkit-scrollbar { display: none; } /* WebKit */
+
+  .collection-caurosel-{{ section.id }} .hscroll-grid {
+    display: flex;
+    gap: 1.6rem;
+    padding: 0 .4rem; /* small side breathing */
+  }
+  .collection-caurosel-{{ section.id }} .hscroll-item {
+    flex: 0 0 var(--item-w, 400px);
+    scroll-snap-align: start;
+  }
+
+  /* Make entire media area clickable via cover link */
+  .collection-caurosel-{{ section.id }} .slide-media { position: relative; }
+  .collection-caurosel-{{ section.id }} .cover-link { position: absolute; inset: 0; z-index: 1; text-indent: -9999px; }
+  /* Allow cover-link to receive clicks beneath overlay copy, but keep CTAs clickable */
+  .collection-caurosel-{{ section.id }} .slide-overlay .overlay-inner { position: relative; z-index: 2; pointer-events: none; }
+  .collection-caurosel-{{ section.id }} .slide-overlay .overlay-inner a { pointer-events: auto; }
+
+  /* Clamp collection name lines when enabled */
+  .collection-caurosel-{{ section.id }} .slide-title.clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: var(--name-lines, 2);
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign raw_w = section.settings.item_width
+  assign raw_h = section.settings.item_height
+  
+  assign raw_w_num = raw_w | plus: 0
+  assign item_w = 400
+  if raw_w != blank and raw_w_num > 0
+    assign item_w = raw_w_num
+  endif
+  
+  assign raw_h_num = raw_h | plus: 0
+  assign item_h = 300
+  if raw_h != blank and raw_h_num > 0
+    assign item_h = raw_h_num
+  endif
+
+  assign item_w_2x = item_w | times: 2
+  assign item_h_2x = item_h | times: 2
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="collection-caurosel-{{ section.id }} page-width isolate section-{{ section.id }}-padding" style="--item-w: {{ item_w }}px; --item-h: {{ item_h }}px; --name-fs: {{ section.settings.name_font_size | default: 18 }}px;">
+
+    {%- if section.settings.title_position == 'above' and section.settings.title != blank -%}
+      <div class="title-wrapper-with-link title-wrapper--no-top-margin title-align-{{ section.settings.title_horizontal_align }}">
+        <h2 id="SectionHeading-{{ section.id }}" class="inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+    {%- endif -%}
+
+    <div class="hscroll-wrap">
+      <ul class="collection-list hscroll-grid" id="HScroll-{{ section.id }}" role="list">
+        {%- if section.settings.title_position == 'as_slide' and section.settings.title != blank -%}
+          <li class="hscroll-item" style="scroll-snap-align:start;">
+            <div class="slide-media">
+              <div class="slide-overlay va-{{ section.settings.title_vertical_align }} ha-{{ section.settings.title_horizontal_align }}">
+                <div class="overlay-inner overlay-bg">
+                  <h2 class="inline-richtext {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
+                </div>
+              </div>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- for block in section.blocks -%}
+          {%- assign c = block.settings.collection -%}
+          <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="hscroll-item" {{ block.shopify_attributes }}>
+            <div class="slide">
+              <div class="slide-media shape--{{ section.settings.image_shape }} {% if section.settings.force_square %}force-square{% endif %}">
+                {%- if c and c.featured_image -%}
+                  {%- if section.settings.force_square -%}
+                    <img
+                      srcset="{{ c.featured_image | image_url: width: item_w, height: item_w, crop: 'center' }} 1x, {{ c.featured_image | image_url: width: item_w_2x, height: item_w_2x, crop: 'center' }} 2x"
+                      src="{{ c.featured_image | image_url: width: item_w, height: item_w, crop: 'center' }}"
+                      alt="{{ c.featured_image.alt | escape }}"
+                      width="{{ item_w }}" height="{{ item_w }}"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    <img
+                      srcset="{{ c.featured_image | image_url: width: item_w }} 1x, {{ c.featured_image | image_url: width: item_w_2x }} 2x"
+                      src="{{ c.featured_image | image_url: width: item_w }}"
+                      alt="{{ c.featured_image.alt | escape }}"
+                      width="{{ item_w }}" height="{{ item_h }}"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                {%- else -%}
+                  <div class="slide-media placeholder">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+
+                {%- if c and c.url -%}
+                  <a class="cover-link" href="{{ c.url }}" aria-label="{{ c.title | escape }}"></a>
+                {%- endif -%}
+
+                {%- if section.settings.overlay_content -%}
+                  <div class="slide-overlay va-{{ section.settings.vertical_align }} ha-{{ section.settings.horizontal_align }}">
+                    <div class="overlay-inner overlay-bg">
+                      {%- liquid
+                        assign name_fw = section.settings.default_name_weight | default: '600'
+                        assign name_tt = section.settings.default_name_transform | default: 'none'
+                        if block.settings.override_name_style
+                          assign name_fw = block.settings.name_weight | default: name_fw
+                          assign name_tt = block.settings.name_transform | default: name_tt
+                        endif
+                        assign title_scheme = section.settings.default_title_color_scheme
+                        if block.settings.use_default_title_color == false
+                          assign title_scheme = block.settings.title_color_scheme
+                        endif
+                      -%}
+                      <div class="color-{{ title_scheme }}" style="--name-fw: {{ name_fw }}; --name-tt: {{ name_tt }};">
+                        <h3 class="slide-title{% if section.settings.clamp_name %} clamp{% endif %}" style="color: rgb(var(--color-foreground));{% if section.settings.clamp_name %} --name-lines: {{ section.settings.name_lines }};{% endif %}">
+                          {%- if c and c.url -%}<a href="{{ c.url }}" class="slide-title__link" style="color: inherit; text-decoration: none;">{%- endif -%}
+                          {%- if c and c.title != blank -%}{{ c.title | escape }}{%- else -%}{{ 'onboarding.collection_title' | t }}{%- endif -%}
+                          {%- if c and c.url -%}</a>{%- endif -%}
+                        </h3>
+                      </div>
+                      {%- assign desc_source = block.settings.description_override -%}
+                      {%- if desc_source == blank and c -%}
+                        {%- assign desc_source = c.description | strip_html -%}
+                      {%- endif -%}
+                      {%- if desc_source != blank -%}
+                        <div class="slide-desc">{{ desc_source | truncatewords: section.settings.description_words }}</div>
+                      {%- endif -%}
+                      {%- assign cta_text = block.settings.cta_text | default: section.settings.default_cta_text -%}
+                      {%- if c and c.url -%}
+                        {%- assign cta_link = block.settings.cta_link | default: c.url -%}
+                      {%- else -%}
+                        {%- assign cta_link = block.settings.cta_link | default: routes.collections_url -%}
+                      {%- endif -%}
+                      {%- if cta_text != blank -%}
+                        <a class="button button--primary" href="{{ cta_link }}">{{ cta_text }}</a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+
+              {%- unless section.settings.overlay_content -%}
+                <div class="slide-content-below ha-{{ section.settings.horizontal_align }}">
+                  {%- liquid
+                    assign name_fw = section.settings.default_name_weight | default: '600'
+                    assign name_tt = section.settings.default_name_transform | default: 'none'
+                    if block.settings.override_name_style
+                      assign name_fw = block.settings.name_weight | default: name_fw
+                      assign name_tt = block.settings.name_transform | default: name_tt
+                    endif
+                    assign title_scheme = section.settings.default_title_color_scheme
+                    if block.settings.use_default_title_color == false
+                      assign title_scheme = block.settings.title_color_scheme
+                    endif
+                  -%}
+                  <div class="color-{{ title_scheme }}" style="--name-fw: {{ name_fw }}; --name-tt: {{ name_tt }};">
+                    <h3 class="slide-title{% if section.settings.clamp_name %} clamp{% endif %}" style="color: rgb(var(--color-foreground));{% if section.settings.clamp_name %} --name-lines: {{ section.settings.name_lines }};{% endif %}">
+                      {%- if c and c.url -%}<a href="{{ c.url }}" class="slide-title__link" style="color: inherit; text-decoration: none;">{%- endif -%}
+                      {%- if c and c.title != blank -%}{{ c.title | escape }}{%- else -%}{{ 'onboarding.collection_title' | t }}{%- endif -%}
+                      {%- if c and c.url -%}</a>{%- endif -%}
+                    </h3>
+                  </div>
+                  {%- assign desc_below = block.settings.description_override -%}
+                  {%- if desc_below == blank and c -%}
+                    {%- assign desc_below = c.description | strip_html -%}
+                  {%- endif -%}
+                  {%- if desc_below != blank -%}
+                    <div class="slide-desc">{{ desc_below | truncatewords: section.settings.description_words }}</div>
+                  {%- endif -%}
+                  {%- assign cta_text_b = block.settings.cta_text | default: section.settings.default_cta_text -%}
+                  {%- if c and c.url -%}
+                    {%- assign cta_link_b = block.settings.cta_link | default: c.url -%}
+                  {%- else -%}
+                    {%- assign cta_link_b = block.settings.cta_link | default: routes.collections_url -%}
+                  {%- endif -%}
+                  {%- if cta_text_b != blank -%}
+                    <a class="button button--primary" href="{{ cta_link_b }}">{{ cta_text_b }}</a>
+                  {%- endif -%}
+                </div>
+              {%- endunless -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection list caurosel",
+  "tag": "section",
+  "class": "section section-collection-list-caurosel",
+  "max_blocks": 15,
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "inline_richtext", "id": "title", "label": "Title" },
+    {
+      "type": "select",
+      "id": "title_position",
+      "label": "Section title position",
+      "options": [
+        {"value": "hidden", "label": "Hidden"},
+        {"value": "above", "label": "Above carousel"},
+        {"value": "as_slide", "label": "As a slide"}
+      ],
+      "default": "above"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {"value": "h2", "label": "H2"},
+        {"value": "h1", "label": "H1"},
+        {"value": "h0", "label": "H0"}
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "title_horizontal_align",
+      "label": "Title horizontal alignment",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "title_vertical_align",
+      "label": "Title vertical alignment (as a slide)",
+      "options": [
+        {"value": "top", "label": "Top"},
+        {"value": "middle", "label": "Middle"},
+        {"value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
+    },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colors", "default": "scheme-1" },
+
+    { "type": "header", "content": "Typography defaults (collection name)" },
+    { "type": "select", "id": "default_name_weight", "label": "Name weight", "options": [
+      {"value": "400", "label": "Regular"},
+      {"value": "500", "label": "Medium"},
+      {"value": "600", "label": "Semibold"},
+      {"value": "700", "label": "Bold"}
+    ], "default": "600" },
+    { "type": "select", "id": "default_name_transform", "label": "Name transform", "options": [
+      {"value": "none", "label": "None"},
+      {"value": "uppercase", "label": "Uppercase"},
+      {"value": "lowercase", "label": "Lowercase"},
+      {"value": "capitalize", "label": "Capitalize"}
+    ], "default": "none" },
+    { "type": "color_scheme", "id": "default_title_color_scheme", "label": "Name color scheme", "default": "scheme-1" },
+
+    { "type": "checkbox", "id": "clamp_name", "label": "Truncate collection name", "default": true },
+    { "type": "range", "id": "name_lines", "label": "Name lines", "min": 1, "max": 4, "step": 1, "default": 2 },
+    { "type": "range", "id": "name_font_size", "label": "Name font size (px)", "min": 10, "max": 64, "step": 1, "default": 18 },
+
+    { "type": "header", "content": "Carousel layout" },
+
+    { "type": "text", "id": "item_width", "label": "Slide width (px)", "default": "400" },
+    { "type": "text", "id": "item_height", "label": "Slide height (px)", "default": "300" },
+
+    { "type": "header", "content": "Card content" },
+    { "type": "checkbox", "id": "overlay_content", "label": "Overlay content on image", "default": true },
+    { "type": "select", "id": "vertical_align", "label": "Vertical alignment (when overlay)", "options": [
+      {"value": "top", "label": "Top"}, {"value": "middle", "label": "Middle"}, {"value": "bottom", "label": "Bottom"}
+    ], "default": "middle" },
+    { "type": "select", "id": "horizontal_align", "label": "Horizontal alignment", "options": [
+      {"value": "left", "label": "Left"}, {"value": "center", "label": "Center"}, {"value": "right", "label": "Right"}
+    ], "default": "center" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay background opacity (%)", "min": 0, "max": 100, "step": 5, "default": 30 },
+    { "type": "range", "id": "overlay_radius", "label": "Overlay background radius (px)", "min": 0, "max": 50, "step": 1, "default": 8 },
+    { "type": "range", "id": "description_words", "label": "Description word limit", "min": 0, "max": 60, "step": 1, "default": 16 },
+    { "type": "text", "id": "default_cta_text", "label": "Default CTA text", "default": "Shop now" },
+
+    { "type": "header", "content": "Image" },
+    { "type": "select", "id": "image_shape", "label": "Image shape", "options": [
+      {"value": "square", "label": "Square"},
+      {"value": "rounded", "label": "Rounded"},
+      {"value": "circle", "label": "Circle"}
+    ], "default": "square" },
+    { "type": "checkbox", "id": "force_square", "label": "Force square crop (center)", "default": true },
+    { "type": "range", "id": "rounded_radius", "label": "Rounded radius (px)", "min": 4, "max": 48, "step": 1, "default": 16 },
+
+    { "type": "header", "content": "Section padding" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 36 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 36 }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "textarea", "id": "description_override", "label": "Description override" },
+        { "type": "text", "id": "cta_text", "label": "CTA text (override)" },
+        { "type": "url", "id": "cta_link", "label": "CTA link (override)" },
+
+        { "type": "header", "content": "Name style (override)" },
+        { "type": "checkbox", "id": "override_name_style", "label": "Override name typography", "default": false },
+        { "type": "select", "id": "name_weight", "label": "Name weight", "options": [
+          {"value": "400", "label": "Regular"},
+          {"value": "500", "label": "Medium"},
+          {"value": "600", "label": "Semibold"},
+          {"value": "700", "label": "Bold"}
+        ], "default": "600" },
+        { "type": "select", "id": "name_transform", "label": "Name transform", "options": [
+          {"value": "none", "label": "None"},
+          {"value": "uppercase", "label": "Uppercase"},
+          {"value": "lowercase", "label": "Lowercase"},
+          {"value": "capitalize", "label": "Capitalize"}
+        ], "default": "none" },
+
+        { "type": "checkbox", "id": "use_default_title_color", "label": "Use section name color scheme", "default": true },
+        { "type": "color_scheme", "id": "title_color_scheme", "label": "Name color scheme (override)", "default": "scheme-1" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection list caurosel",
+      "blocks": [
+        { "type": "featured_collection" },
+        { "type": "featured_collection" },
+        { "type": "featured_collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

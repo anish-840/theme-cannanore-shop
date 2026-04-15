@@ -1,0 +1,59 @@
+/* Mobile sticky ATC / Buy Now bar */
+.mobile-sticky-atc { display: none; }
+.mobile-sticky-atc__spacer { display: none; height: 0; }
+
+@media screen and (max-width: 749px) {
+  .mobile-sticky-atc {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    background: var(--sticky-atc-bar-bg, var(--color-background, #fff));
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+    padding: 10px 0 calc(10px + env(safe-area-inset-bottom)); /* page-width handles side gutters */
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+  .mobile-sticky-atc__spacer {
+    display: block;
+    height: 0; /* toggled when bar is active */
+  }
+  .mobile-sticky-atc__inner {
+    display: flex;
+    gap: 12px;
+    background-color: var(--sticky-atc-inner-bg, transparent);
+    /* Optional rounding if a background is provided */
+    border-radius: var(--sticky-atc-inner-radius, 0);
+    padding: var(--sticky-atc-inner-padding, 0);
+  }
+  .mobile-sticky-atc__btn {
+    flex: 1 1 0;
+    min-height: 44px;
+  }
+
+  /* Hidden state when main buttons are visible */
+  .mobile-sticky-atc.mobile-sticky-atc--hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* When visible, add spacer height */
+  .mobile-sticky-atc.is-active + .mobile-sticky-atc__spacer {
+    height: calc(68px + env(safe-area-inset-bottom));
+  }
+
+  /* When sticky bar is active, hide mobile bottom nav */
+  html:has(.mobile-sticky-atc.is-active) [class^="ai-mobile-nav-"] {
+    display: none !important;
+  }
+  /* Remove body padding that bottom nav section adds; sticky spacer handles spacing */
+  html:has(.mobile-sticky-atc.is-active) body {
+    padding-bottom: 0 !important;
+  }
+
+  /* When inner background is used, make bar transparent */
+  .mobile-sticky-atc.mobile-sticky-atc--has-inner-bg {
+    --sticky-atc-bar-bg: transparent;
+  }
+}

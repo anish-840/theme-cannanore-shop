@@ -1,0 +1,410 @@
+{% doc %}
+  @prompt
+    Create a dynamic product section that displays the weight of a product based on the selected size variant. The section should automatically update the weight display when customers select different size options, showing the corresponding weight for each size variant.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-weight-display-{{ ai_gen_id }} {
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-product-weight-display__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.spacing }}px 0;
+  }
+
+  .ai-product-weight-display__weight-{{ ai_gen_id }} {
+    font-size: {{ block.settings.weight_size }}px;
+    font-weight: {{ block.settings.weight_font_weight }};
+    color: {{ block.settings.weight_color }};
+    margin: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-product-weight-display__weight-{{ ai_gen_id }}.updating {
+    opacity: 0.5;
+  }
+
+  .ai-product-weight-display__unit-{{ ai_gen_id }} {
+    font-size: {{ block.settings.unit_size }}px;
+    color: {{ block.settings.unit_color }};
+    margin-left: 4px;
+  }
+
+  .ai-product-weight-display__empty-state-{{ ai_gen_id }} {
+    color: {{ block.settings.empty_state_color }};
+    font-style: italic;
+    font-size: {{ block.settings.weight_size }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-weight-display-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding | times: 0.8 }}px;
+    }
+
+    .ai-product-weight-display__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.9 }}px;
+    }
+
+    .ai-product-weight-display__weight-{{ ai_gen_id }} {
+      font-size: {{ block.settings.weight_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<product-weight-display-{{ ai_gen_id }}
+  class="ai-product-weight-display-{{ ai_gen_id }}"
+  data-product-id="{{ product.id }}"
+  data-weight-unit="{{ block.settings.weight_unit }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_title %}
+    <h3 class="ai-product-weight-display__title-{{ ai_gen_id }}">
+      {{ block.settings.title }}
+    </h3>
+  {% endif %}<div 
+    class="ai-product-weight-display__weight-{{ ai_gen_id }}"
+    data-weight-display
+  >
+    {% if product.selected_or_first_available_variant.weight %}
+      <span data-weight-value>{{ product.selected_or_first_available_variant.weight }}</span>
+      <span class="ai-product-weight-display__unit-{{ ai_gen_id }}">{{ block.settings.weight_unit }}</span>
+    {% else %}
+      <span class="ai-product-weight-display__empty-state-{{ ai_gen_id }}">
+        {{ block.settings.no_weight_text }}
+      </span>
+    {% endif %}
+  </div><script type="application/json" data-variant-weights>
+    {
+      {% for variant in product.variants %}
+        "{{ variant.id }}": {
+          "weight": {% if variant.weight %}{{ variant.weight }}{% else %}null{% endif %},
+          "available": {{ variant.available }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    }
+  </script>
+</product-weight-display-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductWeightDisplay{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.weightDisplay = this.querySelector('[data-weight-display]');
+        this.weightValue = this.querySelector('[data-weight-value]');
+        this.weightUnit = this.dataset.weightUnit;
+        this.noWeightText = '{{ block.settings.no_weight_text }}';
+        this.variantWeights = JSON.parse(this.querySelector('[data-variant-weights]').textContent);
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        document.addEventListener('variant:change', (event) => {
+          if (event.detail && event.detail.variant) {
+            this.updateWeight(event.detail.variant.id);
+          }
+        });
+
+        const variantSelectors = document.querySelectorAll('variant-selects, variant-radios, [data-variant-selector]');
+        variantSelectors.forEach(selector => {
+          selector.addEventListener('change', (event) => {
+            const variantId = this.getSelectedVariantId();
+            if (variantId) {
+              this.updateWeight(variantId);
+            }
+          });
+        });
+
+        const productForm = document.querySelector('product-form form[action*="/cart/add"]');
+        if (productForm) {
+          const variantInput = productForm.querySelector('input[name="id"]');
+          if (variantInput) {
+            const observer = new MutationObserver(() => {
+              const variantId = variantInput.value;
+              if (variantId) {
+                this.updateWeight(variantId);
+              }
+            });
+            observer.observe(variantInput, { attributes: true, attributeFilter: ['value'] });
+          }
+        }
+      }
+
+      getSelectedVariantId() {
+        const productForm = document.querySelector('product-form form[action*="/cart/add"]');
+        if (productForm) {
+          const variantInput = productForm.querySelector('input[name="id"]');
+          return variantInput ? variantInput.value : null;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('variant');
+      }
+
+      updateWeight(variantId) {
+        const variantData = this.variantWeights[variantId];
+        
+        if (!variantData) return;
+
+        this.weightDisplay.classList.add('updating');
+
+        setTimeout(() => {
+          if (variantData.weight !== null && variantData.weight > 0) {
+            this.weightDisplay.innerHTML = `
+              <span data-weight-value>${variantData.weight}</span>
+              <span class="ai-product-weight-display__unit-{{ ai_gen_id }}">${this.weightUnit}</span>
+            `;
+          } else {
+            this.weightDisplay.innerHTML = `
+              <span class="ai-product-weight-display__empty-state-{{ ai_gen_id }}">
+                ${this.noWeightText}
+              </span>
+            `;
+          }
+
+          this.weightDisplay.classList.remove('updating');
+        }, 150);
+      }
+    }
+
+    customElements.define('product-weight-display-{{ ai_gen_id }}', ProductWeightDisplay{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product weight display",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show title",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Weight"
+    },
+    {
+      "type": "select",
+      "id": "weight_unit",
+      "label": "Weight unit",
+      "options": [
+        {
+          "value": "g",
+          "label": "Grams (g)"
+        },
+        {
+          "value": "kg",
+          "label": "Kilograms (kg)"
+        },
+        {
+          "value": "oz",
+          "label": "Ounces (oz)"
+        },
+        {
+          "value": "lb",
+          "label": "Pounds (lb)"
+        }
+      ],
+      "default": "g"
+    },
+    {
+      "type": "text",
+      "id": "no_weight_text",
+      "label": "No weight text",
+      "default": "Weight not specified"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Title spacing",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "weight_size",
+      "label": "Weight size",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "weight_font_weight",
+      "label": "Weight font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "unit_size",
+      "label": "Unit size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "weight_color",
+      "label": "Weight",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "unit_color",
+      "label": "Unit",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "empty_state_color",
+      "label": "Empty state",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product weight display"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

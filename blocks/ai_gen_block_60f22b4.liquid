@@ -1,0 +1,557 @@
+{% doc %}
+  @prompt
+    Create a customizable text section that displays multiple text items directly below the header with the following features:
+    
+    **Section Placement & Behavior:**
+    - Position immediately below the main header
+    - Toggle option for sticky/fixed positioning below header or normal scrolling behavior
+    - Desktop visibility by default with optional mobile visibility toggle
+    
+    **Text Items Management:**
+    - Support for 10 text items that can be added/removed
+    - Each text item includes: customizable text content, configurable font size/color/weight/hover color/font family, optional linking to collections/products/pages/external URLs
+    - Layout options to arrange text items horizontally in a row or vertically in a column
+    - Text alignment controls (left, center, right)
+    - Optional separators between items (pipe | or bullet • symbols)
+    
+    **Styling & Customization:**
+    - Configurable horizontal padding (left/right spacing)
+    - Configurable vertical padding (top/bottom spacing with separate top and bottom controls)
+    - Background color or background image options for the section
+    - Theme selection option for predefined styling
+    - Responsive design that works well on both desktop and mobile when enabled
+    - Remove any white patches or spacing issues
+    
+    **Settings Structure:**
+    - Section-level settings for positioning, layout, padding, background, device visibility, and theme selection
+    - Block-level settings for individual text items with their content, styling, links, and hover effects
+    - Intuitive admin interface for easy content management
+    - Proper sticky positioning that works below the header without white space issues, Apply and show Page width settings, Make it sticky
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-text-section-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    {% if block.settings.background_image %}
+      background-image: url('{{ block.settings.background_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% endif %}
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    {% unless block.settings.show_on_mobile %}
+      @media screen and (max-width: 749px) {
+        display: none;
+      }
+    {% endunless %}
+  }
+
+  .ai-text-section__container-{{ ai_gen_id }} {
+    {% if block.settings.page_width == 'full' %}
+      max-width: 100%;
+    {% elsif block.settings.page_width == 'narrow' %}
+      max-width: 1000px;
+    {% else %}
+      max-width: {{ settings.page_width }}px;
+    {% endif %}
+    margin: 0 auto;
+    display: flex;
+    {% if block.settings.layout == 'vertical' %}
+      flex-direction: column;
+      gap: {{ block.settings.item_spacing }}px;
+    {% else %}
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: {{ block.settings.item_spacing }}px;
+    {% endif %}
+    {% if block.settings.text_alignment == 'center' %}
+      justify-content: center;text-align: center;
+    {% elsif block.settings.text_alignment == 'right' %}
+      justify-content: flex-end;
+      text-align: right;
+    {% else %}
+      justify-content: flex-start;
+      text-align: left;
+    {% endif %}
+    align-items: center;
+  }
+
+  .ai-text-section__item-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    text-decoration: none;
+    transition: color 0.3s ease;
+    {% if block.settings.layout == 'vertical' %}
+      width: 100%;
+    {% else %}
+      white-space: nowrap;
+    {% endif %}
+  }
+
+  .ai-text-section__item-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.hover_color }};
+  }
+
+  .ai-text-section__separator-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+    {% if block.settings.layout == 'vertical' %}
+      display: none;
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-text-section__container-{{ ai_gen_id }} {
+      {% if block.settings.mobile_layout == 'vertical' %}
+        flex-direction: column;
+      {% else %}
+        flex-direction: row;
+        flex-wrap: wrap;
+      {% endif %}
+    }
+
+    .ai-text-section__separator-{{ ai_gen_id }} {
+      {% if block.settings.mobile_layout == 'vertical' %}
+        display: none;
+      {% endif %}
+    }
+
+    .ai-text-section__item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-text-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-text-section__container-{{ ai_gen_id }}">
+    {% for i in (1..10) %}
+      {% liquid
+        assign text_key = 'text_' | append: i
+        assign link_key = 'link_' | append: i
+        assign text_content = block.settings[text_key]
+        assign link_url = block.settings[link_key]
+      %}
+      
+      {% if text_content != blank %}
+        {% if link_url != blank %}
+          <a href="{{ link_url }}" class="ai-text-section__item-{{ ai_gen_id }}">
+            {{ text_content }}
+          </a>
+        {% else %}
+          <span class="ai-text-section__item-{{ ai_gen_id }}">
+            {{ text_content }}
+          </span>
+        {% endif %}
+        {% unless forloop.last %}
+          {% assign next_index = forloop.index | plus: 1 %}
+          {% liquid
+            assign next_text_key = 'text_' | append: next_index
+            assign next_text_content = block.settings[next_text_key]
+          %}
+          {% if next_text_content != blank and block.settings.show_separators %}
+            <span class="ai-text-section__separator-{{ ai_gen_id }}">
+              {% if block.settings.separator_type == 'bullet' %}
+                •
+              {% else %}
+                |
+              {% endif %}
+            </span>
+          {% endif %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom text section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "page_width",
+      "label": "Page width",
+      "options": [
+        {
+          "value": "theme",
+          "label": "Theme default"
+        },
+        {
+          "value": "narrow",
+          "label": "Narrow (1000px)"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ],
+      "default": "theme"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal row"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical column"
+        }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal row"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical column"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Spacing between items",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Separators"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separators",
+      "label": "Show separators between items",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "separator_type",
+      "label": "Separator type",
+      "options": [
+        {
+          "value": "pipe",
+          "label": "Pipe (|)"
+        },
+        {
+          "value": "bullet",
+          "label": "Bullet (•)"
+        }
+      ],
+      "default": "pipe"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "hover_color",
+      "label": "Hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Text item 1"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 2"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 3"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_3",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 4"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_4",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 5"
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_5",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 6"
+    },
+    {
+      "type": "text",
+      "id": "text_6",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_6",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 7"
+    },
+    {
+      "type": "text",
+      "id": "text_7",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_7",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 8"
+    },
+    {
+      "type": "text",
+      "id": "text_8",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_8",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 9"
+    },
+    {
+      "type": "text",
+      "id": "text_9",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_9",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Text item 10"
+    },
+    {
+      "type": "text",
+      "id": "text_10",
+      "label": "Text content"
+    },
+    {
+      "type": "url",
+      "id": "link_10",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom text section"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

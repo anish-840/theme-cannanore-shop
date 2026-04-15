@@ -1,0 +1,504 @@
+{% doc %}
+  @prompt
+    Create a breadcrumb navigation component that appears only on product pages with the following features: configurable text font size (px/rem options), text color picker, customizable breadcrumb separator (/, >, →), maximum number of lines setting (default 1), ellipsis truncation with configurable character limit, positioned above product title, fully responsive for mobile and desktop, and adjustable spacing/margins for clean layout integration. Include theme editor settings for all customization options., Its not showing the breadcrumps properly and add | separator. Fix the breadcrump, Add settings for the text active page and normal text colors, Add a setting for horizontal and vertical padding, Add different padding and font size settings for mobile and desktop view, Add separate settings for maximum lines, character limit per items and ellipsis switch for desktop and mobile separate, Increase the max Character limit per item in desktop, Add a setting to change the separator color
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-breadcrumb-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.bottom_spacing }}px;
+    margin-top: {{ block.settings.top_spacing }}px;
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+    font-size: {% if block.settings.font_unit == 'rem' %}{{ block.settings.font_size_rem }}rem{% else %}{{ block.settings.font_size_px }}px{% endif %};
+    color: {{ block.settings.text_color }};
+    line-height: 1.4;
+  }
+
+  .ai-breadcrumb-nav-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    {% if block.settings.max_lines == 1 %}
+      white-space: nowrap;
+      overflow: hidden;
+    {% else %}
+      flex-wrap: wrap;
+    {% endif %}
+  }
+
+  .ai-breadcrumb-item-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    {% if block.settings.max_lines == 1 %}
+      flex-shrink: 1;
+      min-width: 0;
+    {% endif %}
+  }
+
+  .ai-breadcrumb-link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    {% if block.settings.max_lines == 1 and block.settings.enable_ellipsis %}
+      max-width: {{ block.settings.char_limit }}ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+    {% endif %}
+  }
+
+  .ai-breadcrumb-link-{{ ai_gen_id }}:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .ai-breadcrumb-current-{{ ai_gen_id }} {
+    color: {{ block.settings.active_color }};
+    font-weight: 500;
+    {% if block.settings.max_lines == 1 and block.settings.enable_ellipsis %}
+      max-width: {{ block.settings.char_limit }}ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+    {% endif %}
+  }
+
+  .ai-breadcrumb-separator-{{ ai_gen_id }} {
+    color: {{ block.settings.separator_color }};
+    opacity: 0.6;
+    user-select: none;
+    flex-shrink: 0;
+    font-size: 0.9em;
+  }
+
+  {% if block.settings.max_lines > 1 %}
+    .ai-breadcrumb-nav-{{ ai_gen_id }} {
+      display: -webkit-box;
+      -webkit-line-clamp: {{ block.settings.max_lines }};
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+    }
+  {% endif %}
+
+  @media screen and (max-width: 749px) {
+    .ai-breadcrumb-{{ ai_gen_id }} {
+      font-size: {% if block.settings.mobile_font_unit == 'rem' %}{{ block.settings.mobile_font_size_rem }}rem{% else %}{{ block.settings.mobile_font_size_px }}px{% endif %};
+      margin-bottom: {{ block.settings.mobile_bottom_spacing }}px;
+      margin-top: {{ block.settings.mobile_top_spacing }}px;
+      padding: {{ block.settings.mobile_vertical_padding }}px {{ block.settings.mobile_horizontal_padding }}px;
+    }
+
+    .ai-breadcrumb-nav-{{ ai_gen_id }} {
+      gap: 6px;
+      {% if block.settings.mobile_max_lines == 1 %}
+        white-space: nowrap;
+        overflow: hidden;
+      {% else %}
+        flex-wrap: wrap;
+      {% endif %}
+    }
+
+    {% if block.settings.mobile_max_lines > 1 %}
+      .ai-breadcrumb-nav-{{ ai_gen_id }} {
+        display: -webkit-box;
+        -webkit-line-clamp: {{ block.settings.mobile_max_lines }};
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        word-break: break-word;
+      }
+    {% endif %}
+
+    .ai-breadcrumb-link-{{ ai_gen_id }} {
+      {% if block.settings.mobile_max_lines == 1 and block.settings.mobile_enable_ellipsis %}
+        max-width: {{ block.settings.mobile_char_limit }}ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+      {% else %}
+        max-width: none;
+        overflow: visible;
+        text-overflow: unset;
+        white-space: normal;
+      {% endif %}
+    }
+
+    .ai-breadcrumb-current-{{ ai_gen_id }} {
+      {% if block.settings.mobile_max_lines == 1 and block.settings.mobile_enable_ellipsis %}
+        max-width: {{ block.settings.mobile_char_limit }}ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+      {% else %}
+        max-width: none;
+        overflow: visible;
+        text-overflow: unset;
+        white-space: normal;
+      {% endif %}
+    }
+  }
+{% endstyle %}
+
+{% if template contains 'product' and product %}
+  <nav
+    class="ai-breadcrumb-{{ ai_gen_id }}"
+    aria-label="Breadcrumb navigation"
+    {{ block.shopify_attributes }}
+  >
+    <ol class="ai-breadcrumb-nav-{{ ai_gen_id }}"><li class="ai-breadcrumb-item-{{ ai_gen_id }}">
+        <a href="{{ routes.root_url }}" class="ai-breadcrumb-link-{{ ai_gen_id }}">
+          {{ block.settings.home_text }}
+        </a>
+      </li>
+
+      {% if product.collections.size > 0 %}
+        <li class="ai-breadcrumb-separator-{{ ai_gen_id }}" aria-hidden="true">
+          {% case block.settings.separator %}
+            {% when 'slash' %}
+              /
+            {% when 'chevron' %}
+              >
+            {% when 'arrow' %}
+              →
+            {% when 'pipe' %}
+              |
+          {% endcase %}
+        </li>
+
+        <li class="ai-breadcrumb-item-{{ ai_gen_id }}">
+          <a href="{{ product.collections.first.url }}" class="ai-breadcrumb-link-{{ ai_gen_id }}">
+            {{ product.collections.first.title }}
+          </a>
+        </li>
+      {% endif %}
+
+      <li class="ai-breadcrumb-separator-{{ ai_gen_id }}" aria-hidden="true">
+        {% case block.settings.separator %}
+          {% when 'slash' %}
+            /
+          {% when 'chevron' %}
+            >
+          {% when 'arrow' %}
+            →
+          {% when 'pipe' %}
+            |
+        {% endcase %}
+      </li>
+
+      <li class="ai-breadcrumb-item-{{ ai_gen_id }}">
+        <span class="ai-breadcrumb-current-{{ ai_gen_id }}" aria-current="page">
+          {{ product.title }}
+        </span>
+      </li>
+    </ol>
+  </nav>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product breadcrumb",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "home_text",
+      "label": "Home text",
+      "default": "Home"
+    },
+    {
+      "type": "select",
+      "id": "separator",
+      "label": "Separator",
+      "options": [
+        {
+          "value": "slash",
+          "label": "/"
+        },
+        {
+          "value": "chevron",
+          "label": ">"
+        },
+        {
+          "value": "arrow",
+          "label": "→"
+        },
+        {
+          "value": "pipe",
+          "label": "|"
+        }
+      ],
+      "default": "chevron"
+    },
+    {
+      "type": "header",
+      "content": "Desktop typography"
+    },
+    {
+      "type": "select",
+      "id": "font_unit",
+      "label": "Font size unit",
+      "options": [
+        {
+          "value": "px",
+          "label": "Pixels (px)"
+        },
+        {
+          "value": "rem",
+          "label": "Relative (rem)"
+        }
+      ],
+      "default": "px"
+    },
+    {
+      "type": "range",
+      "id": "font_size_px",
+      "label": "Font size (px)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_rem",
+      "label": "Font size (rem)",
+      "min": 0.5,
+      "max": 2,
+      "step": 0.1,
+      "unit": "rem",
+      "default": 0.9
+    },
+    {
+      "type": "header",
+      "content": "Mobile typography"
+    },
+    {
+      "type": "select",
+      "id": "mobile_font_unit",
+      "label": "Mobile font size unit",
+      "options": [
+        {
+          "value": "px",
+          "label": "Pixels (px)"
+        },
+        {
+          "value": "rem",
+          "label": "Relative (rem)"
+        }
+      ],
+      "default": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size_px",
+      "label": "Mobile font size (px)",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size_rem",
+      "label": "Mobile font size (rem)",
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.1,
+      "unit": "rem",
+      "default": 0.8
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Base text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "active_color",
+      "label": "Active page color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "max_lines",
+      "label": "Maximum lines",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_ellipsis",
+      "label": "Enable text ellipsis",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "char_limit",
+      "label": "Character limit per item",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "range",
+      "id": "mobile_max_lines",
+      "label": "Mobile maximum lines",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_enable_ellipsis",
+      "label": "Enable mobile text ellipsis",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "mobile_char_limit",
+      "label": "Mobile character limit per item",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing",
+      "label": "Top margin",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing",
+      "label": "Bottom margin",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_top_spacing",
+      "label": "Mobile top margin",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_bottom_spacing",
+      "label": "Mobile bottom margin",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_horizontal_padding",
+      "label": "Mobile horizontal padding",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_vertical_padding",
+      "label": "Mobile vertical padding",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product breadcrumb"
+    }
+  ]
+}
+{% endschema %}

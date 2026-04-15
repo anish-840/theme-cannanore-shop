@@ -1,0 +1,1306 @@
+{% doc %}
+  @prompt
+    Create a mobile-first categories overlay system with the following specifications:
+    
+    **Core Functionality:**
+    - Mobile overlay that slides up above bottom navigation (keeping nav visible)
+    - Toggle between full-screen and semi-height (80%) overlay options
+    - Desktop support with full-screen or centered modal options
+    - Swipe-down to close gesture on mobile
+    - Smooth slide-up and fade-in animations
+    - Independent scrolling for long category lists
+    
+    **Header Section:**
+    - Customizable title text (default: "All Categories")
+    - Close (X) button positioned on the right
+    - Clean, accessible design
+    
+    **Category Grid:**
+    - Image upload capability for each category
+    - Text labels with customizable styling
+    - Configurable links (collections, products, pages, external URLs)
+    - Separate column configuration for mobile and desktop
+    - Adjustable spacing, padding, and alignment options
+    - Drag-and-drop reordering capability
+    - Show/hide individual categories
+    
+    **Visual Customization:**
+    - Background color and image options
+    - Font size, color, and style controls for labels
+    - Configurable backdrop with opacity and color settings
+    - Optional backdrop click-to-close functionality
+    - Modular sections (featured collections, promotional banners)
+    
+    **Interactive Elements:**
+    - Configurable "All Categories" trigger button
+    - Multiple close methods (X button, swipe down, backdrop click)
+    - Touch-friendly mobile interactions
+    - Keyboard accessibility support
+    
+    **Technical Requirements:**
+    - Responsive design with mobile-first approach
+    - CSS animations for smooth transitions
+    - JavaScript for gesture handling and overlay management
+    - Theme settings integration for easy customization
+    - Cross-browser compatibility, Make it a link so that I can link it from some other button and keep it behind the bottom navigation, Its says settings doesnt support partial when I linked it with some other buttons, Give an option configure the mobile height from 50% to 100%. Give a option to change the title font name, Give an option to switch it off and on in mobile and desktop, backdrop is not working. Fix this, Initially hide the section. Only after the click show the section, Keep it behind the bottom mobile navigation and show the bottom navigation at all times, Background color and Text color is not working properly. Fix this, Fix background color setttings, Its not getting applied
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-categories-overlay-trigger-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ block.settings.button_padding }}px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    gap: 8px;
+  }
+
+  .ai-categories-overlay-trigger-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-categories-overlay-backdrop-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.backdrop_color }};
+    opacity: 0;
+    visibility: hidden;
+    z-index: 998;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: none;
+  }
+
+  .ai-categories-overlay-backdrop-{{ ai_gen_id }}.active {
+    opacity: {{ block.settings.backdrop_opacity | divided_by: 100.0 }};
+    visibility: visible;
+    display: block;
+  }
+
+  .ai-categories-overlay-container-{{ ai_gen_id }} {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    background-color: {{ block.settings.overlay_bg_color }} !important;
+    {% if block.settings.overlay_bg_image %}
+      background-image: url('{{ block.settings.overlay_bg_image | image_url: width: 1200}}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% endif %}
+    border-radius: {{ block.settings.overlay_border_radius }}px {{ block.settings.overlay_border_radius }}px 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    max-height: calc(100vh - {{ block.settings.bottom_offset }}px);
+    overflow: hidden;
+    bottom: {{ block.settings.bottom_offset }}px;
+    height: calc({{ block.settings.mobile_height }}vh - {{ block.settings.bottom_offset }}px);
+    display: none;
+  }
+
+  .ai-categories-overlay-container-{{ ai_gen_id }}.initialized {
+    display: block;
+  }
+
+  .ai-categories-overlay-container-{{ ai_gen_id }}.active {
+    transform: translateY(0);
+  }
+
+  .ai-categories-overlay-container-{{ ai_gen_id }}.full-height {
+    height: calc(100vh - {{ block.settings.bottom_offset }}px);
+    border-radius: 0;
+  }
+
+  .ai-categories-overlay-header-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    flex-shrink: 0;
+    background-color: {{ block.settings.overlay_bg_color }} !important;
+  }
+
+  .ai-categories-overlay-header-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background-color: {{ block.settings.title_color | color_modify: 'alpha', 0.3 }};
+    border-radius: 2px;
+  }
+
+  .ai-categories-overlay-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-style: {{ block.settings.title_font.style }};
+    font-size: {{ block.settings.title_font_size }}px;
+    color: {{ block.settings.title_color }} !important;
+    margin: 0;
+  }
+
+  .ai-categories-overlay-close-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: {{ block.settings.title_color }} !important;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  .ai-categories-overlay-close-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.title_color | color_modify: 'alpha', 0.1 }};
+  }
+
+  .ai-categories-overlay-content-{{ ai_gen_id }} {
+    padding: 24px;
+    overflow-y: auto;
+    height: calc(100% - 80px);
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+    background-color: {{ block.settings.overlay_bg_color }} !important;
+  }
+
+  .ai-categories-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-category-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: {{ block.settings.label_color }} !important;
+    padding: {{ block.settings.item_padding }}px;
+    border-radius: {{ block.settings.item_border_radius }}px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .ai-category-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    background-color: {{ block.settings.label_color | color_modify: 'alpha', 0.05 }};
+    color: {{ block.settings.label_color }} !important;
+  }
+
+  .ai-category-item-{{ ai_gen_id }}:visited {
+    color: {{ block.settings.label_color }} !important;
+  }
+
+  .ai-category-image-{{ ai_gen_id }} {
+    width: {{ block.settings.image_size }}px;
+    height: {{ block.settings.image_size }}px;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-category-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-category-image-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+    fill: {{ block.settings.label_color | color_modify: 'alpha', 0.3 }};
+  }
+
+  .ai-category-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_font_size }}px;
+    color: {{ block.settings.label_color }} !important;
+    font-weight: {{ block.settings.label_font_weight }};
+    line-height: 1.2;
+  }
+
+  .ai-categories-link-info-{{ ai_gen_id }} {
+    background-color: #f0f8ff;
+    border: 1px solid #0066cc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    font-family: monospace;
+    font-size: 14px;
+    color: #0066cc;
+  }
+
+  .ai-categories-link-info-{{ ai_gen_id }} strong {
+    display: block;
+    margin-bottom: 8px;
+    font-family: inherit;
+  }
+
+  .ai-categories-link-info-{{ ai_gen_id }} code {
+    background-color: #e6f3ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    word-break: break-all;
+  }
+
+  {% unless block.settings.enable_mobile %}
+    @media screen and (max-width: 749px) {
+      .ai-categories-overlay-{{ ai_gen_id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
+
+  {% unless block.settings.enable_desktop %}
+    @media screen and (min-width: 750px) {
+      .ai-categories-overlay-{{ ai_gen_id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
+
+  @media screen and (min-width: 750px) {
+    .ai-categories-overlay-backdrop-{{ ai_gen_id }} {
+      z-index: 9998;
+    }
+
+    .ai-categories-overlay-container-{{ ai_gen_id }} {
+      z-index: 9999;
+      {% if block.settings.desktop_style == 'modal' %}
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        width: 90%;
+        max-width: 800px;
+        height: auto;
+        max-height: 80vh;
+        border-radius: {{ block.settings.overlay_border_radius }}px;box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        bottom: auto;
+      {% else %}
+        bottom: 0;
+        transform: translateY(100%);
+        height: 100vh;
+        border-radius: 0;
+        max-height: 100vh;
+      {% endif %}
+    }
+
+    .ai-categories-overlay-container-{{ ai_gen_id }}.active {
+      {% if block.settings.desktop_style == 'modal' %}
+        transform: translate(-50%, -50%) scale(1);
+      {% else %}
+        transform: translateY(0);
+      {% endif %}
+    }
+
+    .ai-categories-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    }
+
+    .ai-categories-overlay-header-{{ ai_gen_id }}::before {
+      {% if block.settings.desktop_style == 'modal' %}
+        display: none;
+      {% endif %}
+    }
+
+    .ai-categories-link-info-{{ ai_gen_id }} {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    body.ai-overlay-open-{{ ai_gen_id }} {
+      overflow: hidden;
+      padding-bottom: {{ block.settings.bottom_offset }}px;
+    }
+  }
+{% endstyle %}
+
+<categories-overlay-{{ ai_gen_id }} class="ai-categories-overlay-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_trigger_button %}
+    <a
+      href="#categories-overlay-{{ ai_gen_id }}"
+      class="ai-categories-overlay-trigger-{{ ai_gen_id }}"
+      aria-label="Open categories menu"
+      data-trigger
+    >
+      {% if block.settings.button_icon %}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+      {% endif %}
+      {{ block.settings.button_text }}
+    </a>
+  {% endif %}
+
+  {% if block.settings.show_link_info %}
+    <div class="ai-categories-link-info-{{ ai_gen_id }}">
+      <strong>Link this overlay from other buttons:</strong>
+      <code>#categories-overlay-{{ ai_gen_id }}</code>
+    </div>
+  {% endif %}
+
+  <div class="ai-categories-overlay-backdrop-{{ ai_gen_id }}" data-backdrop></div>
+
+  <div 
+    id="categories-overlay-{{ ai_gen_id }}"
+    class="ai-categories-overlay-container-{{ ai_gen_id }} {% if block.settings.mobile_height == 100 %}full-height{% endif %}"
+    data-overlay>
+    <header class="ai-categories-overlay-header-{{ ai_gen_id }}">
+      <h2 class="ai-categories-overlay-title-{{ ai_gen_id }}">{{ block.settings.overlay_title }}</h2>
+      <button
+        class="ai-categories-overlay-close-{{ ai_gen_id }}"
+        aria-label="Close categories menu"
+        data-close
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <div class="ai-categories-overlay-content-{{ ai_gen_id }}">
+      <div class="ai-categories-grid-{{ ai_gen_id }}">
+        {% for i in (1..12) %}
+          {% liquid
+            assign category_enabled_key = 'category_' | append: i | append: '_enabled'
+            assign category_image_key = 'category_' | append: i | append: '_image'
+            assign category_label_key = 'category_' | append: i | append: '_label'
+            assign category_link_key = 'category_' | append: i | append: '_link'
+
+            assign category_enabled = block.settings[category_enabled_key]
+            assign category_image = block.settings[category_image_key]
+            assign category_label = block.settings[category_label_key]
+            assign category_link = block.settings[category_link_key]
+          %}
+
+          {% if category_enabled and category_label != blank %}
+            <a
+              href="{% if category_link != blank %}{{ category_link }}{% else %}#{% endif %}"
+              class="ai-category-item-{{ ai_gen_id }}"
+              {% if category_link == blank %}onclick="return false;"{% endif %}
+            >
+              <div class="ai-category-image-{{ ai_gen_id }}">
+                {% if category_image %}
+                  <img
+                    src="{{ category_image | image_url: width: 200}}"
+                    alt="{{ category_label | escape }}"
+                    loading="lazy"
+                    width="200"
+                    height="200"
+                  >
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag }}
+                {% endif %}
+              </div>
+              <span class="ai-category-label-{{ ai_gen_id }}">{{ category_label }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</categories-overlay-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CategoriesOverlay{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.isOpen = false;
+        this.isInitialized = false;
+        this.startY = 0;
+        this.currentY = 0;
+        this.isDragging = false;
+        this.isMobile = window.innerWidth < 750;
+      }
+
+      connectedCallback() {
+        this.trigger = this.querySelector('[data-trigger]');
+        this.backdrop = this.querySelector('[data-backdrop]');
+        this.overlay = this.querySelector('[data-overlay]');
+        this.closeBtn = this.querySelector('[data-close]');
+
+        this.setupEventListeners();
+        this.setupGlobalTriggers();
+        this.handleResize();
+        
+        window.addEventListener('resize', () => this.handleResize());
+      }
+
+      handleResize() {
+        this.isMobile = window.innerWidth < 750;
+      }
+
+      initializeOverlay() {
+        if (this.isInitialized) return;
+        
+        this.isInitialized = true;
+        
+        if (this.backdrop) {
+          this.backdrop.style.display = 'block';
+        }
+        
+        if (this.overlay) {
+          this.overlay.classList.add('initialized');
+        }
+      }
+
+      setupEventListeners() {
+        if (this.trigger) {
+          this.trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.open();
+          });
+        }
+
+        if (this.closeBtn) {
+          this.closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.close();
+          });
+        }
+
+        if (this.backdrop) {
+          {% if block.settings.backdrop_close %}
+            this.backdrop.addEventListener('click', (e) => {
+              e.preventDefault();
+              this.close();
+            });
+          {% endif %}
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.isOpen) {
+            this.close();
+          }
+        });
+      }
+
+      setupTouchEvents() {
+        if (this.overlay && !this.touchEventsSetup && this.isMobile) {
+          this.touchEventsSetup = true;
+          this.overlay.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+          this.overlay.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+          this.overlay.addEventListener('touchend', () => this.handleTouchEnd(), { passive: true });
+        }
+      }
+
+      setupGlobalTriggers() {
+        document.addEventListener('click', (e) => {
+          const link = e.target.closest('a[href="#categories-overlay-{{ ai_gen_id }}"]');
+          if (link && link !== this.trigger) {
+            e.preventDefault();
+            this.open();
+          }
+        });
+
+        window.addEventListener('hashchange', () => {
+          if (window.location.hash === '#categories-overlay-{{ ai_gen_id }}') {
+            this.open();
+          } else if (this.isOpen && window.location.hash !== '#categories-overlay-{{ ai_gen_id }}') {
+            this.close();
+          }
+        });
+
+        if (window.location.hash === '#categories-overlay-{{ ai_gen_id }}') {
+          setTimeout(() => this.open(), 100);
+        }
+      }
+
+      handleTouchStart(e) {
+        const content = this.overlay.querySelector('.ai-categories-overlay-content-{{ ai_gen_id }}');
+        if (content && content.scrollTop > 0) return;
+
+        this.startY = e.touches[0].clientY;
+        this.isDragging = false;
+      }
+
+      handleTouchMove(e) {
+        if (this.startY === 0) return;
+
+        const content = this.overlay.querySelector('.ai-categories-overlay-content-{{ ai_gen_id }}');
+        if (content && content.scrollTop > 0) return;
+
+        this.currentY = e.touches[0].clientY;
+        const deltaY = this.currentY - this.startY;
+
+        if (deltaY > 0) {
+          e.preventDefault();
+          this.isDragging = true;
+          const progress = Math.min(deltaY / 200, 1);
+          this.overlay.style.transform = `translateY(${deltaY}px)`;
+          if (this.backdrop) {
+            this.backdrop.style.opacity = `${({{ block.settings.backdrop_opacity | divided_by: 100.0 }}) * (1 - progress)}`;
+          }
+        }
+      }
+
+      handleTouchEnd() {
+        if (!this.isDragging) {
+          this.startY = 0;
+          return;
+        }
+
+        const deltaY = this.currentY - this.startY;
+        
+        if (deltaY > 100) {
+          this.close();
+        } else {
+          this.overlay.style.transform = '';
+          if (this.backdrop) {
+            this.backdrop.style.opacity = '';
+          }
+        }
+
+        this.startY = 0;
+        this.isDragging = false;
+      }
+
+      open() {
+        if (this.isOpen) return;
+        
+        this.initializeOverlay();
+        this.setupTouchEvents();
+        
+        this.isOpen = true;
+        if (this.isMobile) {
+          document.body.classList.add('ai-overlay-open-{{ ai_gen_id }}');
+        } else {
+          document.body.style.overflow = 'hidden';
+        }
+        
+        if (this.backdrop) {
+          this.backdrop.classList.add('active');
+        }
+        
+        requestAnimationFrame(() => {
+          if (this.overlay) {
+            this.overlay.classList.add('active');
+          }
+        });
+
+        if (this.trigger) {
+          this.trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        if (window.location.hash !== '#categories-overlay-{{ ai_gen_id }}') {
+          history.pushState(null, null, '#categories-overlay-{{ ai_gen_id }}');
+        }
+      }
+
+      close() {
+        if (!this.isOpen) return;
+        
+        this.isOpen = false;
+        
+        if (this.isMobile) {
+          document.body.classList.remove('ai-overlay-open-{{ ai_gen_id }}');
+        } else {
+          document.body.style.overflow = '';
+        }
+        
+        if (this.overlay) {
+          this.overlay.classList.remove('active');
+          this.overlay.style.transform = '';
+        }
+        
+        if (this.backdrop) {
+          this.backdrop.classList.remove('active');
+          this.backdrop.style.opacity = '';
+        }
+
+        if (this.trigger) {
+          this.trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        if (window.location.hash === '#categories-overlay-{{ ai_gen_id }}') {
+          history.pushState(null, null, window.location.pathname + window.location.search);
+        }
+      }
+    }
+
+    customElements.define('categories-overlay-{{ ai_gen_id }}', CategoriesOverlay{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Categories overlay",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Display settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile",
+      "label": "Enable on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_desktop",
+      "label": "Enable on desktop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Trigger button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trigger_button",
+      "label": "Show trigger button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_link_info",
+      "label": "Show link info (for development)",
+      "default": true,
+      "info": "Shows the link you can use from other buttons. Hide this in production."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "All Categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_icon",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Button padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Overlay settings"
+    },
+    {
+      "type": "text",
+      "id": "overlay_title",
+      "label": "Overlay title",
+      "default": "All Categories"
+    },
+    {
+      "type": "range",
+      "id": "bottom_offset",
+      "min": 60,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom navigation height",
+      "default": 80,
+      "info": "Height of your bottom navigation bar"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Mobile height",
+      "default": 80
+    },
+    {
+      "type": "select",
+      "id": "desktop_style",
+      "label": "Desktop style",
+      "options": [
+        {
+          "value": "modal",
+          "label": "Centered modal"
+        },
+        {
+          "value": "fullscreen",
+          "label": "Full screen"
+        }
+      ],
+      "default": "modal"
+    },
+    {
+      "type": "color",
+      "id": "overlay_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Backdrop"
+    },
+    {
+      "type": "color",
+      "id": "backdrop_color",
+      "label": "Backdrop color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "backdrop_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Backdrop opacity",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "backdrop_close",
+      "label": "Close on backdrop click",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Header style"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Grid layout"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "label": "Columns on desktop",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Item padding",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Item border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Category images"
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "min": 40,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Image size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Category labels"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "label_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "header",
+      "content": "Category 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_1_enabled",
+      "label": "Enable category 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "category_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_1_label",
+      "label": "Label",
+      "default": "Clothing"
+    },
+    {
+      "type": "url",
+      "id": "category_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_2_enabled",
+      "label": "Enable category 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "category_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_2_label",
+      "label": "Label",
+      "default": "Accessories"
+    },
+    {
+      "type": "url",
+      "id": "category_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_3_enabled",
+      "label": "Enable category 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "category_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_3_label",
+      "label": "Label",
+      "default": "Shoes"
+    },
+    {
+      "type": "url",
+      "id": "category_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_4_enabled",
+      "label": "Enable category 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "category_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_4_label",
+      "label": "Label",
+      "default": "Bags"
+    },
+    {
+      "type": "url",
+      "id": "category_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_5_enabled",
+      "label": "Enable category 5",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "category_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_5_label",
+      "label": "Label",
+      "default": "Jewelry"
+    },
+    {
+      "type": "url",
+      "id": "category_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_6_enabled",
+      "label": "Enable category 6",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "category_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_6_label",
+      "label": "Label",
+      "default": "Electronics"
+    },
+    {
+      "type": "url",
+      "id": "category_6_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_7_enabled",
+      "label": "Enable category 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_7_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_7_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "category_7_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_8_enabled",
+      "label": "Enable category 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_8_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_8_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "category_8_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_9_enabled",
+      "label": "Enable category 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_9_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_9_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "category_9_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_10_enabled",
+      "label": "Enable category 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_10_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_10_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "category_10_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 11"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_11_enabled",
+      "label": "Enable category 11"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_11_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_11_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "category_11_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 12"
+    },
+    {
+      "type": "checkbox",
+      "id": "category_12_enabled",
+      "label": "Enable category 12"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_12_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_12_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "category_12_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categories overlay"
+    }
+  ]
+}
+{% endschema %}

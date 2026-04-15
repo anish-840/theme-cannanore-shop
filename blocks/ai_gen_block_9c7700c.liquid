@@ -1,0 +1,485 @@
+{% doc %}
+  @prompt
+    Create a customizable search bar component with the following features:
+    
+    1. Width control options:
+       - Full width setting
+       - Custom pixel width input
+       - Percentage width input
+    
+    2. Customization settings:
+       - Placeholder text customization
+       - Border radius adjustment
+       - Color options for background, text, and border
+       - Top and bottom padding controls
+       - Height and width section controls
+    
+    3. Responsive and accessibility features:
+       - Mobile-responsive design
+       - Proper ARIA labels and keyboard navigation
+       - Screen reader compatibility
+    
+    4. Display controls:
+       - Show/hide on desktop setting
+       - Search across entire product catalog option
+    
+    5. Styling options:
+       - Adjustable spacing that works properly
+       - Modern, clean design
+       - Hover and focus states
+    
+    The component should include proper Liquid settings schema for easy customization in the theme editor, with intuitive controls for merchants to adjust all these properties without coding., Width settings is not working. Fix this, Give a setting for icon background color
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-search-bar-container-{{ ai_gen_id }} {
+    width: 100%;
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    {% if block.settings.hide_on_desktop %}
+      display: none;
+    {% endif %}
+  }
+
+  .ai-search-bar-wrapper-{{ ai_gen_id }} {
+    {% if block.settings.width_type == 'full' %}
+      width: 100%;
+    {% elsif block.settings.width_type == 'pixels' %}
+      width: {{ block.settings.width_pixels }}px;
+      max-width: 100%;
+    {% elsif block.settings.width_type == 'percentage' %}
+      width: {{ block.settings.width_percentage }}%;
+    {% endif %}
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .ai-search-form-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-search-input-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.search_height }}px;
+    padding:12px 50px 12px 16px;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    border: 2px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .ai-search-input-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.border_hover_color }};
+  }
+
+  .ai-search-input-{{ ai_gen_id }}:focus {
+    border-color: {{ block.settings.border_focus_color }};
+    box-shadow: 0 0 0 3px {{ block.settings.border_focus_color | color_modify: 'alpha', 0.2 }};
+  }
+
+  .ai-search-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+    opacity: 1;
+  }
+
+  .ai-search-button-{{ ai_gen_id }} {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: {{ block.settings.icon_background_color }};
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: {{ block.settings.icon_color }};
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.icon_border_radius }}px;
+  }
+
+  .ai-search-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.icon_background_hover_color }};
+    color: {{ block.settings.icon_hover_color }};
+  }
+
+  .ai-search-button-{{ ai_gen_id }}:focus {
+    outline: 2px solid {{ block.settings.border_focus_color }};
+    outline-offset: 2px;
+    border-radius: {{ block.settings.icon_border_radius }}px;
+  }
+
+  .ai-search-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-search-bar-container-{{ ai_gen_id }} {
+      {% if block.settings.hide_on_desktop %}
+        display: block;
+      {% endif %}
+    }
+
+    .ai-search-bar-wrapper-{{ ai_gen_id }} {
+      width: 100% !important;
+      padding: 0 16px;
+      box-sizing: border-box;
+    }
+
+    .ai-search-input-{{ ai_gen_id }} {
+      height: {{ block.settings.search_height | times: 0.9 }}px;
+      padding: 10px 45px 10px 14px;
+      font-size: 16px;
+    }
+
+    .ai-search-button-{{ ai_gen_id }} {
+      right: 6px;
+      padding: 6px;
+    }
+
+    .ai-search-icon-{{ ai_gen_id }} {
+      width: 18px;
+      height: 18px;
+    }
+  }
+{% endstyle %}
+
+<search-bar-{{ ai_gen_id }} class="ai-search-bar-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-search-bar-wrapper-{{ ai_gen_id }}">
+    <form
+      action="{{ routes.search_url }}"
+      method="get"
+      role="search"
+      class="ai-search-form-{{ ai_gen_id }}"
+    >
+      <label for="ai-search-input-{{ ai_gen_id }}" class="visually-hidden">
+        {{ block.settings.placeholder_text }}
+      </label>
+      <input
+        type="search"
+        name="q"
+        id="ai-search-input-{{ ai_gen_id }}"
+        class="ai-search-input-{{ ai_gen_id }}"
+        placeholder="{{ block.settings.placeholder_text }}"
+        value="{{ search.terms | escape }}"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        aria-label="{{ block.settings.placeholder_text }}"
+        {% if block.settings.search_all_products %}
+          data-search-type="product"
+        {% endif %}
+      >
+      <button
+        type="submit"
+        class="ai-search-button-{{ ai_gen_id }}"
+        aria-label="Search"
+      >
+        <svg
+          class="ai-search-icon-{{ ai_gen_id }}"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+    </form>
+  </div>
+</search-bar-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class SearchBar{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.form = this.querySelector('.ai-search-form-{{ ai_gen_id }}');
+        this.input = this.querySelector('.ai-search-input-{{ ai_gen_id }}');
+        this.button = this.querySelector('.ai-search-button-{{ ai_gen_id }}');
+        
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.form.addEventListener('submit', (event) => {
+          const searchTerm = this.input.value.trim();
+          if (!searchTerm) {
+            event.preventDefault();
+            this.input.focus();
+            return false;
+          }
+
+          if (this.input.dataset.searchType === 'product') {
+            const url = new URL(this.form.action, window.location.origin);
+            url.searchParams.set('q', searchTerm);
+            url.searchParams.set('type', 'product');
+            window.location.href = url.toString();
+            event.preventDefault();
+          }
+        });
+
+        this.input.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            this.input.blur();
+          }
+        });
+
+        this.input.addEventListener('input', () => {
+          if (this.input.value.length > 0) {
+            this.input.setAttribute('aria-expanded', 'true');
+          } else {
+            this.input.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    }
+
+    customElements.define('search-bar-{{ ai_gen_id }}', SearchBar{{ ai_gen_id }});
+  })();
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Search bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Placeholder text",
+      "default": "Search products..."
+    },
+    {
+      "type": "checkbox",
+      "id": "search_all_products",
+      "label": "Search products only",
+      "info": "When enabled, search will only return product results",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Width settings"
+    },
+    {
+      "type": "select",
+      "id": "width_type",
+      "label": "Width type",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "pixels",
+          "label": "Custom pixels"
+        },
+        {
+          "value": "percentage",
+          "label": "Percentage"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "width_pixels",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "label": "Width in pixels",
+      "default": 600,
+      "info": "Only applies when 'Custom pixels' is selected"
+    },
+    {
+      "type": "range",
+      "id": "width_percentage",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Width percentage",
+      "default": 80,
+      "info": "Only applies when 'Percentage' is selected"
+    },
+    {
+      "type": "header",
+      "content": "Size settings"
+    },
+    {
+      "type": "range",
+      "id": "search_height",
+      "min": 40,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Search bar height",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "border_hover_color",
+      "label": "Border hover color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "border_focus_color",
+      "label": "Border focus color",
+      "default": "#0066cc"
+    },
+    {
+      "type": "header",
+      "content": "Search icon"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "icon_hover_color",
+      "label": "Icon hover color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Icon background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "icon_background_hover_color",
+      "label": "Icon background hover color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Display settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "info": "When enabled, search bar will only show on mobile devices",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Search bar"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

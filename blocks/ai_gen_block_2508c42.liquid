@@ -1,0 +1,760 @@
+{% doc %}
+  @prompt
+    Create a customizable search bar component with adjustable width settings. Include options to control the search bar width (full width, custom pixel width, or percentage width), placeholder text customization, and styling options like border radius and colors. Make it responsive and accessible., Add a setting for top and bottom padding for the searchbar, The spacing is not workin. Fix this, Add a setting to adjust the height and width of the section, Add a setting to show/hide on desktop, Add a setting to search it in all the product catalog
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-search-bar-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100%;
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {% if block.settings.section_height_type == 'custom' %}
+      min-height: {{ block.settings.section_height }}px;
+      display: flex;
+      align-items: center;
+    {% endif %}
+  }
+
+  {% unless block.settings.show_on_desktop %}
+    @media screen and (min-width: 750px) {
+      .ai-search-bar-{{ ai_gen_id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
+
+  {% unless block.settings.show_on_mobile %}
+    @media screen and (max-width: 749px) {
+      .ai-search-bar-{{ ai_gen_id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
+
+  .ai-search-bar-container-{{ ai_gen_id }} {
+    {% if block.settings.width_type == 'full' %}
+      width: 100%;
+    {% elsif block.settings.width_type == 'pixels' %}
+      width: {{ block.settings.width_pixels }}px;
+      max-width: 100%;
+    {% elsif block.settings.width_type == 'percentage' %}
+      width: {{ block.settings.width_percentage }}%;
+      max-width: 100%;
+    {% endif %}
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .ai-search-form-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: {{ block.settings.background_color }};
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    {% if block.settings.search_bar_height_type == 'custom' %}
+      height: {{ block.settings.search_bar_height }}px;
+    {% endif %}
+  }
+
+  .ai-search-form-{{ ai_gen_id }}:focus-within {
+    border-color: {{ block.settings.focus_border_color }};
+    box-shadow: 0 0 0 2px {{ block.settings.focus_border_color }}33;
+  }
+
+  .ai-search-input-{{ ai_gen_id }} {
+    flex: 1;
+    padding: {{ block.settings.input_padding }}px;
+    border: none;
+    background: transparent;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+    outline: none;
+    width: 100%;
+    {% if block.settings.search_bar_height_type == 'custom' %}
+      height: 100%;
+    {% endif %}
+  }
+
+  .ai-search-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+    opacity: 1;
+  }
+
+  .ai-search-button-{{ ai_gen_id }} {
+    padding: {{ block.settings.input_padding }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_color }};
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    min-width: 44px;
+    min-height: 44px;
+    {% if block.settings.search_bar_height_type == 'custom' %}
+      height: 100%;
+    {% endif %}
+  }
+
+  .ai-search-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+  }
+
+  .ai-search-button-{{ ai_gen_id }}:focus {
+    outline: 2px solid {{ block.settings.focus_border_color }};
+    outline-offset: -2px;
+  }
+
+  .ai-search-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  .ai-search-results-{{ ai_gen_id }} {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: {{ block.settings.background_color }};
+    border: 1px solid {{ block.settings.border_color }};
+    border-top: none;
+    border-radius: 0 0 {{ block.settings.border_radius }}px {{ block.settings.border_radius }}px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+  }
+
+  .ai-search-results-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-search-result-item-{{ ai_gen_id }} {
+    padding: 12px {{ block.settings.input_padding }}px;
+    border-bottom: 1px solid {{ block.settings.border_color }};
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ai-search-result-item-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.focus_border_color }}11;
+  }
+
+  .ai-search-result-item-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+  }
+
+  .ai-search-result-image-{{ ai_gen_id }} {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .ai-search-result-content-{{ ai_gen_id }} {
+    flex-grow: 1;
+  }
+
+  .ai-search-result-title-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 4px 0;
+    font-weight: 500;
+  }
+
+  .ai-search-result-price-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.placeholder_color }};
+    margin: 0;
+  }
+
+  .ai-search-no-results-{{ ai_gen_id }} {
+    padding: 16px {{ block.settings.input_padding }}px;
+    text-align: center;
+    color: {{ block.settings.placeholder_color }};
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-search-bar-container-{{ ai_gen_id }} {
+      {% if block.settings.mobile_full_width %}
+        width: 100% !important;
+      {% endif %}
+    }
+
+    .ai-search-input-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+    }
+
+    .ai-search-button-{{ ai_gen_id }} {
+      padding: {{ block.settings.input_padding | times: 0.8 }}px;
+    }
+
+    {% if block.settings.section_height_type == 'custom' %}
+      .ai-search-bar-{{ ai_gen_id }} {
+        min-height: {{ block.settings.section_height | times: 0.8 }}px;
+      }
+    {% endif %}
+
+    {% if block.settings.search_bar_height_type == 'custom' %}
+      .ai-search-form-{{ ai_gen_id }} {
+        height: {{ block.settings.search_bar_height | times: 0.9 }}px;
+      }
+    {% endif %}
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-search-input-{{ ai_gen_id }} {
+      padding: {{ block.settings.input_padding | times: 0.8 }}px;
+    }
+
+    {% if block.settings.section_height_type == 'custom' %}
+      .ai-search-bar-{{ ai_gen_id }} {
+        min-height: {{ block.settings.section_height | times: 0.7 }}px;
+      }
+    {% endif %}
+
+    {% if block.settings.search_bar_height_type == 'custom' %}
+      .ai-search-form-{{ ai_gen_id }} {
+        height: {{ block.settings.search_bar_height | times: 0.8 }}px;
+      }
+    {% endif %}
+  }
+{% endstyle %}
+
+<search-bar-{{ ai_gen_id }} class="ai-search-bar-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-search-bar-container-{{ ai_gen_id }}">
+    <form 
+      action="{{ routes.search_url }}" 
+      method="get" 
+      role="search" 
+      class="ai-search-form-{{ ai_gen_id }}"
+    >
+      <label for="ai-search-input-{{ ai_gen_id }}" class="visually-hidden">
+        {{ block.settings.search_label }}
+      </label>
+      <input
+        id="ai-search-input-{{ ai_gen_id }}"
+        class="ai-search-input-{{ ai_gen_id }}"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ block.settings.placeholder_text | escape }}"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        aria-label="{{ block.settings.search_label }}"
+        {% if block.settings.enable_predictive_search %}
+          data-predictive-search
+        {% endif %}
+      >
+      {% if block.settings.search_all_products %}
+        <input type="hidden" name="type" value="product">
+        <input type="hidden" name="options[prefix]" value="last">
+      {% endif %}
+      <button
+        type="submit"
+        class="ai-search-button-{{ ai_gen_id }}"
+        aria-label="{{ block.settings.button_label }}"
+      >
+        <svg
+          class="ai-search-icon-{{ ai_gen_id }}" 
+          viewBox="0 0 24 24" 
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+    </form>
+    <div class="ai-search-results-{{ ai_gen_id }}" id="ai-search-results-{{ ai_gen_id }}"></div>
+  </div>
+</search-bar-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class SearchBar{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.form = this.querySelector('.ai-search-form-{{ ai_gen_id }}');
+        this.input = this.querySelector('.ai-search-input-{{ ai_gen_id }}');
+        this.resultsContainer = this.querySelector('.ai-search-results-{{ ai_gen_id }}');
+        this.searchTimeout = null;
+        this.isSearchAllProducts = {{ block.settings.search_all_products | json }};
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+        this.setupPredictiveSearch();
+      }
+
+      setupEventListeners() {
+        this.form.addEventListener('submit', (event) => {
+          if (!this.input.value.trim()) {
+            event.preventDefault();
+            this.input.focus();
+          }
+        });
+
+        this.input.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            this.hideResults();
+            this.input.blur();
+          }
+        });
+
+        this.input.addEventListener('blur', () => {
+          setTimeout(() => {
+            this.hideResults();
+          }, 200);
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!this.contains(event.target)) {
+            this.hideResults();
+          }
+        });
+      }
+
+      setupPredictiveSearch() {
+        if (!this.input.hasAttribute('data-predictive-search')) return;
+
+        this.input.addEventListener('input', (event) => {
+          clearTimeout(this.searchTimeout);
+          const query = event.target.value.trim();
+          
+          if (query.length < 2) {
+            this.hideResults();
+            return;
+          }
+          
+          this.searchTimeout = setTimeout(() => {
+            this.performPredictiveSearch(query);
+          }, 300);
+        });
+      }
+
+      performPredictiveSearch(query) {
+        let searchUrl = `${window.routes.predictive_search_url}?q=${encodeURIComponent(query)}`;
+        
+        if (this.isSearchAllProducts) {
+          searchUrl += '&resources[type]=product&resources[limit]=8&resources[options][unavailable_products]=last&resources[options][fields]=title,product_type,variants.title,vendor';
+        } else {
+          searchUrl += '&resources[type]=product,collection,page,article&resources[limit]=6';
+        }
+        
+        fetch(searchUrl)
+          .then(response => response.json())
+          .then(data => {
+            this.displayPredictiveResults(data);
+          })
+          .catch(error => {
+            console.error('Predictive search error:', error);
+          });
+      }
+
+      displayPredictiveResults(data) {
+        if (!data.resources || !data.resources.results) {
+          this.hideResults();
+          return;
+        }
+
+        const results = data.resources.results;
+        let html = '';
+
+        if (this.isSearchAllProducts) {
+          const products = results.products || [];
+          if (products.length > 0) {
+            products.forEach(product => {
+              const imageUrl = product.featured_image ? product.featured_image.url : '';
+              const price = product.price ? this.formatMoney(product.price) : '';
+              html += `
+                <div class="ai-search-result-item-{{ ai_gen_id }}" onclick="window.location.href='${product.url}'">
+                  ${imageUrl ? `<img src="${imageUrl}" alt="${product.title}" class="ai-search-result-image-{{ ai_gen_id }}" loading="lazy">` : ''}
+                  <div class="ai-search-result-content-{{ ai_gen_id }}">
+                    <h4 class="ai-search-result-title-{{ ai_gen_id }}">${product.title}</h4>
+                    ${price ? `<p class="ai-search-result-price-{{ ai_gen_id }}">${price}</p>` : ''}
+                  </div>
+                </div>
+              `;
+            });
+          }
+        } else {
+          ['products', 'collections', 'pages', 'articles'].forEach(type => {
+            if (results[type] && results[type].length > 0) {
+              results[type].forEach(item => {
+                const imageUrl = item.featured_image ? item.featured_image.url : '';
+                const price = item.price ? this.formatMoney(item.price) : '';
+                
+                html += `
+                  <div class="ai-search-result-item-{{ ai_gen_id }}" onclick="window.location.href='${item.url}'">
+                    ${imageUrl ? `<img src="${imageUrl}" alt="${item.title}" class="ai-search-result-image-{{ ai_gen_id }}" loading="lazy">` : ''}
+                    <div class="ai-search-result-content-{{ ai_gen_id }}">
+                      <h4 class="ai-search-result-title-{{ ai_gen_id }}">${item.title}</h4>
+                      ${price ? `<p class="ai-search-result-price-{{ ai_gen_id }}">${price}</p>` : ''}
+                    </div>
+                  </div>
+                `;
+              });
+            }
+          });
+        }
+
+        if (html === '') {
+          html = `<div class="ai-search-no-results-{{ ai_gen_id }}">No results found</div>`;
+        }
+
+        this.resultsContainer.innerHTML = html;
+        this.showResults();
+      }
+
+      formatMoney(cents) {
+        return new Intl.NumberFormat(document.documentElement.lang || 'en', {
+          style: 'currency',
+          currency: window.Shopify?.currency?.active || 'USD'
+        }).format(cents / 100);
+      }
+
+      showResults() {
+        this.resultsContainer.classList.add('active');
+      }
+
+      hideResults() {
+        this.resultsContainer.classList.remove('active');
+      }
+    }
+
+    customElements.define('search-bar-{{ ai_gen_id }}', SearchBar{{ ai_gen_id }});
+  })();
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Search bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_desktop",
+      "label": "Show on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Search settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_all_products",
+      "label": "Search all products only",
+      "info": "When enabled, search will only return products from the entire catalog. When disabled, search will include products, collections, pages, and articles.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_predictive_search",
+      "label": "Enable predictive search",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section dimensions"
+    },
+    {
+      "type": "select",
+      "id": "section_height_type",
+      "label": "Section height",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 100,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Section height",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Search bar dimensions"
+    },
+    {
+      "type": "select",
+      "id": "search_bar_height_type",
+      "label": "Search bar height",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "range",
+      "id": "search_bar_height",
+      "min": 40,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Search bar height",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "width_type",
+      "label": "Width type",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "pixels",
+          "label": "Custom pixels"
+        },
+        {
+          "value": "percentage",
+          "label": "Percentage"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "width_pixels",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Width in pixels",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "width_percentage",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Width percentage",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_full_width",
+      "label": "Full width on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Placeholder text",
+      "default": "Search products..."
+    },
+    {
+      "type": "text",
+      "id": "search_label",
+      "label": "Search label",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Search"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "input_padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Input padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "focus_border_color",
+      "label": "Focus border",
+      "default": "#007acc"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#007acc"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover background",
+      "default": "#005a99"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button icon",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Search bar"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}
