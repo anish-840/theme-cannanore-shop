@@ -590,13 +590,23 @@
       "name": "New Arrivals",
       "settings": {
         "heading": "New Arrivals",
-        "all_products_link": "",
-        "all_products_text": "View All",
+        "view_all_link": "shopify://collections/bedsheets",
+        "view_all_text": "View All Collections",
+        "header_color": "#000000",
+        "view_btn_bg": "#e5d8b8",
+        "view_btn_text": "#9e0505",
+        "view_btn_radius": 6,
+        "view_btn_border": 0,
+        "padding_top": 40,
+        "padding_bottom": 40,
         "featured_product": "brick-red-floral-cushion-cover",
         "btn_bg": "#9e0505",
         "btn_text": "#e5d8b8",
         "btn_radius": 4,
-        "btn_position": "bottom-center"
+        "btn_position": "bottom-center",
+        "title_color": "#000000",
+        "price_color": "#666666",
+        "title_lines": 1
       }
     },
     "featured_collection": {
