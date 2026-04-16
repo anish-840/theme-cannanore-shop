@@ -14,6 +14,16 @@
     { "type": "range", "id": "view_btn_radius", "label": "Button Radius", "min": 0, "max": 50, "step": 2, "default": 6 },
     { "type": "range", "id": "view_btn_border", "label": "Button Border Width", "min": 0, "max": 5, "step": 1, "default": 1 },
 
+    {
+      "type": "range",
+      "id": "view_btn_font_size",
+      "label": "View All Button Font Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14
+    },
+
     { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "step": 5, "default": 40 },
     { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "step": 5, "default": 40 },
 
@@ -78,6 +88,7 @@
     --view-text: {{ section.settings.view_btn_text }};
     --view-radius: {{ section.settings.view_btn_radius }}px;
     --view-border: {{ section.settings.view_btn_border }}px;
+    --view-font-size: {{ section.settings.view_btn_font_size }}px;
 
     --title-color: {{ section.settings.title_color }};
     --price-color: {{ section.settings.price_color }};
@@ -164,6 +175,7 @@
   color: var(--header-color);
 }
 
+/* UPDATED BUTTON */
 .na-view-btn {
   background: var(--view-bg);
   color: var(--view-text);
@@ -171,6 +183,7 @@
   border: var(--view-border) solid var(--view-text);
   padding: 8px 16px;
   text-decoration:none;
+  font-size: var(--view-font-size);
 }
 
 .na-grid {
@@ -203,7 +216,6 @@
   object-fit:cover;
 }
 
-/* OVERLAY */
 .na-overlay {
   position:absolute;
   inset:0;
@@ -218,7 +230,6 @@
   opacity:1;
 }
 
-/* POSITION SYSTEM */
 .new-arrivals[data-position="top-left"] .na-overlay {justify-content:flex-start;align-items:flex-start;}
 .new-arrivals[data-position="top-center"] .na-overlay {justify-content:center;align-items:flex-start;}
 .new-arrivals[data-position="top-right"] .na-overlay {justify-content:flex-end;align-items:flex-start;}
@@ -233,7 +244,6 @@
   padding:10px 18px;
 }
 
-/* 🔥 NEW GAP CONTROL */
 .na-info {
   margin-top: var(--info-gap);
 }
@@ -259,36 +269,3 @@
   .na-grid{grid-template-columns:1fr;}
 }
 </style>
-
-<script>
-document.querySelectorAll('.na-atc-form').forEach(form=>{
-  form.addEventListener('submit',async(e)=>{
-    e.preventDefault();
-
-    const btn=form.querySelector('button');
-    const id=form.querySelector('[name="id"]').value;
-
-    btn.innerText="Adding...";
-    btn.disabled=true;
-
-    await fetch('/cart/add.js',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({id,quantity:1})
-    });
-
-    const cart=await fetch('/cart.js').then(r=>r.json());
-
-    document.querySelectorAll('[data-cart-count], .cart-count-bubble span').forEach(el=>{
-      el.textContent=cart.item_count;
-    });
-
-    btn.innerText="Added ✓";
-
-    setTimeout(()=>{
-      btn.innerText="Add to Cart";
-      btn.disabled=false;
-    },1000);
-  });
-});
-</script>
