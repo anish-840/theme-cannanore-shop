@@ -39,7 +39,17 @@
 
     { "type": "color", "id": "title_color", "label": "Product Title Color", "default": "#000000" },
     { "type": "color", "id": "price_color", "label": "Product Price Color", "default": "#666666" },
-    { "type": "range", "id": "title_lines", "label": "Product Title Lines", "min": 1, "max": 4, "step": 1, "default": 2 }
+    { "type": "range", "id": "title_lines", "label": "Product Title Lines", "min": 1, "max": 4, "step": 1, "default": 2 },
+
+    {
+      "type": "range",
+      "id": "info_spacing",
+      "label": "Spacing Between Image & Product Info",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 10
+    }
   ],
   "blocks": [
     {
@@ -72,6 +82,8 @@
     --title-color: {{ section.settings.title_color }};
     --price-color: {{ section.settings.price_color }};
     --title-lines: {{ section.settings.title_lines }};
+
+    --info-gap: {{ section.settings.info_spacing }}px;
 
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -191,7 +203,7 @@
   object-fit:cover;
 }
 
-/* FIXED OVERLAY */
+/* OVERLAY */
 .na-overlay {
   position:absolute;
   inset:0;
@@ -219,6 +231,11 @@
   border-radius:var(--btn-radius);
   border:none;
   padding:10px 18px;
+}
+
+/* 🔥 NEW GAP CONTROL */
+.na-info {
+  margin-top: var(--info-gap);
 }
 
 .na-info h3,
