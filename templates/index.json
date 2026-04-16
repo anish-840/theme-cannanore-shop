@@ -597,6 +597,7 @@
         "view_btn_text": "#9e0505",
         "view_btn_radius": 6,
         "view_btn_border": 0,
+        "view_btn_font_size": 14,
         "padding_top": 40,
         "padding_bottom": 40,
         "featured_product": "brick-red-floral-cushion-cover",
@@ -608,6 +609,20 @@
         "price_color": "#666666",
         "title_lines": 1,
         "info_spacing": 10
+      }
+    },
+    "about_owner_k8Af4h": {
+      "type": "about-owner",
+      "name": "About Owner",
+      "settings": {
+        "heading": "Meet the Founder",
+        "description": "Write something compelling about the owner. Their journey, vision, and what makes the brand special.",
+        "bg_color": "#e5d8b8",
+        "text_color": "#6A6A6A",
+        "heading_size": 36,
+        "text_size": 16,
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "featured_collection": {
@@ -669,43 +684,12 @@
         "padding_bottom": 0
       }
     },
-    "rich_text_E48AU9": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_bYNBq3": {
-          "type": "heading",
-          "settings": {
-            "heading": "New Arrivals",
-            "heading_size": "h2"
-          }
-        },
-        "text_JyTUfn": {
-          "type": "text",
-          "settings": {
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "heading_bYNBq3",
-        "text_JyTUfn"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
-        "full_width": true,
-        "padding_top": 56,
-        "padding_bottom": 0
-      }
-    },
     "featured_collection_M36YjG": {
       "type": "featured-collection",
       "settings": {
         "collection": "towels",
         "products_to_show": 5,
-        "title": "",
+        "title": "New Arrivals",
         "title_max_lines": 1,
         "product_title_font_size": 15,
         "header_align": "center",
@@ -1439,8 +1423,8 @@
     "collection_list_caurosel_QMAxfF",
     "collection_list_caurosel_6BDGbr",
     "new_arrivals_NEzLPj",
+    "about_owner_k8Af4h",
     "featured_collection",
-    "rich_text_E48AU9",
     "featured_collection_M36YjG",
     "featured_collection_zXCKBU",
     "rich_text_7RNCDJ",
