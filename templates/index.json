@@ -592,7 +592,7 @@
         "heading": "New Arrivals",
         "view_all_link": "shopify://collections/bedsheets",
         "view_all_text": "View All Collections",
-        "header_color": "#000000",
+        "header_color": "#9e0505",
         "view_btn_bg": "#e5d8b8",
         "view_btn_text": "#9e0505",
         "view_btn_radius": 6,
@@ -606,7 +606,8 @@
         "btn_position": "bottom-center",
         "title_color": "#000000",
         "price_color": "#666666",
-        "title_lines": 1
+        "title_lines": 1,
+        "info_spacing": 10
       }
     },
     "featured_collection": {
