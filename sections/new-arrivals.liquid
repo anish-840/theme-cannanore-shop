@@ -63,31 +63,33 @@
 
   <div class="na-grid">
 
-    <!-- Featured -->
+    <!-- LEFT FEATURED -->
     {% assign product = all_products[section.settings.featured_product] %}
     {% if product %}
-    <div class="na-card">
-      <div class="na-image-wrapper">
-        <a href="{{ product.url }}">
-          <img src="{{ product.featured_image | image_url: width: 900 }}">
-        </a>
+    <div class="na-featured">
+      <div class="na-card">
+        <div class="na-image-wrapper">
+          <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | image_url: width: 900 }}">
+          </a>
 
-        <div class="na-overlay">
-          <form class="na-atc-form">
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-            <button type="submit">Add to Cart</button>
-          </form>
+          <div class="na-overlay">
+            <form class="na-atc-form">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+              <button type="submit">Add to Cart</button>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <div class="na-info">
-        <h3>{{ product.title }}</h3>
-        <span>{{ product.price | money }}</span>
+        <div class="na-info">
+          <h3>{{ product.title }}</h3>
+          <span>{{ product.price | money }}</span>
+        </div>
       </div>
     </div>
     {% endif %}
 
-    <!-- Grid -->
+    <!-- RIGHT GRID -->
     <div class="na-products">
       {% for block in section.blocks %}
         {% assign p = all_products[block.settings.product] %}
@@ -125,27 +127,50 @@
   margin-bottom:20px;
 }
 
+/* MAIN GRID */
 .na-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:20px;
+  align-items:stretch;
 }
 
+/* FORCE SAME HEIGHT */
+.na-featured,
+.na-products {
+  height:100%;
+}
+
+/* RIGHT GRID FIX */
 .na-products {
   display:grid;
   grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
   gap:15px;
+  height:100%;
 }
 
+/* CARD STRUCTURE */
+.na-card {
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+/* IMAGE */
 .na-image-wrapper {
   position:relative;
+  flex:1;
 }
 
 .na-image-wrapper img {
   width:100%;
+  height:100%;
+  object-fit:cover;
   display:block;
 }
 
+/* OVERLAY */
 .na-overlay {
   position:absolute;
   inset:0;
@@ -156,6 +181,7 @@
   transition:.3s;
 }
 
+/* BUTTON */
 .na-overlay button {
   background:var(--btn-bg);
   color:var(--btn-text);
@@ -165,11 +191,12 @@
   cursor:pointer;
 }
 
+/* HOVER */
 .na-image-wrapper:hover .na-overlay {
   opacity:1;
 }
 
-/* POSITION */
+/* POSITION SYSTEM */
 .new-arrivals[data-position="top-left"] .na-overlay {justify-content:flex-start;align-items:flex-start;}
 .new-arrivals[data-position="top-center"] .na-overlay {justify-content:center;align-items:flex-start;}
 .new-arrivals[data-position="top-right"] .na-overlay {justify-content:flex-end;align-items:flex-start;}
@@ -180,6 +207,7 @@
 .new-arrivals[data-position="bottom-center"] .na-overlay {justify-content:center;align-items:flex-end;}
 .new-arrivals[data-position="bottom-right"] .na-overlay {justify-content:flex-end;align-items:flex-end;}
 
+/* MOBILE */
 @media(max-width:768px){
   .na-grid{grid-template-columns:1fr;}
 }
@@ -206,12 +234,10 @@ document.querySelectorAll('.na-atc-form').forEach(form=>{
       const res=await fetch('/cart.js');
       const cart=await res.json();
 
-      // Update cart count
       document.querySelectorAll('[data-cart-count], .cart-count-bubble span').forEach(el=>{
         el.textContent=cart.item_count;
       });
 
-      // Trigger drawer update
       document.dispatchEvent(new CustomEvent('cart:updated',{detail:{cart}}));
 
       btn.innerText="Added ✓";
