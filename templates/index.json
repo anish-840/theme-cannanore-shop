@@ -677,6 +677,56 @@
         "padding_bottom": 40
       }
     },
+    "customer_review_fzbgpX": {
+      "type": "customer-review",
+      "blocks": {
+        "review_JHQnHk": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_text": "This product completely changed the way I do things. Highly recommended to anyone looking for great quality!",
+            "name": "John Doe",
+            "product_name": "Signature Collection"
+          }
+        },
+        "review_Xh9FLX": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_text": "This product completely changed the way I do things. Highly recommended to anyone looking for great quality!",
+            "name": "John Doe",
+            "product_name": "Signature Collection"
+          }
+        },
+        "review_gQcgtr": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_text": "This product completely changed the way I do things. Highly recommended to anyone looking for great quality!",
+            "name": "John Doe",
+            "product_name": "Signature Collection"
+          }
+        }
+      },
+      "block_order": [
+        "review_JHQnHk",
+        "review_Xh9FLX",
+        "review_gQcgtr"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "heading": "What Our Customers Say",
+        "bg_color": "#e5d8b8",
+        "text_color": "#333333",
+        "star_color": "#FFB800",
+        "desktop_review_size": 24,
+        "desktop_name_size": 16,
+        "mobile_review_size": 18,
+        "mobile_name_size": 14,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -1415,6 +1465,7 @@
     "new_arrivals_NEzLPj",
     "about_owner_k8Af4h",
     "shop_by_craft_MD38rP",
+    "customer_review_fzbgpX",
     "featured_collection",
     "featured_collection_M36YjG",
     "featured_collection_zXCKBU",
