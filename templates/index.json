@@ -799,6 +799,50 @@
         "padding_bottom": 60
       }
     },
+    "instagram_section_NCrY9Q": {
+      "type": "instagram-section",
+      "blocks": {
+        "post_9hpLwg": {
+          "type": "post",
+          "settings": {
+            "link": ""
+          }
+        },
+        "post_wNbRgh": {
+          "type": "post",
+          "settings": {
+            "link": ""
+          }
+        },
+        "post_ATnnhW": {
+          "type": "post",
+          "settings": {
+            "link": ""
+          }
+        },
+        "post_pdCKqy": {
+          "type": "post",
+          "settings": {
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_9hpLwg",
+        "post_wNbRgh",
+        "post_ATnnhW",
+        "post_pdCKqy"
+      ],
+      "name": "Instagram Feed",
+      "settings": {
+        "heading": "Follow Us on Instagram",
+        "bg_color": "#e5d8b8",
+        "text_color": "#121212",
+        "desktop_columns": 4,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -1243,84 +1287,6 @@
         "padding_bottom": 24
       }
     },
-    "175687434008b0da53": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_697d554_gmW4fP": {
-          "type": "ai_gen_block_697d554",
-          "settings": {
-            "title": "Hear from our community",
-            "subtitle": "",
-            "section_background": "#e5d8b8",
-            "section_padding_top": 16,
-            "section_padding_bottom": 0,
-            "desktop_cards_to_show": 3,
-            "card_spacing": 0,
-            "vertical_spacing": 8,
-            "card_background": "#e5d8b8",
-            "card_border_color": "#e5e5e5",
-            "card_border_width": 0,
-            "card_border_radius": 0,
-            "card_padding": 20,
-            "image_height": 400,
-            "image_border_radius": 0,
-            "title_size": 22,
-            "title_color": "#9e0505",
-            "subtitle_size": 16,
-            "subtitle_color": "#666666",
-            "title_subtitle_spacing": 8,
-            "review_text_size": 14,
-            "review_text_color": "#333333",
-            "customer_name_size": 16,
-            "customer_name_color": "#000000",
-            "product_name_size": 14,
-            "product_name_color": "#666666",
-            "date_size": 12,
-            "date_color": "#999999",
-            "star_size": 20,
-            "star_filled_color": "#d1b10c",
-            "star_empty_color": "#e5e5e5",
-            "show_arrows_desktop": false,
-            "show_dots": false,
-            "arrow_size": 44,
-            "arrow_background": "#e5d8b8",
-            "arrow_hover_background": "#f5f5f5",
-            "arrow_color": "#9e0505",
-            "navigation_bottom_padding": 0,
-            "dot_width": 6,
-            "dot_height": 11,
-            "dot_active_color": "#9e0505",
-            "dot_inactive_color": "#cccccc",
-            "autoplay": false,
-            "autoplay_speed": 5,
-            "loop": true,
-            "review_1_image": "shopify://shop_images/Copy_of_IMG20250419191341_1.jpg",
-            "review_1_rating": 5,
-            "review_1_text": "<p>\"The Cannanore Shop is a treasure trove for authentic handlooms and handicrafts, bringing the rich art of remote regions to Bengaluru. It's where beauty meets utility, curated by a knowledgeable owner who ensures ethical sourcing and fair pricing. Many products are unique and often more affordable than on popular e-commerce platforms. A genuine business with a heart and purpose\"</p>",
-            "review_1_name": "Anitha Prasad",
-            "review_1_product": "Bangalore",
-            "review_1_date": "",
-            "review_2_image": "shopify://shop_images/Somali_Review.jpg",
-            "review_2_rating": 5,
-            "review_2_text": "<p>\"I walked in just to browse and ended up discovering so many beautiful things. Everything feels personal and thoughtfully made. From handmade soaps to woven towels, it's all heart. Cannanore is where I find quiet, lovely treasures\"</p>",
-            "review_2_name": "Somali Panigrahi",
-            "review_2_product": "Bangalore",
-            "review_2_date": "",
-            "review_3_image": "shopify://shop_images/Review_3_188a602b-7df1-446f-b5cf-fb42a944adc9.jpg",
-            "review_3_rating": 5,
-            "review_3_text": "<p>This is a lovely little shop with a very carefully selected curation of items. While all of their products are excellent, I wanted to specifically call out their really unique Thorkish towels. Imagine how a combination of a thick Turkish towel and a thin traditional Indian towel might feel like, and you have it! We’ve been using these towels ever since we first discovered them a few years ago and it’s tough to go back to any other type of towel after this! Try it first and thank me later. 🙂</p>",
-            "review_3_name": "Srikanth Srinivasan",
-            "review_3_product": "Bangalore",
-            "review_3_date": ""
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_697d554_gmW4fP"
-      ],
-      "settings": {}
-    },
     "rich_text_W6GYk4": {
       "type": "rich-text",
       "blocks": {
@@ -1508,6 +1474,7 @@
     "shop_by_craft_MD38rP",
     "customer_review_fzbgpX",
     "upcoming_events_HwNF36",
+    "instagram_section_NCrY9Q",
     "featured_collection",
     "featured_collection_M36YjG",
     "featured_collection_zXCKBU",
@@ -1516,7 +1483,6 @@
     "featured_collection_B3dpfR",
     "rich_text_rddqbB",
     "featured_collection_GrNYmX",
-    "175687434008b0da53",
     "rich_text_W6GYk4",
     "rich_text_c6dHej",
     "image_with_text_Qx79Li",
