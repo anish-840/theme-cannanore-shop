@@ -117,7 +117,7 @@
     <div class="craft-cards-wrapper">
       <div class="craft-cards">
         {% for block in section.blocks %}
-          <{% if block.settings.link %}a href="{{ block.settings.link }}"{% else %}div{% endif %} class="craft-card">
+          <{% if block.settings.link %}a href="{{ block.settings.link }}"{% else %}div{% endif %} class="craft-card" data-index="{{ forloop.index0 }}">
             <div class="craft-card__image-wrapper">
               {% if block.settings.image %}
                 <img 
@@ -136,6 +136,21 @@
           </{% if block.settings.link %}a{% else %}div{% endif %}>
         {% endfor %}
       </div>
+      
+      <div class="carousel-controls">
+        <button class="carousel-arrow carousel-arrow--prev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+        </button>
+        <div class="carousel-indicators">
+          {% for block in section.blocks %}
+            <span class="carousel-indicator{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+          {% endfor %}
+        </div>
+        <button class="carousel-arrow carousel-arrow--next" aria-label="Next">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+        </button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -200,6 +215,11 @@
   padding: 0 10px 15px;
 }
 
+/* CAROUSEL CONTROLS (Hidden by default on desktop) */
+.carousel-controls {
+  display: none;
+}
+
 /* MOBILE MEDIA QUERY */
 @media (max-width: 768px) {
   .section-{{ section.id }} .section-header__title {
@@ -211,10 +231,8 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 15px;
-    padding-bottom: 20px; /* Space for scrollbar if visible */
+    padding-bottom: 10px;
     -webkit-overflow-scrolling: touch;
-    
-    /* Hide scrollbar for a cleaner look while keeping swipe functionality */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
   }
@@ -224,7 +242,6 @@
   }
 
   .craft-card {
-    /* 85% width lets the next card peek in, indicating to the user they can swipe */
     flex: 0 0 85%; 
     scroll-snap-align: center;
     border-radius: 8px; 
@@ -244,5 +261,107 @@
     font-size: 14px;
     padding: 0 5px 10px;
   }
+
+  /* SHOW CAROUSEL CONTROLS ON MOBILE */
+  .carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .carousel-arrow {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--heading-color);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .carousel-arrow:hover {
+    opacity: 1;
+  }
+
+  .carousel-arrow svg {
+    fill: currentColor;
+  }
+
+  .carousel-indicators {
+    display: flex;
+    gap: 8px;
+  }
+
+  .carousel-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #d1d1d1;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .carousel-indicator.active {
+    background-color: var(--heading-color);
+  }
 }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('.section-{{ section.id }}');
+    if (!section) return;
+
+    const container = section.querySelector('.craft-cards');
+    const prevBtn = section.querySelector('.carousel-arrow--prev');
+    const nextBtn = section.querySelector('.carousel-arrow--next');
+    const indicators = section.querySelectorAll('.carousel-indicator');
+    const cards = section.querySelectorAll('.craft-card');
+
+    if (!container || cards.length === 0) return;
+
+    // Calculate scroll width for one card
+    const getScrollAmount = () => {
+      // Includes the card width plus the flex gap (15px)
+      return cards[0].offsetWidth + 15; 
+    };
+
+    // Button Clicks
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        container.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        container.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+      });
+    }
+
+    // Dot Indicator Clicks
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        container.scrollTo({ left: index * getScrollAmount(), behavior: 'smooth' });
+      });
+    });
+
+    // Update active dot on swipe/scroll
+    container.addEventListener('scroll', () => {
+      const scrollPosition = container.scrollLeft;
+      // Determine which card is currently taking up the majority of the view
+      const activeIndex = Math.round(scrollPosition / getScrollAmount());
+
+      indicators.forEach((indicator, index) => {
+        if (index === activeIndex) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+    });
+  });
+</script>
