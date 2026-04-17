@@ -94,7 +94,6 @@
 
   <div class="about-owner-inner page-width">
 
-    <!-- LEFT IMAGE -->
     <div class="ao-image">
       {% if section.settings.owner_image %}
         <img 
@@ -105,7 +104,6 @@
       {% endif %}
     </div>
 
-    <!-- RIGHT CONTENT -->
     <div class="ao-content">
       <h2>{{ section.settings.heading }}</h2>
       <p>{{ section.settings.description }}</p>
@@ -134,15 +132,7 @@
   position: relative;
 }
 
-/* Creative accent */
-.ao-image::after {
-  content: "";
-  position: absolute;
-  inset: 10% -10% -10% 10%;
-  background: rgba(193,122,90,0.15);
-  z-index: 0;
-  border-radius: 20px;
-}
+/* The creative accent (background behind image) has been removed from here. */
 
 .ao-image img {
   width: 100%;

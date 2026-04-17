@@ -615,10 +615,11 @@
       "type": "about-owner",
       "name": "About Owner",
       "settings": {
+        "owner_image": "shopify://shop_images/HangingsBTDE-684_2.jpg",
         "heading": "Meet the Founder",
         "description": "Write something compelling about the owner. Their journey, vision, and what makes the brand special.",
         "bg_color": "#e5d8b8",
-        "text_color": "#6A6A6A",
+        "text_color": "#6a6a6a",
         "heading_size": 36,
         "text_size": 16,
         "padding_top": 60,
