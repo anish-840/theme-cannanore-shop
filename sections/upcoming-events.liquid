@@ -21,6 +21,10 @@
       "default": "#121212"
     },
     {
+      "type": "header",
+      "content": "Card Style"
+    },
+    {
       "type": "color",
       "id": "card_bg",
       "label": "Card Background",
@@ -31,6 +35,16 @@
       "id": "card_text",
       "label": "Card Text Color",
       "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
     },
     {
       "type": "range",
@@ -205,6 +219,7 @@
     --text-color: {{ section.settings.text_color }};
     --card-bg: {{ section.settings.card_bg }};
     --card-text: {{ section.settings.card_text }};
+    --card-radius: {{ section.settings.card_border_radius }}px;
     
     --cal-btn-bg: {{ section.settings.cal_btn_bg }};
     --cal-btn-text: {{ section.settings.cal_btn_text }};
@@ -336,7 +351,7 @@
 .event-card {
   background-color: var(--card-bg);
   color: var(--card-text);
-  border-radius: 12px;
+  border-radius: var(--card-radius);
   overflow: hidden;
   display: flex;
   flex-direction: column;
