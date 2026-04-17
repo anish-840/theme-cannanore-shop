@@ -727,6 +727,65 @@
         "padding_bottom": 60
       }
     },
+    "upcoming_events_HwNF36": {
+      "type": "upcoming-events",
+      "blocks": {
+        "event_Tddfjk": {
+          "type": "event",
+          "settings": {
+            "title": "Community Meetup",
+            "date": "October 24, 2026",
+            "time": "10:00 AM - 2:00 PM",
+            "location_name": "Main Flagship Store",
+            "address": "123 Commerce St, New York, NY 10001",
+            "description": "Join us for an exclusive look at our new collection, featuring special guests and refreshments.",
+            "directions_link": ""
+          }
+        },
+        "event_EzTQFQ": {
+          "type": "event",
+          "settings": {
+            "title": "Community Meetup",
+            "date": "October 24, 2026",
+            "time": "10:00 AM - 2:00 PM",
+            "location_name": "Main Flagship Store",
+            "address": "123 Commerce St, New York, NY 10001",
+            "description": "Join us for an exclusive look at our new collection, featuring special guests and refreshments.",
+            "directions_link": ""
+          }
+        },
+        "event_3GGPTT": {
+          "type": "event",
+          "settings": {
+            "title": "Community Meetup",
+            "date": "October 24, 2026",
+            "time": "10:00 AM - 2:00 PM",
+            "location_name": "Main Flagship Store",
+            "address": "123 Commerce St, New York, NY 10001",
+            "description": "Join us for an exclusive look at our new collection, featuring special guests and refreshments.",
+            "directions_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "event_Tddfjk",
+        "event_EzTQFQ",
+        "event_3GGPTT"
+      ],
+      "name": "Upcoming Events",
+      "settings": {
+        "heading": "Upcoming Events",
+        "bg_color": "#e5d8b8",
+        "text_color": "#9e0505",
+        "card_bg": "#ede1c5",
+        "card_text": "#333333",
+        "button_bg": "#121212",
+        "button_text": "#FFFFFF",
+        "columns_desktop": 3,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -1020,37 +1079,6 @@
         "hide_last_card_bottom_text": true,
         "padding_top": 0,
         "padding_bottom": 24
-      }
-    },
-    "rich_text_fhBedD": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_QgWTgi": {
-          "type": "heading",
-          "settings": {
-            "heading": "Our charmingly whimsical crochet toys",
-            "heading_size": "h2"
-          }
-        },
-        "text_CdYrEP": {
-          "type": "text",
-          "settings": {
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "heading_QgWTgi",
-        "text_CdYrEP"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
-        "full_width": true,
-        "padding_top": 56,
-        "padding_bottom": 0
       }
     },
     "featured_collection_B3dpfR": {
@@ -1466,12 +1494,12 @@
     "about_owner_k8Af4h",
     "shop_by_craft_MD38rP",
     "customer_review_fzbgpX",
+    "upcoming_events_HwNF36",
     "featured_collection",
     "featured_collection_M36YjG",
     "featured_collection_zXCKBU",
     "featured_collection_a8Hkpp",
     "featured_collection_XJHLgN",
-    "rich_text_fhBedD",
     "featured_collection_B3dpfR",
     "rich_text_rddqbB",
     "featured_collection_GrNYmX",

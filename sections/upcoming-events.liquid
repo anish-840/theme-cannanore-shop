@@ -126,15 +126,9 @@
         },
         {
           "type": "url",
-          "id": "calendar_link",
-          "label": "Add to Calendar Link",
-          "info": "Link to a Google Calendar event or an .ics file."
-        },
-        {
-          "type": "url",
           "id": "directions_link",
           "label": "Get Directions Link",
-          "info": "Link to Google Maps or Apple Maps."
+          "info": "Link to Google Maps or Apple Maps. (Leave blank to hide)"
         }
       ]
     }
@@ -228,23 +222,27 @@
             {% endif %}
           </div>
 
-          {% if block.settings.calendar_link != blank or block.settings.directions_link != blank %}
-            <div class="event-actions">
-              {% if block.settings.calendar_link != blank %}
-                <a href="{{ block.settings.calendar_link }}" target="_blank" class="event-btn btn-calendar">
-                  <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
-                  Add to Calendar
-                </a>
-              {% endif %}
-              
-              {% if block.settings.directions_link != blank %}
-                <a href="{{ block.settings.directions_link }}" target="_blank" class="event-btn btn-directions">
-                  <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
-                  Get Directions
-                </a>
-              {% endif %}
-            </div>
-          {% endif %}
+          <div class="event-actions">
+            <button 
+              type="button" 
+              class="event-btn btn-calendar js-add-to-calendar"
+              data-title="{{ block.settings.title | escape }}"
+              data-date="{{ block.settings.date | escape }}"
+              data-time="{{ block.settings.time | escape }}"
+              data-location="{{ block.settings.location_name | escape }} {{ block.settings.address | escape }}"
+              data-description="{{ block.settings.description | strip_html | escape }}"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+              Add to Calendar
+            </button>
+            
+            {% if block.settings.directions_link != blank %}
+              <a href="{{ block.settings.directions_link }}" target="_blank" class="event-btn btn-directions">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+                Get Directions
+              </a>
+            {% endif %}
+          </div>
 
         </div>
       {% endfor %}
@@ -373,6 +371,9 @@
   transition: opacity 0.3s ease;
   width: 100%;
   box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
 }
 
 .event-btn:hover {
@@ -413,3 +414,80 @@
   }
 }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('.section-{{ section.id }}');
+    if (!section) return;
+
+    const calendarBtns = section.querySelectorAll('.js-add-to-calendar');
+
+    calendarBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const title = this.dataset.title || 'Event';
+        const dateStr = this.dataset.date || '';
+        const timeStr = this.dataset.time || '';
+        const location = this.dataset.location || '';
+        const description = this.dataset.description || '';
+
+        // Attempt to parse the date and time provided
+        let startDate = new Date(dateStr);
+        let endDate = new Date(dateStr);
+
+        // Basic parsing for time text (e.g. "10:00 AM - 2:00 PM")
+        const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+        if (timeMatch && !isNaN(startDate.getTime())) {
+          let hours = parseInt(timeMatch[1], 10);
+          let mins = parseInt(timeMatch[2], 10);
+          const ampm = timeMatch[3] ? timeMatch[3].toUpperCase() : '';
+
+          if (ampm === 'PM' && hours < 12) hours += 12;
+          if (ampm === 'AM' && hours === 12) hours = 0;
+
+          startDate.setHours(hours, mins, 0);
+          
+          // Default duration of 1 hour if end time isn't strictly parsed
+          endDate.setHours(hours + 1, mins, 0); 
+        }
+
+        // Format dates to ICS standard: YYYYMMDDTHHMMSSZ
+        const formatDateIcs = (date) => {
+          if (isNaN(date.getTime())) return null;
+          return date.toISOString().replace(/-|:|\.\d+/g, '');
+        };
+
+        const dtStart = formatDateIcs(startDate);
+        const dtEnd = formatDateIcs(endDate);
+
+        // Build the .ics file content
+        let icsData = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${title}\n`;
+        
+        if (dtStart && dtEnd) {
+          icsData += `DTSTART:${dtStart}\nDTEND:${dtEnd}\n`;
+        } else {
+          // Fallback if date completely failed to parse (creates an all day event today)
+          const today = formatDateIcs(new Date()).substring(0, 8);
+          icsData += `DTSTART;VALUE=DATE:${today}\n`;
+        }
+
+        icsData += `LOCATION:${location}\nDESCRIPTION:${description}\nEND:VEVENT\nEND:VCALENDAR`;
+
+        // Create a downloadable Blob
+        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+        const url = window.URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.ics`;
+        document.body.appendChild(link);
+        link.click();
+        
+        // Cleanup
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      });
+    });
+  });
+</script>
