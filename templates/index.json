@@ -620,6 +620,7 @@
         "description": "Write something compelling about the owner. Their journey, vision, and what makes the brand special.",
         "bg_color": "#e5d8b8",
         "text_color": "#6a6a6a",
+        "heading_color": "#121212",
         "heading_size": 36,
         "text_size": 16,
         "padding_top": 60,
