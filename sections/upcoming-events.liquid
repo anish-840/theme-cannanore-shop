@@ -461,15 +461,18 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 20px;
+  padding: 0 20px;
+  min-height: 46px; /* explicitly set to match both elements exactly */
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.2;
   transition: opacity 0.3s ease;
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
   font-family: inherit;
+  margin: 0; /* strip default margins */
 }
 
 .event-btn:hover {
