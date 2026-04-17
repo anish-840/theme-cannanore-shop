@@ -628,6 +628,55 @@
         "padding_bottom": 60
       }
     },
+    "shop_by_craft_MD38rP": {
+      "type": "shop-by-craft",
+      "blocks": {
+        "craft_card_yimcy8": {
+          "type": "craft_card",
+          "settings": {
+            "text": "Craft Name",
+            "link": ""
+          }
+        },
+        "craft_card_PkhqV8": {
+          "type": "craft_card",
+          "settings": {
+            "text": "Craft Name",
+            "link": ""
+          }
+        },
+        "craft_card_nNArqn": {
+          "type": "craft_card",
+          "settings": {
+            "text": "Craft Name",
+            "link": ""
+          }
+        },
+        "craft_card_neCWEa": {
+          "type": "craft_card",
+          "settings": {
+            "text": "Craft Name",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "craft_card_yimcy8",
+        "craft_card_PkhqV8",
+        "craft_card_nNArqn",
+        "craft_card_neCWEa"
+      ],
+      "name": "Shop by Craft",
+      "settings": {
+        "heading": "Shop by Craft",
+        "heading_color": "#2C2825",
+        "heading_font_size": 28,
+        "desktop_columns": 4,
+        "bg_color": "#e5d8b8",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -805,43 +854,12 @@
         "padding_bottom": 24
       }
     },
-    "rich_text_7RNCDJ": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_4Umd4N": {
-          "type": "heading",
-          "settings": {
-            "heading": "Enrich your home with artisanal grace",
-            "heading_size": "h2"
-          }
-        },
-        "text_rnnnpf": {
-          "type": "text",
-          "settings": {
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "heading_4Umd4N",
-        "text_rnnnpf"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
-        "full_width": true,
-        "padding_top": 56,
-        "padding_bottom": 0
-      }
-    },
     "featured_collection_a8Hkpp": {
       "type": "featured-collection",
       "settings": {
         "collection": "towels",
         "products_to_show": 5,
-        "title": "",
+        "title": "Enrich your home with artisinal grace",
         "title_max_lines": 1,
         "product_title_font_size": 15,
         "header_align": "center",
@@ -1427,10 +1445,10 @@
     "collection_list_caurosel_6BDGbr",
     "new_arrivals_NEzLPj",
     "about_owner_k8Af4h",
+    "shop_by_craft_MD38rP",
     "featured_collection",
     "featured_collection_M36YjG",
     "featured_collection_zXCKBU",
-    "rich_text_7RNCDJ",
     "featured_collection_a8Hkpp",
     "rich_text_4BX9zB",
     "featured_collection_XJHLgN",

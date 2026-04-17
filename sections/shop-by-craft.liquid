@@ -136,25 +136,6 @@
           </{% if block.settings.link %}a{% else %}div{% endif %}>
         {% endfor %}
       </div>
-
-      {% comment %} 
-        --- Optional Carousel Controls for Mobile ---
-        These are included structurally, but functional JavaScript for navigation is omitted in this section's pure CSS scroll-snap implementation for simplicity.
-        Arrows are visually positioned. Indicators would require minimal JS to function correctly.
-      {% endcomment %}
-      <div class="carousel-controls mobile-only">
-        <button class="carousel-arrow carousel-arrow--prev" aria-label="Previous">
-          <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50 L 70,10 L 60,0 Z"></path></svg>
-        </button>
-        <div class="carousel-indicators">
-          {% for block in section.blocks %}
-            <span class="carousel-indicator{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}"></span>
-          {% endfor %}
-        </div>
-        <button class="carousel-arrow carousel-arrow--next" aria-label="Next">
-          <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50 L 70,10 L 60,0 Z" transform="translate(100, 100) rotate(180) "></path></svg>
-        </button>
-      </div>
     </div>
   </div>
 </div>
@@ -172,6 +153,10 @@
 }
 
 /* CARDS LAYOUT */
+.craft-cards-wrapper {
+  position: relative;
+}
+
 .craft-cards {
   display: grid;
   grid-template-columns: repeat(var(--desktop-cols), 1fr);
@@ -179,88 +164,40 @@
 }
 
 .craft-card {
-  text-decoration: none; /* remove link underlines */
-  color: inherit; /* inherit text color */
+  text-decoration: none;
+  color: inherit;
   text-align: center;
-  overflow: hidden; /* contain hover zoom */
-  border-radius: 8px; /* subtle rounded corners */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* transition for hover animations */
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* HOVER ANIMATION */
 .craft-card:hover {
-  transform: translateY(-5px); /* subtle scale up or shift down */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* subtle shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .craft-card:hover .craft-card__image {
-  transform: scale(1.05); /* zoom image on hover */
+  transform: scale(1.05);
 }
 
 .craft-card__image-wrapper {
-  overflow: hidden; /* crucial for zoom animation */
-  border-radius: 8px 8px 0 0; /* top corners rounded */
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
 }
 
 .craft-card__image {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.3s ease; /* smoothly zoom the image */
+  transition: transform 0.3s ease;
 }
 
 .craft-card__text {
   margin: 15px 0 0;
   font-size: 16px;
-  padding: 0 10px 15px; /* bottom padding with text */
-}
-
-/* CAROUSEL CONTROLS & MOBILE-ONLY VISIBILITY */
-.carousel-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  position: relative; /* ensure controls are below/above carousel items */
-  z-index: 10;
-}
-
-.carousel-arrow {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.carousel-arrow:hover {
-  opacity: 1;
-}
-
-.carousel-arrow svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
-}
-
-.carousel-indicators {
-  display: flex;
-  gap: 8px;
-  margin: 0 15px;
-}
-
-.carousel-indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #e0e0e0;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.carousel-indicator.active {
-  background-color: currentColor; /* active dot same color as text/heading */
+  padding: 0 10px 15px;
 }
 
 /* MOBILE MEDIA QUERY */
@@ -272,30 +209,33 @@
   .craft-cards {
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory; /* enables CSS scroll-snap carousel effect */
+    scroll-snap-type: x mandatory;
     gap: 15px;
-    padding-bottom: 10px; /* some spacing for controls */
-    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-    margin-left: -20px; /* pull container out to edge */
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-bottom: 20px; /* Space for scrollbar if visible */
+    -webkit-overflow-scrolling: touch;
+    
+    /* Hide scrollbar for a cleaner look while keeping swipe functionality */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
   }
 
-  /* each card occupies most of the view on mobile */
+  .craft-cards::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
   .craft-card {
-    flex: 0 0 calc(100% - 30px); /* 1 card per view (leaving some space for gap) */
-    scroll-snap-align: center; /* snap card to center */
-    border-radius: 0; /* optional, reset radius for edge-to-edge feel */
-    box-shadow: none; /* optional, reduce shadows on mobile for performance */
+    /* 85% width lets the next card peek in, indicating to the user they can swipe */
+    flex: 0 0 85%; 
+    scroll-snap-align: center;
+    border-radius: 8px; 
+    box-shadow: none; 
   }
 
   .craft-card:hover {
-    transform: none; /* disable shift down hover on mobile (tap interaction) */
+    transform: none; 
     box-shadow: none;
   }
   
-  /* optionally keep image zoom but slightly reduce its scale */
   .craft-card:hover .craft-card__image {
      transform: scale(1.03); 
   }
@@ -303,20 +243,6 @@
   .craft-card__text {
     font-size: 14px;
     padding: 0 5px 10px;
-  }
-
-  .mobile-only {
-    display: flex !important; /* show carousel controls */
-  }
-  
-  .carousel-arrow--prev {
-    position: absolute;
-    left: 10px;
-  }
-
-  .carousel-arrow--next {
-    position: absolute;
-    right: 10px;
   }
 }
 </style>
