@@ -33,18 +33,6 @@
       "default": "#333333"
     },
     {
-      "type": "color",
-      "id": "button_bg",
-      "label": "Button Background",
-      "default": "#121212"
-    },
-    {
-      "type": "color",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "#FFFFFF"
-    },
-    {
       "type": "range",
       "id": "columns_desktop",
       "label": "Events per row (Desktop)",
@@ -52,6 +40,70 @@
       "max": 4,
       "step": 1,
       "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Add to Calendar Button"
+    },
+    {
+      "type": "color",
+      "id": "cal_btn_bg",
+      "label": "Background Color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "cal_btn_text",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "cal_btn_border",
+      "label": "Border Color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "cal_btn_border_width",
+      "label": "Border Width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 1,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Get Directions Button"
+    },
+    {
+      "type": "color",
+      "id": "dir_btn_bg",
+      "label": "Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "dir_btn_text",
+      "label": "Text Color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "dir_btn_border",
+      "label": "Border Color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "dir_btn_border_width",
+      "label": "Border Width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 1,
+      "unit": "px"
     },
     {
       "type": "header",
@@ -153,8 +205,17 @@
     --text-color: {{ section.settings.text_color }};
     --card-bg: {{ section.settings.card_bg }};
     --card-text: {{ section.settings.card_text }};
-    --btn-bg: {{ section.settings.button_bg }};
-    --btn-text: {{ section.settings.button_text }};
+    
+    --cal-btn-bg: {{ section.settings.cal_btn_bg }};
+    --cal-btn-text: {{ section.settings.cal_btn_text }};
+    --cal-btn-border: {{ section.settings.cal_btn_border }};
+    --cal-btn-border-width: {{ section.settings.cal_btn_border_width }}px;
+    
+    --dir-btn-bg: {{ section.settings.dir_btn_bg }};
+    --dir-btn-text: {{ section.settings.dir_btn_text }};
+    --dir-btn-border: {{ section.settings.dir_btn_border }};
+    --dir-btn-border-width: {{ section.settings.dir_btn_border_width }}px;
+
     --pt: {{ section.settings.padding_top }}px;
     --pb: {{ section.settings.padding_bottom }}px;
     --cols-desktop: {{ section.settings.columns_desktop }};
@@ -372,7 +433,6 @@
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
-  border: none;
   font-family: inherit;
 }
 
@@ -381,14 +441,15 @@
 }
 
 .btn-calendar {
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
+  background-color: var(--cal-btn-bg);
+  color: var(--cal-btn-text);
+  border: var(--cal-btn-border-width) solid var(--cal-btn-border);
 }
 
 .btn-directions {
-  background-color: transparent;
-  color: var(--btn-bg);
-  border: 1px solid var(--btn-bg);
+  background-color: var(--dir-btn-bg);
+  color: var(--dir-btn-text);
+  border: var(--dir-btn-border-width) solid var(--dir-btn-border);
 }
 
 /* MOBILE RESPONSIVENESS */
