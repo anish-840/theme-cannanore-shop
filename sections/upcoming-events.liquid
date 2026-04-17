@@ -72,6 +72,26 @@
       "default": "#FFFFFF"
     },
     {
+      "type": "range",
+      "id": "cal_btn_text_size",
+      "label": "Text Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cal_btn_height",
+      "label": "Button Height",
+      "min": 30,
+      "max": 80,
+      "step": 1,
+      "default": 46,
+      "unit": "px"
+    },
+    {
       "type": "color",
       "id": "cal_btn_border",
       "label": "Border Color",
@@ -112,6 +132,26 @@
       "id": "dir_btn_text",
       "label": "Text Color",
       "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "dir_btn_text_size",
+      "label": "Text Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "dir_btn_height",
+      "label": "Button Height",
+      "min": 30,
+      "max": 80,
+      "step": 1,
+      "default": 46,
+      "unit": "px"
     },
     {
       "type": "color",
@@ -246,12 +286,16 @@
     --cal-btn-border: {{ section.settings.cal_btn_border }};
     --cal-btn-border-width: {{ section.settings.cal_btn_border_width }}px;
     --cal-btn-radius: {{ section.settings.cal_btn_border_radius }}px;
+    --cal-btn-height: {{ section.settings.cal_btn_height }}px;
+    --cal-btn-text-size: {{ section.settings.cal_btn_text_size }}px;
     
     --dir-btn-bg: {{ section.settings.dir_btn_bg }};
     --dir-btn-text: {{ section.settings.dir_btn_text }};
     --dir-btn-border: {{ section.settings.dir_btn_border }};
     --dir-btn-border-width: {{ section.settings.dir_btn_border_width }}px;
     --dir-btn-radius: {{ section.settings.dir_btn_border_radius }}px;
+    --dir-btn-height: {{ section.settings.dir_btn_height }}px;
+    --dir-btn-text-size: {{ section.settings.dir_btn_text_size }}px;
 
     --pt: {{ section.settings.padding_top }}px;
     --pb: {{ section.settings.padding_bottom }}px;
@@ -462,9 +506,7 @@
   justify-content: center;
   gap: 8px;
   padding: 0 20px;
-  min-height: 46px; /* explicitly set to match both elements exactly */
   text-decoration: none;
-  font-size: 14px;
   font-weight: 600;
   line-height: 1.2;
   transition: opacity 0.3s ease;
@@ -484,6 +526,8 @@
   color: var(--cal-btn-text);
   border: var(--cal-btn-border-width) solid var(--cal-btn-border);
   border-radius: var(--cal-btn-radius);
+  min-height: var(--cal-btn-height);
+  font-size: var(--cal-btn-text-size);
 }
 
 .btn-directions {
@@ -491,6 +535,8 @@
   color: var(--dir-btn-text);
   border: var(--dir-btn-border-width) solid var(--dir-btn-border);
   border-radius: var(--dir-btn-radius);
+  min-height: var(--dir-btn-height);
+  font-size: var(--dir-btn-text-size);
 }
 
 /* MOBILE RESPONSIVENESS */
