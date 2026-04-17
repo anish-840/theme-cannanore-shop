@@ -32,11 +32,17 @@
       "label": "Text Color",
       "default": "#EAEAEA"
     },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Header Color",
+      "default": "#FFFFFF"
+    },
 
     {
       "type": "range",
       "id": "heading_size",
-      "label": "Heading Size",
+      "label": "Header Font Size",
       "min": 20,
       "max": 60,
       "step": 2,
@@ -84,6 +90,7 @@
   style="
     --bg: {{ section.settings.bg_color }};
     --text: {{ section.settings.text_color }};
+    --heading-color: {{ section.settings.heading_color }};
     --heading-size: {{ section.settings.heading_size }}px;
     --text-size: {{ section.settings.text_size }}px;
 
@@ -132,8 +139,6 @@
   position: relative;
 }
 
-/* The creative accent (background behind image) has been removed from here. */
-
 .ao-image img {
   width: 100%;
   height: auto; /* 🔥 Adapt to image */
@@ -150,6 +155,7 @@
 
 .ao-content h2 {
   font-size: var(--heading-size);
+  color: var(--heading-color);
   margin-bottom: 15px;
   line-height: 1.2;
 }
