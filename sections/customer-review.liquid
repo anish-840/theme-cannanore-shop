@@ -1,0 +1,503 @@
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#FFB800"
+    },
+    {
+      "type": "header",
+      "content": "Desktop Typography"
+    },
+    {
+      "type": "range",
+      "id": "desktop_review_size",
+      "label": "Review Font Size (Desktop)",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "desktop_name_size",
+      "label": "Name Font Size (Desktop)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Typography"
+    },
+    {
+      "type": "range",
+      "id": "mobile_review_size",
+      "label": "Review Font Size (Mobile)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_name_size",
+      "label": "Name Font Size (Mobile)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image (Optional)",
+          "info": "If left blank, the desktop image will be used on mobile."
+        },
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "This product completely changed the way I do things. Highly recommended to anyone looking for great quality!"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer Name",
+          "default": "John Doe"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name (Optional)",
+          "default": "Signature Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div 
+  class="reviews-section section-{{ section.id }}"
+  style="
+    --bg-color: {{ section.settings.bg_color }};
+    --text-color: {{ section.settings.text_color }};
+    --star-color: {{ section.settings.star_color }};
+    --pt: {{ section.settings.padding_top }}px;
+    --pb: {{ section.settings.padding_bottom }}px;
+    
+    --review-size-desktop: {{ section.settings.desktop_review_size }}px;
+    --name-size-desktop: {{ section.settings.desktop_name_size }}px;
+    --review-size-mobile: {{ section.settings.mobile_review_size }}px;
+    --name-size-mobile: {{ section.settings.mobile_name_size }}px;
+  "
+>
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="reviews-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="reviews-carousel-wrapper">
+      <div class="reviews-carousel">
+        {% for block in section.blocks %}
+          <div class="review-slide" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            
+            <div class="review-image-wrapper">
+              {% if block.settings.desktop_image %}
+                <img 
+                  src="{{ block.settings.desktop_image | image_url: width: 600 }}" 
+                  alt="{{ block.settings.name | escape }}"
+                  class="review-image {% if block.settings.mobile_image %}hide-mobile{% endif %}"
+                  loading="lazy"
+                >
+                {% if block.settings.mobile_image %}
+                  <img 
+                    src="{{ block.settings.mobile_image | image_url: width: 600 }}" 
+                    alt="{{ block.settings.name | escape }}"
+                    class="review-image hide-desktop"
+                    loading="lazy"
+                  >
+                {% endif %}
+              {% else %}
+                <div class="placeholder-svg review-image">{{ 'image' | placeholder_svg_tag }}</div>
+              {% endif %}
+            </div>
+
+            <div class="review-content">
+              <div class="review-stars">
+                {% for i in (1..block.settings.stars) %}
+                  <svg viewBox="0 0 24 24" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                {% endfor %}
+              </div>
+
+              <div class="review-text">
+                "{{ block.settings.review_text }}"
+              </div>
+
+              <div class="review-author-block">
+                <p class="review-name">{{ block.settings.name }}</p>
+                {% if block.settings.product_name != blank %}
+                  <p class="review-product">{{ block.settings.product_name }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.blocks.size > 1 %}
+        <div class="review-controls">
+          <button class="review-arrow review-arrow--prev" aria-label="Previous Review">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+          </button>
+          <div class="review-indicators">
+            {% for block in section.blocks %}
+              <span class="review-indicator{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+            {% endfor %}
+          </div>
+          <button class="review-arrow review-arrow--next" aria-label="Next Review">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </button>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+<style>
+.section-{{ section.id }} {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding-top: var(--pt);
+  padding-bottom: var(--pb);
+}
+
+.reviews-heading {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: var(--text-color);
+}
+
+/* CAROUSEL WRAPPER */
+.reviews-carousel-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.reviews-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  -webkit-overflow-scrolling: touch;
+}
+
+.reviews-carousel::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* INDIVIDUAL SLIDE */
+.review-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* IMAGES */
+.review-image-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.review-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* CONTENT */
+.review-content {
+  max-width: 700px;
+}
+
+.review-stars {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 15px;
+}
+
+.star-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--star-color);
+}
+
+.review-text {
+  font-size: var(--review-size-desktop);
+  line-height: 1.5;
+  font-style: italic;
+  margin-bottom: 25px;
+}
+
+.review-author-block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.review-name {
+  font-weight: bold;
+  font-size: var(--name-size-desktop);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.review-product {
+  font-size: calc(var(--name-size-desktop) - 2px);
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* CONTROLS */
+.review-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.review-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.review-arrow:hover {
+  opacity: 1;
+}
+
+.review-arrow svg {
+  fill: currentColor;
+}
+
+.review-indicators {
+  display: flex;
+  gap: 8px;
+}
+
+.review-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  opacity: 0.2;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.review-indicator.active {
+  opacity: 0.8;
+}
+
+/* UTILITY CLASSES FOR RESPONSIVE IMAGES */
+.hide-desktop {
+  display: none !important;
+}
+
+/* MOBILE STYLES */
+@media (max-width: 768px) {
+  .reviews-heading {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .review-image-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .review-text {
+    font-size: var(--review-size-mobile);
+  }
+
+  .review-name {
+    font-size: var(--name-size-mobile);
+  }
+
+  .review-product {
+    font-size: calc(var(--name-size-mobile) - 2px);
+  }
+
+  /* Swap image visibilities */
+  .hide-desktop {
+    display: block !important;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+}
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('.section-{{ section.id }}');
+    if (!section) return;
+
+    const carousel = section.querySelector('.reviews-carousel');
+    const prevBtn = section.querySelector('.review-arrow--prev');
+    const nextBtn = section.querySelector('.review-arrow--next');
+    const indicators = section.querySelectorAll('.review-indicator');
+    const slides = section.querySelectorAll('.review-slide');
+
+    if (!carousel || slides.length <= 1) return;
+
+    const updateActiveIndicator = () => {
+      const scrollPosition = carousel.scrollLeft;
+      const slideWidth = carousel.offsetWidth;
+      // Calculate active index based on scroll position
+      const activeIndex = Math.round(scrollPosition / slideWidth);
+
+      indicators.forEach((ind, index) => {
+        if (index === activeIndex) {
+          ind.classList.add('active');
+        } else {
+          ind.classList.remove('active');
+        }
+      });
+    };
+
+    // Next/Prev Buttons
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: -carousel.offsetWidth, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: carousel.offsetWidth, behavior: 'smooth' });
+      });
+    }
+
+    // Indicator Clicks
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        carousel.scrollTo({ left: index * carousel.offsetWidth, behavior: 'smooth' });
+      });
+    });
+
+    // Listen to scroll events to sync the dots
+    carousel.addEventListener('scroll', () => {
+      // Use requestAnimationFrame to throttle the scroll event
+      window.requestAnimationFrame(updateActiveIndicator);
+    });
+    
+    // Initial check
+    updateActiveIndicator();
+  });
+</script>
