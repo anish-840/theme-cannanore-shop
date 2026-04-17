@@ -718,7 +718,7 @@
         "heading": "What Our Customers Say",
         "bg_color": "#e5d8b8",
         "text_color": "#333333",
-        "star_color": "#FFB800",
+        "star_color": "#ffb800",
         "desktop_review_size": 24,
         "desktop_name_size": 16,
         "mobile_review_size": 18,
@@ -1058,7 +1058,7 @@
       "settings": {
         "collection": "toys",
         "products_to_show": 5,
-        "title": "",
+        "title": "Our charmingly whimsical crochet toys",
         "title_max_lines": 1,
         "product_title_font_size": 15,
         "header_align": "center",
