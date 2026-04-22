@@ -518,6 +518,7 @@
         "featured_collection_BCHdPw",
         "featured_collection_YpUfhA"
       ],
+      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 750px) {{display: none !important; }}",
         "ul#HScroll-template--16888628674631__collection_list_caurosel_6BDGbr {justify-content: center; /* Centers the flex items horizontally */}",
