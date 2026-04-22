@@ -773,6 +773,7 @@
         "event_EzTQFQ",
         "event_3GGPTT"
       ],
+      "disabled": true,
       "name": "Upcoming Events",
       "settings": {
         "heading": "Upcoming Events",
@@ -846,6 +847,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "all",
         "products_to_show": 5,
@@ -905,6 +907,7 @@
     },
     "featured_collection_M36YjG": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "towels",
         "products_to_show": 5,
@@ -964,6 +967,7 @@
     },
     "featured_collection_zXCKBU": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "sarees",
         "products_to_show": 5,
@@ -1023,6 +1027,7 @@
     },
     "featured_collection_a8Hkpp": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "towels",
         "products_to_show": 5,
@@ -1082,6 +1087,7 @@
     },
     "featured_collection_XJHLgN": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "jewellery-1",
         "products_to_show": 5,
@@ -1141,6 +1147,7 @@
     },
     "featured_collection_B3dpfR": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "toys",
         "products_to_show": 5,
@@ -1219,6 +1226,7 @@
         "heading_WdTiFm",
         "text_XemXDN"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -1231,6 +1239,7 @@
     },
     "featured_collection_GrNYmX": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "skincare",
         "products_to_show": 5,
@@ -1302,6 +1311,7 @@
       "block_order": [
         "heading_ryjdWe"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -1325,6 +1335,7 @@
       "block_order": [
         "text_WEHapN"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -1366,6 +1377,7 @@
         "text_Cm43jW",
         "button_Htr98N"
       ],
+      "disabled": true,
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/Store.jpg",
