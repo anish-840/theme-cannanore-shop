@@ -58,10 +58,38 @@
         "item_padding": 8,
         "item_border_radius": 8
       }
+    },
+    "about_CBwpGq": {
+      "type": "about",
+      "name": "Editorial About Us",
+      "settings": {
+        "bg_color": "#e5d8b8",
+        "heading_color": "#9e0505",
+        "text_color": "#2C2825",
+        "accent_color": "#8B5E34",
+        "image_main": "shopify://shop_images/DSC1299.jpg",
+        "image_secondary": "shopify://shop_images/TeaLightHoldersOBCH-694_M__2.jpg",
+        "image_radius": 0,
+        "tagline": "Where Every Thread Tells a Tale.",
+        "heading": "The Cannanore Shop",
+        "story": "<p>The Cannanore Shop is a celebration of handmade beauty, conscious living, and timeless Indian craftsmanship...</p>",
+        "quote": "We’re proud to be part of over 14,000 homes, offering you things that feel as good as they look.",
+        "tagline_size_desktop": 56,
+        "heading_size_desktop": 14,
+        "story_size_desktop": 16,
+        "quote_size_desktop": 24,
+        "tagline_size_mobile": 36,
+        "heading_size_mobile": 12,
+        "story_size_mobile": 15,
+        "quote_size_mobile": 20,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
     }
   },
   "order": [
     "main",
-    "mobile_bottom_navigation"
+    "mobile_bottom_navigation",
+    "about_CBwpGq"
   ]
 }

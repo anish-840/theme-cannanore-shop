@@ -13,6 +13,7 @@
   "sections": {
     "about_us_f8KLDe": {
       "type": "about-us",
+      "disabled": true,
       "name": "Editorial About Us",
       "settings": {
         "bg_color": "#e5d8b8",
