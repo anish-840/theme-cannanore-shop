@@ -634,7 +634,8 @@
         "craft_card_yimcy8": {
           "type": "craft_card",
           "settings": {
-            "text": "Craft Name",
+            "image": "shopify://shop_images/tablerunner-3_3.jpg",
+            "text": "Kalamkari",
             "link": ""
           }
         },
