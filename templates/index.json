@@ -618,12 +618,20 @@
           "type": "stat",
           "settings": {
             "stat_number": "100%",
-            "stat_label": "Handmade"
+            "stat_label": "Handmade Products"
+          }
+        },
+        "stat_KDqNcF": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "100%",
+            "stat_label": "Rural Sourcing"
           }
         }
       },
       "block_order": [
-        "stat_QwPPT3"
+        "stat_QwPPT3",
+        "stat_KDqNcF"
       ],
       "name": "About Owner",
       "settings": {
