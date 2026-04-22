@@ -26,6 +26,14 @@
         "heading": "The Cannanore Shop",
         "story": "<p>The Cannanore Shop is a celebration of handmade beauty, conscious living, and timeless Indian craftsmanship. Founded by Anjali Nair, the brand began as a mother-daughter passion project, deeply rooted in a love for slow textiles, earthy traditions, and everyday objects that carry soul and story. Growing up in an Army family, Anjali spent her childhood constantly on the move, watching her mother collect handmade goods, and wear handwoven sarees from across India as she was transferred from one part of the country to another, with the memories of skilled artisans at work engraved in her memory. Leaving behind a career in journalism, she returned to her love of craft and created a space to share it with others. Named after her hometown, Kannur (historically Cannanore), the store honours the weaving heritage of the region and beyond. Each product is handpicked from small-batch artisans, woven, stirred, stitched, and shaped by hand. We work with craftswomen and men across rural India, people whose skills have been passed down through generations. No factories. No mass production. Just honest, beautiful things made slow. From handwoven sarees and natural skincare to soft crochet toys and mindful home decor, every piece is one-of-a-kind. At Cannanore, we don’t believe in trends, we believe in stories. <br/><br/></p>",
         "quote": "We’re proud to be part of over 14,000 homes, offering you things that feel as good as they look.",
+        "tagline_size_desktop": 56,
+        "heading_size_desktop": 14,
+        "story_size_desktop": 16,
+        "quote_size_desktop": 24,
+        "tagline_size_mobile": 32,
+        "heading_size_mobile": 12,
+        "story_size_mobile": 13,
+        "quote_size_mobile": 17,
         "padding_top": 100,
         "padding_bottom": 100
       }
