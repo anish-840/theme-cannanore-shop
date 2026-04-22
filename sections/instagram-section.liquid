@@ -9,6 +9,17 @@
       "default": "Follow Us on Instagram"
     },
     {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Follow Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Instagram Profile Link"
+    },
+    {
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
@@ -103,14 +114,27 @@
   "
 >
   <div class="page-width">
-    <div class="instagram-header">
-      <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-      </svg>
-      {% if section.settings.heading != blank %}
-        <h2 class="instagram-title">{{ section.settings.heading }}</h2>
+    
+    <div class="instagram-header-wrapper">
+      <div class="instagram-header">
+        <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        {% if section.settings.heading != blank %}
+          <h2 class="instagram-title">{{ section.settings.heading }}</h2>
+        {% endif %}
+      </div>
+      
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" target="_blank" class="instagram-follow-btn">
+          {{ section.settings.button_text }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
       {% endif %}
     </div>
 
@@ -165,13 +189,20 @@
   overflow: hidden;
 }
 
-/* HEADER */
+/* HEADER WRAPPER */
+.instagram-header-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 16px;
+}
+
 .instagram-header {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 30px;
   color: var(--text-color);
 }
 
@@ -184,6 +215,37 @@
   margin: 0;
   font-size: 28px;
   color: var(--text-color);
+  line-height: 1.2;
+}
+
+/* BUTTON */
+.instagram-follow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 30px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.instagram-follow-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.instagram-follow-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.instagram-follow-btn:hover svg {
+  transform: translateX(3px);
 }
 
 /* CAROUSEL WRAPPER */
@@ -195,24 +257,23 @@
 
 .instagram-carousel {
   display: flex;
-  align-items: center; /* Centers items vertically if they have different heights */
+  align-items: center;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: 15px;
-  padding-bottom: 15px; /* space for scrollbar if forced visible */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  padding-bottom: 15px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
   width: 100%;
 }
 
 .instagram-carousel::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 /* SLIDES */
 .instagram-slide {
-  /* Calculation: (100% - total gap space) / columns */
   flex: 0 0 calc((100% - ((var(--desktop-cols) - 1) * 15px)) / var(--desktop-cols));
   scroll-snap-align: start;
 }
@@ -228,7 +289,7 @@
 
 .instagram-media {
   width: 100%;
-  height: auto; /* Adapts to natural aspect ratio */
+  height: auto;
   display: block;
   transition: transform 0.4s ease;
 }
@@ -294,6 +355,10 @@
 
 /* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
+  .instagram-header-wrapper {
+    margin-bottom: 30px;
+  }
+  
   .instagram-title {
     font-size: 24px;
   }
@@ -304,16 +369,14 @@
   }
 
   .instagram-slide {
-    flex: 0 0 100%; /* Show exactly ONE image on mobile */
+    flex: 0 0 100%;
     scroll-snap-align: center;
   }
   
-  /* Disable hover zoom on mobile for better touch experience */
   .instagram-media-wrapper:hover .instagram-media {
     transform: none;
   }
   
-  /* Hide desktop arrows on mobile, rely on swiping */
   .insta-nav {
     display: none;
   }
@@ -333,7 +396,6 @@
 
     const getScrollAmount = () => {
       const slide = carousel.querySelector('.instagram-slide');
-      // Slide width + gap (15px)
       return slide.offsetWidth + 15;
     };
 
