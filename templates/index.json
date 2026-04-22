@@ -518,7 +518,6 @@
         "featured_collection_BCHdPw",
         "featured_collection_YpUfhA"
       ],
-      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 750px) {{display: none !important; }}",
         "ul#HScroll-template--16888628674631__collection_list_caurosel_6BDGbr {justify-content: center; /* Centers the flex items horizontally */}",
@@ -621,8 +620,8 @@
         "heading": "Meet the Founder",
         "description": "Write something compelling about the owner. Their journey, vision, and what makes the brand special.",
         "bg_color": "#e5d8b8",
-        "text_color": "#6a6a6a",
-        "heading_color": "#121212",
+        "text_color": "#242833",
+        "heading_color": "#9e0505",
         "heading_size": 36,
         "text_size": 16,
         "padding_top": 60,
@@ -670,7 +669,7 @@
       "name": "Shop by Craft",
       "settings": {
         "heading": "Shop by Craft",
-        "heading_color": "#2c2825",
+        "heading_color": "#9e0505",
         "heading_font_size": 28,
         "desktop_columns": 4,
         "bg_color": "#e5d8b8",
@@ -839,7 +838,7 @@
       "settings": {
         "heading": "Follow Us on Instagram",
         "bg_color": "#e5d8b8",
-        "text_color": "#121212",
+        "text_color": "#9e0505",
         "desktop_columns": 4,
         "padding_top": 60,
         "padding_bottom": 60
@@ -1237,115 +1236,6 @@
         "padding_bottom": 0
       }
     },
-    "featured_collection_GrNYmX": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "collection": "skincare",
-        "products_to_show": 5,
-        "title": "",
-        "title_max_lines": 1,
-        "product_title_font_size": 15,
-        "header_align": "center",
-        "header_font_weight": "medium",
-        "header_italic": false,
-        "header_font_size": 22,
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 5,
-        "rows_limit": 1,
-        "enable_desktop_slider": false,
-        "full_width": true,
-        "show_view_all": true,
-        "view_all_style": "outline",
-        "view_all_location": "last_card",
-        "view_all_button_size": "lg",
-        "view_all_button_radius": 40,
-        "view_all_button_padding_y": 16,
-        "view_all_button_padding_x": 21,
-        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
-        "price_font": "default",
-        "price_font_size": "xl",
-        "price_text_color": "#9e0505",
-        "overlay_enable": false,
-        "overlay_use_gradient": true,
-        "overlay_gradient_background": "",
-        "overlay_gradient_opacity": 100,
-        "overlay_vertical_align": "bottom",
-        "overlay_horizontal_align": "left",
-        "overlay_text_color": "#ffffff",
-        "overlay_title_font_size": 16,
-        "overlay_vendor_font_size": 14,
-        "overlay_price_font_size": 16,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "badge_vertical_align": "top",
-        "badge_horizontal_align": "right",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "controls_mode": "none",
-        "view_all_overlay_vertical_align": "middle",
-        "view_all_overlay_horizontal_align": "center",
-        "hide_last_card_bottom_text": true,
-        "padding_top": 0,
-        "padding_bottom": 24
-      }
-    },
-    "rich_text_W6GYk4": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_ryjdWe": {
-          "type": "heading",
-          "settings": {
-            "heading": "Drop by our store",
-            "heading_size": "h2"
-          }
-        }
-      },
-      "block_order": [
-        "heading_ryjdWe"
-      ],
-      "disabled": true,
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-26fd2766-dfa5-4f4b-b7ce-f0e523a05087",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 24
-      }
-    },
-    "rich_text_c6dHej": {
-      "type": "rich-text",
-      "blocks": {
-        "text_WEHapN": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Discover our collection in person,  crafted to be experienced up close.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "text_WEHapN"
-      ],
-      "disabled": true,
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
-        "full_width": true,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "image_with_text_Qx79Li": {
       "type": "image-with-text",
       "blocks": {
@@ -1495,9 +1385,6 @@
     "featured_collection_XJHLgN",
     "featured_collection_B3dpfR",
     "rich_text_rddqbB",
-    "featured_collection_GrNYmX",
-    "rich_text_W6GYk4",
-    "rich_text_c6dHej",
     "image_with_text_Qx79Li",
     "collection_bottom_sheet_pExMHR"
   ]
