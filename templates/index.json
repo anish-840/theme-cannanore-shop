@@ -710,9 +710,9 @@
           "type": "review",
           "settings": {
             "stars": 5,
-            "review_text": "This product completely changed the way I do things. Highly recommended to anyone looking for great quality!",
-            "name": "John Doe",
-            "product_name": "Signature Collection"
+            "review_text": "\"The Cannanore Shop is a treasure trove for authentic handlooms and handicrafts, bringing the rich art of remote regions to Bengaluru. It's where beauty meets utility, curated by a knowledgeable owner who ensures ethical sourcing and fair pricing. Many products are unique and often more affordable than on popular e-commerce platforms. A genuine business with a heart and purpose\"",
+            "name": "Anitha Prasad",
+            "product_name": "Bangalore"
           }
         },
         "review_Xh9FLX": {
@@ -745,6 +745,7 @@
         "bg_color": "#e5d8b8",
         "text_color": "#333333",
         "star_color": "#ffb800",
+        "image_border_radius": 0,
         "desktop_review_size": 19,
         "desktop_name_size": 16,
         "mobile_review_size": 18,
