@@ -28,6 +28,20 @@
     },
     {
       "type": "header",
+      "content": "Image Styles"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
       "content": "Desktop Typography"
     },
     {
@@ -164,6 +178,7 @@
     --bg-color: {{ section.settings.bg_color }};
     --text-color: {{ section.settings.text_color }};
     --star-color: {{ section.settings.star_color }};
+    --image-radius: {{ section.settings.image_border_radius }}px;
     --pt: {{ section.settings.padding_top }}px;
     --pb: {{ section.settings.padding_bottom }}px;
     
@@ -298,7 +313,7 @@
 .review-image-wrapper {
   width: 100%;
   aspect-ratio: 4 / 5; /* Elegant portrait crop */
-  border-radius: 16px; /* Smooth corners */
+  border-radius: var(--image-radius); /* Applied from schema */
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
@@ -430,7 +445,7 @@
 
   .review-image-wrapper {
     aspect-ratio: 1 / 1; /* Make square on mobile for better fit */
-    border-radius: 12px;
+    /* Schema radius still applies here, which looks good */
   }
 
   .review-content {
