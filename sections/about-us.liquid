@@ -292,7 +292,7 @@
   margin: 0 auto;
   text-align: center;
   padding: 60px 40px;
-  background-color: color-mix(in srgb, var(--text-color) 4%, transparent);
+  background-color: rgba(44, 40, 37, 0.04); /* Safe transparent fallback */
   border-radius: calc(var(--radius) * 1.5);
   position: relative;
 }
@@ -322,6 +322,12 @@
 .scroll-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* EDITOR SAFETY: Always show elements in Shopify customizer to prevent blank screens */
+.shopify-design-mode .scroll-reveal {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* MOBILE RESPONSIVENESS */
@@ -363,41 +369,51 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // 1. Scroll Reveal Animation using Intersection Observer
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -10% 0px', // Triggers slightly before element comes into view
-      threshold: 0.1
+  (function() {
+    const initEditorialSection = () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -10% 0px', 
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const section = document.querySelector('.section-{{ section.id }}');
+      if (section) {
+        const revealElements = section.querySelectorAll('.scroll-reveal');
+        revealElements.forEach(el => observer.observe(el));
+
+        // Parallax effect
+        const parallaxItem = section.querySelector('.parallax-item');
+        if (parallaxItem && window.matchMedia("(min-width: 769px)").matches) {
+          window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const sectionTop = section.offsetTop;
+            if (scrolled > sectionTop - window.innerHeight && scrolled < sectionTop + section.offsetHeight) {
+              const val = (scrolled - sectionTop) * 0.05;
+              parallaxItem.style.transform = `translateY(${val}px)`;
+            }
+          });
+        }
+      }
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          // Optional: Stop observing once revealed
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
+    // Run on standard load
+    initEditorialSection();
 
-    const revealElements = document.querySelectorAll('.section-{{ section.id }} .scroll-reveal');
-    revealElements.forEach(el => observer.observe(el));
-
-    // 2. Subtle Parallax Effect on Secondary Image
-    const section = document.querySelector('.section-{{ section.id }}');
-    const parallaxItem = section.querySelector('.parallax-item');
-
-    if (parallaxItem && window.matchMedia("(min-width: 769px)").matches) {
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const sectionTop = section.offsetTop;
-        // Only run parallax if section is near the viewport to save performance
-        if (scrolled > sectionTop - window.innerHeight && scrolled < sectionTop + section.offsetHeight) {
-          const val = (scrolled - sectionTop) * 0.05;
-          parallaxItem.style.transform = `translateY(${val}px)`;
-        }
-      });
-    }
-  });
+    // Re-initialize if edited in Shopify Customizer
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        initEditorialSection();
+      }
+    });
+  })();
 </script>
