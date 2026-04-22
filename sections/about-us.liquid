@@ -10,6 +10,12 @@
     },
     {
       "type": "color",
+      "id": "heading_color",
+      "label": "Header Color",
+      "default": "#2C2825"
+    },
+    {
+      "type": "color",
       "id": "text_color",
       "label": "Text Color",
       "default": "#2C2825"
@@ -17,7 +23,7 @@
     {
       "type": "color",
       "id": "accent_color",
-      "label": "Accent Color (Quote)",
+      "label": "Accent Color (Quote Icon)",
       "default": "#8B5E34"
     },
     {
@@ -109,6 +115,7 @@
   class="editorial-about section-{{ section.id }}"
   style="
     --bg-color: {{ section.settings.bg_color }};
+    --heading-color: {{ section.settings.heading_color }};
     --text-color: {{ section.settings.text_color }};
     --accent-color: {{ section.settings.accent_color }};
     --radius: {{ section.settings.image_radius }}px;
@@ -196,7 +203,7 @@
   font-size: clamp(32px, 5vw, 64px);
   line-height: 1.1;
   font-weight: 400;
-  color: var(--text-color);
+  color: var(--heading-color);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -261,7 +268,7 @@
   letter-spacing: 2px;
   font-weight: 600;
   margin-bottom: 24px;
-  color: var(--accent-color);
+  color: var(--heading-color);
 }
 
 .ea-story {
@@ -303,8 +310,11 @@
   margin-bottom: 20px;
 }
 
+/* Force override Shopify theme defaults on blockquotes */
 .ea-quote {
-  margin: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
   font-size: clamp(20px, 3vw, 28px);
   line-height: 1.4;
   font-weight: 500;
