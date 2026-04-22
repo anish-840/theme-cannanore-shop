@@ -80,6 +80,94 @@
     },
     {
       "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "tagline_size_desktop",
+      "label": "Tagline Size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "label": "Heading Size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "story_size_desktop",
+      "label": "Story Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "quote_size_desktop",
+      "label": "Quote Size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "tagline_size_mobile",
+      "label": "Tagline Size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "story_size_mobile",
+      "label": "Story Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "quote_size_mobile",
+      "label": "Quote Size",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
       "content": "Padding"
     },
     {
@@ -121,6 +209,16 @@
     --radius: {{ section.settings.image_radius }}px;
     --pt: {{ section.settings.padding_top }}px;
     --pb: {{ section.settings.padding_bottom }}px;
+
+    --tagline-size-desktop: {{ section.settings.tagline_size_desktop }}px;
+    --heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --story-size-desktop: {{ section.settings.story_size_desktop }}px;
+    --quote-size-desktop: {{ section.settings.quote_size_desktop }}px;
+
+    --tagline-size-mobile: {{ section.settings.tagline_size_mobile }}px;
+    --heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --story-size-mobile: {{ section.settings.story_size_mobile }}px;
+    --quote-size-mobile: {{ section.settings.quote_size_mobile }}px;
   "
 >
   <div class="page-width">
@@ -200,7 +298,7 @@
 }
 
 .ea-tagline {
-  font-size: clamp(32px, 5vw, 64px);
+  font-size: var(--tagline-size-desktop);
   line-height: 1.1;
   font-weight: 400;
   color: var(--heading-color);
@@ -263,7 +361,7 @@
 }
 
 .ea-heading {
-  font-size: 14px;
+  font-size: var(--heading-size-desktop);
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
@@ -272,7 +370,7 @@
 }
 
 .ea-story {
-  font-size: 16px;
+  font-size: var(--story-size-desktop);
   line-height: 1.8;
   opacity: 0.85;
 }
@@ -285,9 +383,9 @@
   margin-bottom: 0;
 }
 
-/* First paragraph gets a slight emphasis */
+/* First paragraph gets a slight emphasis relative to the base story size */
 .ea-story p:first-child {
-  font-size: 18px;
+  font-size: calc(var(--story-size-desktop) + 2px);
   font-weight: 500;
   line-height: 1.6;
   opacity: 1;
@@ -315,7 +413,7 @@
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
-  font-size: clamp(20px, 3vw, 28px);
+  font-size: var(--quote-size-desktop) !important;
   line-height: 1.4;
   font-weight: 500;
   font-style: italic;
@@ -348,6 +446,26 @@
 }
 
 @media screen and (max-width: 768px) {
+  .ea-tagline {
+    font-size: var(--tagline-size-mobile);
+  }
+
+  .ea-heading {
+    font-size: var(--heading-size-mobile);
+  }
+
+  .ea-story {
+    font-size: var(--story-size-mobile);
+  }
+
+  .ea-story p:first-child {
+    font-size: calc(var(--story-size-mobile) + 2px);
+  }
+
+  .ea-quote {
+    font-size: var(--quote-size-mobile) !important;
+  }
+
   .ea-tagline-wrapper {
     margin-bottom: 50px;
   }
