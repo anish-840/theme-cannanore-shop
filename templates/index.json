@@ -719,10 +719,11 @@
         "review_Xh9FLX": {
           "type": "review",
           "settings": {
+            "desktop_image": "shopify://shop_images/Somali_Review.webp",
             "stars": 5,
-            "review_text": "This product completely changed the way I do things. Highly recommended to anyone looking for great quality!",
-            "name": "John Doe",
-            "product_name": "Signature Collection"
+            "review_text": "I walked in just to browse and ended up discovering so many beautiful things. Everything feels personal and thoughtfully made. From handmade soaps to woven towels, it's all heart. Cannanore is where I find quiet, lovely treasures",
+            "name": "Somali Panigrahi",
+            "product_name": "Bangalore"
           }
         },
         "review_gQcgtr": {
