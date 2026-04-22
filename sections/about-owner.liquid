@@ -30,6 +30,17 @@
       "default": "Designing to create intuitive spaces where technology feels less like a tool and more like a seamless extension of thought. Welcome to a premium, user-centered experience."
     },
     {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Read More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
@@ -149,8 +160,16 @@
       <h2 class="fade-in-up" style="animation-delay: 0.1s;">{{ section.settings.heading }}</h2>
       <p class="fade-in-up" style="animation-delay: 0.2s;">{{ section.settings.description }}</p>
 
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <div class="fade-in-up" style="animation-delay: 0.25s;">
+          <a href="{{ section.settings.button_link }}" class="ao-button">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      {% endif %}
+
       {% if section.blocks.size > 0 %}
-        <div class="ao-stats fade-in-up" style="animation-delay: 0.3s;">
+        <div class="ao-stats fade-in-up" style="animation-delay: 0.35s;">
           {% for block in section.blocks %}
             <div class="ao-stat-item" {{ block.shopify_attributes }}>
               <h3>{{ block.settings.stat_number }}</h3>
@@ -222,7 +241,29 @@
   font-size: var(--text-size);
   line-height: 1.6;
   opacity: 0.85;
+  margin-bottom: 25px; /* Reduced to make room for button */
+}
+
+/* BUTTON */
+.ao-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
   margin-bottom: 40px;
+  background-color: var(--heading-color);
+  color: var(--bg);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 30px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.ao-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
 }
 
 /* STATS */
