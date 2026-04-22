@@ -613,6 +613,18 @@
     },
     "about_owner_k8Af4h": {
       "type": "about-owner",
+      "blocks": {
+        "stat_QwPPT3": {
+          "type": "stat",
+          "settings": {
+            "stat_number": "100%",
+            "stat_label": "Handmade"
+          }
+        }
+      },
+      "block_order": [
+        "stat_QwPPT3"
+      ],
       "name": "About Owner",
       "settings": {
         "owner_image": "shopify://shop_images/HangingsBTDE-684_2.jpg",
