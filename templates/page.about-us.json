@@ -76,12 +76,12 @@
         "quote": "We’re proud to be part of over 14,000 homes, offering you things that feel as good as they look.",
         "tagline_size_desktop": 56,
         "heading_size_desktop": 14,
-        "story_size_desktop": 15,
-        "quote_size_desktop": 24,
+        "story_size_desktop": 13,
+        "quote_size_desktop": 28,
         "tagline_size_mobile": 36,
         "heading_size_mobile": 12,
         "story_size_mobile": 15,
-        "quote_size_mobile": 20,
+        "quote_size_mobile": 17,
         "padding_top": 100,
         "padding_bottom": 100
       }
