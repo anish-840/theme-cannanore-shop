@@ -103,6 +103,11 @@
 }
 {% endschema %}
 
+{% assign hide_desktop_nav = false %}
+{% if section.blocks.size <= section.settings.desktop_columns %}
+  {% assign hide_desktop_nav = true %}
+{% endif %}
+
 <div 
   class="instagram-section section-{{ section.id }}"
   style="
@@ -138,7 +143,7 @@
       {% endif %}
     </div>
 
-    <div class="instagram-carousel-wrapper">
+    <div class="instagram-carousel-wrapper {% if hide_desktop_nav %}hide-desktop-arrows{% endif %}">
       
       <button class="insta-nav insta-nav--prev" aria-label="Previous">
         <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
@@ -178,6 +183,13 @@
       </button>
 
     </div>
+
+    <div class="instagram-indicators">
+      {% for block in section.blocks %}
+        <div class="insta-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+      {% endfor %}
+    </div>
+
   </div>
 </div>
 
@@ -345,12 +357,19 @@
   background: #f4f4f4;
 }
 
-.insta-nav--prev {
-  left: -20px;
+.insta-nav--prev { left: -20px; }
+.insta-nav--next { right: -20px; }
+
+/* HIDE DESKTOP ARROWS IF 4 OR FEWER CARDS */
+@media (min-width: 769px) {
+  .hide-desktop-arrows .insta-nav {
+    display: none !important;
+  }
 }
 
-.insta-nav--next {
-  right: -20px;
+/* INDICATORS (HIDDEN ON DESKTOP) */
+.instagram-indicators {
+  display: none;
 }
 
 /* MOBILE RESPONSIVE */
@@ -368,8 +387,13 @@
     height: 28px;
   }
 
+  /* Reduce width to 82% to proportionally decrease height, add side padding to center */
+  .instagram-carousel {
+    padding: 0 9% 15px 9%; 
+  }
+
   .instagram-slide {
-    flex: 0 0 100%;
+    flex: 0 0 82%; 
     scroll-snap-align: center;
   }
   
@@ -377,8 +401,35 @@
     transform: none;
   }
   
+  /* Make arrows visible, but slightly smaller and tucked in */
   .insta-nav {
-    display: none;
+    display: flex !important;
+    width: 32px;
+    height: 32px;
+    opacity: 0.8;
+  }
+  
+  .insta-nav--prev { left: 0px; }
+  .insta-nav--next { right: 0px; }
+
+  /* Show indicators on mobile */
+  .instagram-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .insta-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.15);
+    transition: background 0.3s ease;
+  }
+
+  .insta-dot.active {
+    background: var(--text-color);
   }
 }
 </style>
@@ -391,20 +442,58 @@
     const carousel = section.querySelector('.instagram-carousel');
     const prevBtn = section.querySelector('.insta-nav--prev');
     const nextBtn = section.querySelector('.insta-nav--next');
+    const dots = section.querySelectorAll('.insta-dot');
 
-    if (!carousel || !prevBtn || !nextBtn) return;
+    if (!carousel) return;
 
     const getScrollAmount = () => {
       const slide = carousel.querySelector('.instagram-slide');
       return slide.offsetWidth + 15;
     };
 
-    prevBtn.addEventListener('click', () => {
-      carousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-    });
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      });
 
-    nextBtn.addEventListener('click', () => {
-      carousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-    });
+      nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+      });
+    }
+
+    // Mobile Dots Highlight Logic
+    if (dots.length > 0) {
+      carousel.addEventListener('scroll', () => {
+        // Find the center of the visible carousel
+        const carouselCenter = carousel.scrollLeft + (carousel.offsetWidth / 2);
+        const slides = carousel.querySelectorAll('.instagram-slide');
+        
+        let activeIndex = 0;
+        let minDistance = Infinity;
+
+        slides.forEach((slide, index) => {
+          // Calculate center of each slide
+          const slideCenter = slide.offsetLeft + (slide.offsetWidth / 2);
+          const distance = Math.abs(carouselCenter - slideCenter);
+          
+          if (distance < minDistance) {
+            minDistance = distance;
+            activeIndex = index;
+          }
+        });
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === activeIndex);
+        });
+      });
+
+      // Allow tapping dots to scroll
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          const slideWidth = carousel.querySelector('.instagram-slide').offsetWidth + 15;
+          carousel.scrollTo({ left: slideWidth * index, behavior: 'smooth' });
+        });
+      });
+    }
   });
 </script>
