@@ -1,0 +1,547 @@
+{% schema %}
+{
+  "name": "Editorial About Us",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FAF8F5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Header Color",
+      "default": "#2C2825"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2C2825"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Quote Icon)",
+      "default": "#8B5E34"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_main",
+      "label": "Primary Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_secondary",
+      "label": "Secondary Floating Image"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Where Every Thread Tells a Tale."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Cannanore Shop"
+    },
+    {
+      "type": "richtext",
+      "id": "story",
+      "label": "Brand Story",
+      "default": "<p>The Cannanore Shop is a celebration of handmade beauty, conscious living, and timeless Indian craftsmanship...</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Highlight Quote",
+      "default": "We’re proud to be part of over 14,000 homes, offering you things that feel as good as they look."
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "tagline_size_desktop",
+      "label": "Tagline Size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "label": "Heading Size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "story_size_desktop",
+      "label": "Story Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "quote_size_desktop",
+      "label": "Quote Size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "tagline_size_mobile",
+      "label": "Tagline Size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "story_size_mobile",
+      "label": "Story Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "quote_size_mobile",
+      "label": "Quote Size",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 100,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial About Us"
+    }
+  ]
+}
+{% endschema %}
+
+<div 
+  class="editorial-about section-{{ section.id }}"
+  style="
+    --bg-color: {{ section.settings.bg_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --text-color: {{ section.settings.text_color }};
+    --accent-color: {{ section.settings.accent_color }};
+    --radius: {{ section.settings.image_radius }}px;
+    --pt: {{ section.settings.padding_top }}px;
+    --pb: {{ section.settings.padding_bottom }}px;
+
+    --tagline-size-desktop: {{ section.settings.tagline_size_desktop }}px;
+    --heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --story-size-desktop: {{ section.settings.story_size_desktop }}px;
+    --quote-size-desktop: {{ section.settings.quote_size_desktop }}px;
+
+    --tagline-size-mobile: {{ section.settings.tagline_size_mobile }}px;
+    --heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --story-size-mobile: {{ section.settings.story_size_mobile }}px;
+    --quote-size-mobile: {{ section.settings.quote_size_mobile }}px;
+  "
+>
+  <div class="page-width">
+    
+    {% if section.settings.tagline != blank %}
+      <div class="ea-tagline-wrapper scroll-reveal">
+        <h2 class="ea-tagline">{{ section.settings.tagline | newline_to_br }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="ea-grid">
+      
+      <div class="ea-visuals scroll-reveal" style="transition-delay: 0.1s;">
+        <div class="ea-image-main">
+          {% if section.settings.image_main %}
+            <img 
+              src="{{ section.settings.image_main | image_url: width: 1000 }}" 
+              alt="The Cannanore Shop"
+              loading="lazy"
+            >
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+        
+        <div class="ea-image-secondary parallax-item">
+          {% if section.settings.image_secondary %}
+            <img 
+              src="{{ section.settings.image_secondary | image_url: width: 600 }}" 
+              alt="Craftsmanship detail"
+              loading="lazy"
+            >
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ea-content scroll-reveal" style="transition-delay: 0.2s;">
+        {% if section.settings.heading != blank %}
+          <h3 class="ea-heading">{{ section.settings.heading }}</h3>
+        {% endif %}
+        
+        <div class="ea-story">
+          {{ section.settings.story }}
+        </div>
+      </div>
+
+    </div>
+
+    {% if section.settings.quote != blank %}
+      <div class="ea-quote-wrapper scroll-reveal" style="transition-delay: 0.1s;">
+        <svg class="ea-quote-icon" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <blockquote class="ea-quote">
+          {{ section.settings.quote }}
+        </blockquote>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+.section-{{ section.id }} {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding-top: var(--pt);
+  padding-bottom: var(--pb);
+  overflow: hidden;
+}
+
+/* TYPOGRAPHY & TAGLINE */
+.ea-tagline-wrapper {
+  max-width: 900px;
+  margin: 0 auto 80px auto;
+  text-align: center;
+}
+
+.ea-tagline {
+  font-size: var(--tagline-size-desktop);
+  line-height: 1.1;
+  font-weight: 400;
+  color: var(--heading-color);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* GRID LAYOUT */
+.ea-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+/* VISUALS (Dual Image Composition) */
+.ea-visuals {
+  position: relative;
+  width: 100%;
+}
+
+.ea-image-main {
+  width: 85%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0,0,0,0.05);
+}
+
+.ea-image-main img, .ea-image-main svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+}
+
+.ea-image-secondary {
+  position: absolute;
+  bottom: -10%;
+  right: 0;
+  width: 45%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  border: 10px solid var(--bg-color); /* Creates a cutout effect */
+}
+
+.ea-image-secondary img, .ea-image-secondary svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+/* CONTENT */
+.ea-content {
+  max-width: 550px;
+}
+
+.ea-heading {
+  font-size: var(--heading-size-desktop);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--heading-color);
+}
+
+.ea-story {
+  font-size: var(--story-size-desktop);
+  line-height: 1.8;
+  opacity: 0.85;
+}
+
+.ea-story p {
+  margin-bottom: 20px;
+}
+
+.ea-story p:last-child {
+  margin-bottom: 0;
+}
+
+/* First paragraph gets a slight emphasis relative to the base story size */
+.ea-story p:first-child {
+  font-size: calc(var(--story-size-desktop) + 2px);
+  font-weight: 500;
+  line-height: 1.6;
+  opacity: 1;
+}
+
+/* QUOTE BLOCK */
+.ea-quote-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 60px 40px;
+  background-color: rgba(44, 40, 37, 0.04); /* Safe transparent fallback */
+  border-radius: calc(var(--radius) * 1.5);
+  position: relative;
+}
+
+.ea-quote-icon {
+  color: var(--accent-color);
+  opacity: 0.2;
+  margin-bottom: 20px;
+}
+
+/* Force override Shopify theme defaults on blockquotes */
+.ea-quote {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  font-size: var(--quote-size-desktop) !important;
+  line-height: 1.4;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-color);
+}
+
+/* SCROLL REVEAL ANIMATIONS */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* EDITOR SAFETY: Always show elements in Shopify customizer to prevent blank screens */
+.shopify-design-mode .scroll-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media screen and (max-width: 990px) {
+  .ea-grid {
+    gap: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .ea-tagline {
+    font-size: var(--tagline-size-mobile);
+  }
+
+  .ea-heading {
+    font-size: var(--heading-size-mobile);
+  }
+
+  .ea-story {
+    font-size: var(--story-size-mobile);
+  }
+
+  .ea-story p:first-child {
+    font-size: calc(var(--story-size-mobile) + 2px);
+  }
+
+  .ea-quote {
+    font-size: var(--quote-size-mobile) !important;
+  }
+
+  .ea-tagline-wrapper {
+    margin-bottom: 50px;
+  }
+  
+  .ea-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .ea-image-main {
+    width: 90%;
+  }
+
+  .ea-image-secondary {
+    width: 50%;
+    bottom: -15%;
+  }
+
+  .ea-content {
+    max-width: 100%;
+    margin-top: 30px;
+  }
+
+  .ea-quote-wrapper {
+    padding: 40px 20px;
+  }
+}
+</style>
+
+<script>
+  (function() {
+    const initEditorialSection = () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -10% 0px', 
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const section = document.querySelector('.section-{{ section.id }}');
+      if (section) {
+        const revealElements = section.querySelectorAll('.scroll-reveal');
+        revealElements.forEach(el => observer.observe(el));
+
+        // Parallax effect
+        const parallaxItem = section.querySelector('.parallax-item');
+        if (parallaxItem && window.matchMedia("(min-width: 769px)").matches) {
+          window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const sectionTop = section.offsetTop;
+            if (scrolled > sectionTop - window.innerHeight && scrolled < sectionTop + section.offsetHeight) {
+              const val = (scrolled - sectionTop) * 0.05;
+              parallaxItem.style.transform = `translateY(${val}px)`;
+            }
+          });
+        }
+      }
+    };
+
+    // Run on standard load
+    initEditorialSection();
+
+    // Re-initialize if edited in Shopify Customizer
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        initEditorialSection();
+      }
+    });
+  })();
+</script>
