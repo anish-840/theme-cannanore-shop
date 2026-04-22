@@ -745,7 +745,7 @@
         "bg_color": "#e5d8b8",
         "text_color": "#333333",
         "star_color": "#ffb800",
-        "desktop_review_size": 24,
+        "desktop_review_size": 19,
         "desktop_name_size": 16,
         "mobile_review_size": 18,
         "mobile_name_size": 14,
