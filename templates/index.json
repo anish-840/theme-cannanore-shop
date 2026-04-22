@@ -710,7 +710,7 @@
           "type": "review",
           "settings": {
             "desktop_image": "shopify://shop_images/Copy_of_IMG20250419191341_1.webp",
-            "stars": 5,
+            "stars": 1,
             "review_text": "The Cannanore Shop is a treasure trove for authentic handlooms and handicrafts, bringing the rich art of remote regions to Bengaluru. It's where beauty meets utility, curated by a knowledgeable owner who ensures ethical sourcing and fair pricing. Many products are unique and often more affordable than on popular e-commerce platforms. A genuine business with a heart and purpose",
             "name": "Anitha Prasad",
             "product_name": "Bangalore"
@@ -730,7 +730,7 @@
           "type": "review",
           "settings": {
             "desktop_image": "shopify://shop_images/Review_3_e0d311d8-c25a-4ccb-b97b-5e2f12d0876e.jpg",
-            "stars": 5,
+            "stars": 1,
             "review_text": "This is a lovely little shop with a very carefully selected curation of items. While all of their products are excellent, I wanted to specifically call out their really unique Thorkish towels. Imagine how a combination of a thick Turkish towel and a thin traditional Indian towel might feel like, and you have it! We’ve been using these towels ever since we first discovered them a few years ago and it’s tough to go back to any other type of towel after this! Try it first and thank me later. 🙂",
             "name": "Srikanth Srinivasan",
             "product_name": "Bangalore"
@@ -747,7 +747,7 @@
         "heading": "What Our Customers Say",
         "bg_color": "#e5d8b8",
         "text_color": "#333333",
-        "star_color": "#ffb800",
+        "star_color": "#e5d8b8",
         "image_border_radius": 0,
         "desktop_review_size": 19,
         "desktop_name_size": 16,
