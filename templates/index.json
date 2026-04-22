@@ -729,10 +729,11 @@
         "review_gQcgtr": {
           "type": "review",
           "settings": {
+            "desktop_image": "shopify://shop_images/Review_3_e0d311d8-c25a-4ccb-b97b-5e2f12d0876e.jpg",
             "stars": 5,
-            "review_text": "This product completely changed the way I do things. Highly recommended to anyone looking for great quality!",
-            "name": "John Doe",
-            "product_name": "Signature Collection"
+            "review_text": "This is a lovely little shop with a very carefully selected curation of items. While all of their products are excellent, I wanted to specifically call out their really unique Thorkish towels. Imagine how a combination of a thick Turkish towel and a thin traditional Indian towel might feel like, and you have it! We’ve been using these towels ever since we first discovered them a few years ago and it’s tough to go back to any other type of towel after this! Try it first and thank me later. 🙂",
+            "name": "Srikanth Srinivasan",
+            "product_name": "Bangalore"
           }
         }
       },
