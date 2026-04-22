@@ -709,8 +709,9 @@
         "review_JHQnHk": {
           "type": "review",
           "settings": {
+            "desktop_image": "shopify://shop_images/Copy_of_IMG20250419191341_1.webp",
             "stars": 5,
-            "review_text": "\"The Cannanore Shop is a treasure trove for authentic handlooms and handicrafts, bringing the rich art of remote regions to Bengaluru. It's where beauty meets utility, curated by a knowledgeable owner who ensures ethical sourcing and fair pricing. Many products are unique and often more affordable than on popular e-commerce platforms. A genuine business with a heart and purpose\"",
+            "review_text": "The Cannanore Shop is a treasure trove for authentic handlooms and handicrafts, bringing the rich art of remote regions to Bengaluru. It's where beauty meets utility, curated by a knowledgeable owner who ensures ethical sourcing and fair pricing. Many products are unique and often more affordable than on popular e-commerce platforms. A genuine business with a heart and purpose",
             "name": "Anitha Prasad",
             "product_name": "Bangalore"
           }
