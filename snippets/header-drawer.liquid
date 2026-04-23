@@ -274,39 +274,68 @@
 </header-drawer>
 
 {% stylesheet %}
-/* Mobile drawer: keep bottom content clear of fixed bottom navigation (with iOS safe-area) */
+/* Mobile drawer: keep bottom content clear of fixed bottom navigation */
 .menu-drawer {
-  --bottom-nav-h: 64px; /* Match your bottom nav height */
+  --bottom-nav-h: 64px; 
   --safe-bottom-space: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
 }
 
-/* Add breathing room at the bottom of the drawer content on mobile */
 .menu-drawer__navigation-container {
   padding-bottom: var(--safe-bottom-space);
 }
 
-/* Desktop: no extra spacing needed */
 @media screen and (min-width: 990px) {
   .menu-drawer__navigation-container {
     padding-bottom: 0;
   }
 }
 
-/* Single Column Accordion Overrides */
-.menu-drawer__submenu {
-  position: relative !important;
-  transform: none !important;
-  visibility: visible !important;
+/* ====================================================
+   Single Column Accordion Overrides
+==================================================== */
+
+/* 1. Kill the slide-over panel behavior and force native document flow */
+.menu-drawer__submenu,
+.menu-drawer__inner-submenu {
+  position: static !important; 
+  transform: none !important; 
   width: 100% !important;
-  background-color: transparent !important;
+  height: auto !important;
+  min-height: auto !important;
+  visibility: visible !important;
+  overflow: visible !important;
 }
 
-.menu-drawer__inner-submenu, 
-.menu-drawer__submenu .menu-drawer__menu {
-  padding-left: 1.5rem; /* Creates visual hierarchy */
+/* 2. Hide submenu when closed, display as a block when opened */
+details:not([open]) > .menu-drawer__submenu {
+  display: none !important;
 }
 
-/* Ensure arrows are hidden and carets rotate naturally */
+details[open] > .menu-drawer__submenu {
+  display: block !important;
+  background-color: transparent !important; /* Safe to be transparent now because it pushes content down */
+}
+
+/* 3. Hide the default Dawn "Back" buttons inside submenus */
+.menu-drawer__close-button {
+  display: none !important;
+}
+
+/* 4. Visual Hierarchy: Indent and refine text for submenus */
+.menu-drawer__submenu .menu-drawer__menu-item {
+  padding-left: 3.2rem !important; /* Level 2 indentation */
+  font-size: 1.5rem !important; 
+  opacity: 0.85; /* Subtle fade for premium depth */
+}
+
+/* 5. Visual Hierarchy: Indent for 3rd level submenus (if you use them) */
+.menu-drawer__submenu .menu-drawer__submenu .menu-drawer__menu-item {
+  padding-left: 4.8rem !important; /* Level 3 indentation */
+  font-size: 1.4rem !important;
+  opacity: 0.70;
+}
+
+/* 6. Iconography: Ensure arrows are hidden and carets rotate naturally */
 .menu-drawer__menu-item .icon-arrow {
   display: none !important;
 }
@@ -314,15 +343,10 @@
 .menu-drawer__menu-item .icon-caret {
   display: block !important;
   height: 0.6rem;
+  transition: transform 0.25s ease-in-out; /* Smooth rotation */
 }
 
-.caret-icon {
-  transition: transform 0.2s ease-in-out;
-  display: flex;
-  align-items: center;
-}
-
-details[open] > summary > .caret-icon {
+details[open] > summary .icon-caret {
   transform: rotate(180deg);
 }
 {% endstylesheet %}
