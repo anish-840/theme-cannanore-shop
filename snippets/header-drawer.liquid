@@ -20,7 +20,7 @@
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
-            <ul class="menu-drawer__menu list-menu" role="list">
+            <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
                 <li>
                   {%- if link.links != blank -%}
@@ -30,16 +30,25 @@
                         class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
                         {{ link.title | escape }}
-                        <span class="svg-wrapper caret-icon">
+                        <span class="svg-wrapper">
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="svg-wrapper">
                           {{- 'icon-caret.svg' | inline_asset_content -}}
                         </span>
                       </summary>
                       <div
                         id="link-{{ link.handle | escape }}"
-                        class="custom-accordion__submenu"
+                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
                         tabindex="-1"
                       >
-                        <div class="custom-accordion__inner">
+                        <div class="menu-drawer__inner-submenu">
+                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                            <span class="svg-wrapper">
+                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            </span>
+                            {{ link.title | escape }}
+                          </button>
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                             {%- for childlink in link.links -%}
                               <li>
@@ -61,14 +70,26 @@
                                       class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                                     >
                                       {{ childlink.title | escape }}
-                                      <span class="svg-wrapper caret-icon">
+                                      <span class="svg-wrapper">
+                                        {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                      </span>
+                                      <span class="svg-wrapper">
                                         {{- 'icon-caret.svg' | inline_asset_content -}}
                                       </span>
                                     </summary>
                                     <div
                                       id="childlink-{{ childlink.handle | escape }}"
-                                      class="custom-accordion__submenu"
+                                      class="menu-drawer__submenu has-submenu gradient motion-reduce"
                                     >
+                                      <button
+                                        class="menu-drawer__close-button link link--text focus-inset"
+                                        aria-expanded="true"
+                                      >
+                                        <span class="svg-wrapper">
+                                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                        </span>
+                                        {{ childlink.title | escape }}
+                                      </button>
                                       <ul
                                         class="menu-drawer__menu list-menu"
                                         role="list"
@@ -274,77 +295,21 @@
 </header-drawer>
 
 {% stylesheet %}
-/* Mobile drawer: keep bottom content clear of fixed bottom navigation */
+/* Mobile drawer: keep bottom content clear of fixed bottom navigation (with iOS safe-area) */
 .menu-drawer {
-  --bottom-nav-h: 64px; 
+  --bottom-nav-h: 64px; /* Match your bottom nav height */
   --safe-bottom-space: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
 }
 
+/* Add breathing room at the bottom of the drawer content on mobile */
 .menu-drawer__navigation-container {
   padding-bottom: var(--safe-bottom-space);
 }
 
+/* Desktop: no extra spacing needed */
 @media screen and (min-width: 990px) {
   .menu-drawer__navigation-container {
     padding-bottom: 0;
   }
-}
-
-/* ====================================================
-   Pure HTML Accordion Overrides
-==================================================== */
-
-/* Ensure the main list never gets hidden by Dawn's JS */
-.menu-drawer__menu {
-  visibility: visible !important;
-}
-
-/* The new custom submenu class container */
-.custom-accordion__submenu {
-  display: none;
-  width: 100%;
-  /* Gives the submenu a slightly darker/lighter tint to distinguish it nicely */
-  background-color: rgba(var(--color-foreground), 0.03); 
-}
-
-/* Show the submenu when details is opened natively by the browser */
-details[open] > .custom-accordion__submenu {
-  display: block;
-}
-
-/* Visual Hierarchy: Indent level 2 items */
-.custom-accordion__submenu .menu-drawer__menu-item {
-  padding-left: 3.2rem; 
-  font-size: 1.5rem; 
-  opacity: 0.9; 
-}
-
-/* Visual Hierarchy: Indent level 3 items */
-.custom-accordion__submenu .custom-accordion__submenu .menu-drawer__menu-item {
-  padding-left: 4.8rem; 
-  font-size: 1.4rem;
-  opacity: 0.8;
-}
-
-/* Iconography: Ensure default slide arrows are hidden */
-.menu-drawer__menu-item .icon-arrow {
-  display: none !important;
-}
-
-/* Iconography: Show a rotating caret instead */
-.menu-drawer__menu-item .icon-caret {
-  display: block !important;
-  height: 0.6rem;
-}
-
-.caret-icon {
-  transition: transform 0.25s ease-in-out;
-  display: flex;
-  align-items: center;
-}
-
-/* Rotate caret when opened */
-details[open] > summary .caret-icon {
-  transform: rotate(180deg);
 }
 {% endstylesheet %}
