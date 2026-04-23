@@ -90,7 +90,7 @@
         "a:link,a:visited,a:hover,a:active {text-decoration: none !important; color: #af3a32;}"
       ],
       "settings": {
-        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "color_scheme": "scheme-5",
         "newsletter_enable": false,
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": false,
