@@ -670,6 +670,65 @@
         "info_spacing": 10
       }
     },
+    "featured_collection_a8Hkpp": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "towels",
+        "products_to_show": 5,
+        "title": "Enrich your home with artisinal grace",
+        "title_max_lines": 1,
+        "product_title_font_size": 15,
+        "header_align": "center",
+        "header_font_weight": "medium",
+        "header_italic": false,
+        "header_font_size": 22,
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "rows_limit": 1,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "view_all_location": "last_card",
+        "view_all_button_size": "lg",
+        "view_all_button_radius": 40,
+        "view_all_button_padding_y": 16,
+        "view_all_button_padding_x": 21,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "price_font": "default",
+        "price_font_size": "xl",
+        "price_text_color": "#9e0505",
+        "overlay_enable": false,
+        "overlay_use_gradient": true,
+        "overlay_gradient_background": "",
+        "overlay_gradient_opacity": 100,
+        "overlay_vertical_align": "bottom",
+        "overlay_horizontal_align": "left",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_font_size": 48,
+        "overlay_vendor_font_size": 16,
+        "overlay_price_font_size": 21,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "badge_vertical_align": "top",
+        "badge_horizontal_align": "right",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "controls_mode": "none",
+        "view_all_overlay_vertical_align": "middle",
+        "view_all_overlay_horizontal_align": "center",
+        "hide_last_card_bottom_text": true,
+        "padding_top": 0,
+        "padding_bottom": 24
+      }
+    },
     "featured_collection_zXCKBU": {
       "type": "featured-collection",
       "settings": {
@@ -774,31 +833,47 @@
         "craft_card_yimcy8": {
           "type": "craft_card",
           "settings": {
-            "image": "shopify://shop_images/tablerunner-3_3.jpg",
+            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
+            "text": "Dhokra",
+            "link": ""
+          }
+        },
+        "craft_card_6kRDmR": {
+          "type": "craft_card",
+          "settings": {
+            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
+            "text": "Hand Block",
+            "link": ""
+          }
+        },
+        "craft_card_fTbJVb": {
+          "type": "craft_card",
+          "settings": {
+            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
             "text": "Kalamkari",
             "link": ""
           }
         },
-        "craft_card_XEVkWw": {
+        "craft_card_wKMfqp": {
           "type": "craft_card",
           "settings": {
-            "image": "shopify://shop_images/tablerunner-3_3.jpg",
-            "text": "Ceramic",
+            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
+            "text": "Kalamkari",
             "link": ""
           }
         },
-        "craft_card_qrkKB4": {
+        "craft_card_K9Yg8M": {
           "type": "craft_card",
           "settings": {
-            "image": "shopify://shop_images/tablerunner-3_3.jpg",
-            "text": "Pottery",
+            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
+            "text": "Kalamkari",
             "link": ""
           }
         },
-        "craft_card_qmTE3K": {
+        "craft_card_aEKfL6": {
           "type": "craft_card",
           "settings": {
-            "image": "shopify://shop_images/tablerunner-3_3.jpg",
+            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
             "text": "Kalamkari",
             "link": ""
           }
@@ -806,16 +881,18 @@
       },
       "block_order": [
         "craft_card_yimcy8",
-        "craft_card_XEVkWw",
-        "craft_card_qrkKB4",
-        "craft_card_qmTE3K"
+        "craft_card_6kRDmR",
+        "craft_card_fTbJVb",
+        "craft_card_wKMfqp",
+        "craft_card_K9Yg8M",
+        "craft_card_aEKfL6"
       ],
       "name": "Shop by Craft",
       "settings": {
         "heading": "Shop by Craft",
         "heading_color": "#9e0505",
         "heading_font_size": 28,
-        "desktop_columns": 4,
+        "desktop_columns": 3,
         "bg_color": "#e5d8b8",
         "text_color": "#9e0505",
         "card_border_radius": 0,
@@ -1042,65 +1119,6 @@
         "overlay_title_font_size": 16,
         "overlay_vendor_font_size": 14,
         "overlay_price_font_size": 16,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "badge_vertical_align": "top",
-        "badge_horizontal_align": "right",
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "controls_mode": "none",
-        "view_all_overlay_vertical_align": "middle",
-        "view_all_overlay_horizontal_align": "center",
-        "hide_last_card_bottom_text": true,
-        "padding_top": 0,
-        "padding_bottom": 24
-      }
-    },
-    "featured_collection_a8Hkpp": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "towels",
-        "products_to_show": 5,
-        "title": "Enrich your home with artisinal grace",
-        "title_max_lines": 1,
-        "product_title_font_size": 15,
-        "header_align": "center",
-        "header_font_weight": "medium",
-        "header_italic": false,
-        "header_font_size": 22,
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 5,
-        "rows_limit": 1,
-        "enable_desktop_slider": false,
-        "full_width": true,
-        "show_view_all": true,
-        "view_all_style": "outline",
-        "view_all_location": "last_card",
-        "view_all_button_size": "lg",
-        "view_all_button_radius": 40,
-        "view_all_button_padding_y": 16,
-        "view_all_button_padding_x": 21,
-        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
-        "price_font": "default",
-        "price_font_size": "xl",
-        "price_text_color": "#9e0505",
-        "overlay_enable": false,
-        "overlay_use_gradient": true,
-        "overlay_gradient_background": "",
-        "overlay_gradient_opacity": 100,
-        "overlay_vertical_align": "bottom",
-        "overlay_horizontal_align": "left",
-        "overlay_text_color": "#ffffff",
-        "overlay_title_font_size": 48,
-        "overlay_vendor_font_size": 16,
-        "overlay_price_font_size": 21,
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": false,
