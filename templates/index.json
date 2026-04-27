@@ -1340,80 +1340,14 @@
     },
     "collection_bottom_sheet_pExMHR": {
       "type": "collection-bottom-sheet",
-      "blocks": {
-        "collection_AVnTBy": {
-          "type": "collection",
-          "settings": {
-            "collection": "sarees",
-            "image_shape": "rounded",
-            "name_color": "#111111",
-            "name_size": 12
-          }
-        },
-        "collection_RH9UB4": {
-          "type": "collection",
-          "settings": {
-            "collection": "skincare",
-            "image_shape": "rounded",
-            "name_color": "#111111",
-            "name_size": 12
-          }
-        },
-        "collection_nUyLXV": {
-          "type": "collection",
-          "settings": {
-            "collection": "toys",
-            "image_shape": "rounded",
-            "name_color": "#111111",
-            "name_size": 12
-          }
-        },
-        "collection_HgTMRe": {
-          "type": "collection",
-          "settings": {
-            "collection": "jewellery-1",
-            "image_shape": "rounded",
-            "name_color": "#111111",
-            "name_size": 12
-          }
-        },
-        "collection_YgdH9H": {
-          "type": "collection",
-          "settings": {
-            "collection": "bedsheets",
-            "image_shape": "rounded",
-            "name_color": "#111111",
-            "name_size": 12
-          }
-        },
-        "collection_MX9zTm": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "image_shape": "rounded",
-            "name_color": "#111111",
-            "name_size": 12
-          }
-        }
-      },
-      "block_order": [
-        "collection_AVnTBy",
-        "collection_RH9UB4",
-        "collection_nUyLXV",
-        "collection_HgTMRe",
-        "collection_YgdH9H",
-        "collection_MX9zTm"
-      ],
       "custom_css": [],
       "name": "Collection bottom sheet",
       "settings": {
         "sheet_id": "bottom_sheet_collection",
         "title": "Categories",
+        "menu": "desktop-categories",
         "panel_bg": "#e5d8b8",
-        "panel_radius": 0,
-        "columns_mobile": 3,
-        "columns_desktop": 4,
-        "grid_gap": 12
+        "panel_radius": 0
       }
     }
   },
