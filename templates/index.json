@@ -873,6 +873,7 @@
         "craft_card_aEKfL6": {
           "type": "craft_card",
           "settings": {
+            "image": "shopify://shop_images/yote-1_10.jpg",
             "text": "Banana Fibre",
             "link": "shopify://collections/banana-fibre"
           }
