@@ -843,7 +843,7 @@
           "settings": {
             "image": "shopify://shop_images/diffuser_elephant_1.jpg",
             "text": "Hand Block",
-            "link": ""
+            "link": "shopify://collections/hand-block"
           }
         },
         "craft_card_fTbJVb": {
@@ -851,7 +851,7 @@
           "settings": {
             "image": "shopify://shop_images/diffuser_elephant_1.jpg",
             "text": "Ajrakh",
-            "link": ""
+            "link": "shopify://collections/ajrakh"
           }
         },
         "craft_card_wKMfqp": {
