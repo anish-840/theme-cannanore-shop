@@ -1,9 +1,10 @@
 {% comment %}
-  Collection Bottom Sheet — Full Black Overlay
+  Menu Bottom Sheet — Full Black Overlay
   - Open with [data-open-sheet-target="<sheet_id>"]
   - Overlay: solid black, fades in/out
   - Panel: slides up/down
   - Header: Title left, close button right
+  - Body: Renders a selected Shopify Menu with nested accordions for submenus
 {% endcomment %}
 
 {% assign sheet_id = section.settings.sheet_id | strip %}
@@ -45,6 +46,8 @@
     border-top-left-radius: {{ section.settings.panel_radius }}px;
     border-top-right-radius: {{ section.settings.panel_radius }}px;
     max-height: calc(85vh + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
     transform: translateY(100%);
     transition: transform 0.3s ease;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.18);
@@ -59,13 +62,15 @@
   .qc-bottom-sheet__header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* ✅ Title left, Close right */
+    justify-content: space-between;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
   }
   .qc-bottom-sheet__title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
+    margin: 0;
   }
   .qc-bottom-sheet__close {
     background: transparent;
@@ -75,34 +80,61 @@
     line-height: 1;
   }
 
-  .qc-bottom-sheet__grid {
-    display: grid;
-    grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
-    gap: {{ section.settings.grid_gap }}px;
-  }
-  @media (min-width: 750px) {
-    .qc-bottom-sheet__grid {
-      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-    }
+  /* Menu Styles */
+  .qc-bottom-sheet__menu-wrapper {
+    overflow-y: auto; /* Allows scrolling if menu is long */
+    -webkit-overflow-scrolling: touch;
   }
 
-  .qc-col-item { text-align: center; }
-  .qc-col-link { display: block; text-decoration: none; color: inherit; }
-  .qc-col-imgwrap {
+  .qc-menu-list, 
+  .qc-submenu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .qc-menu-link,
+  .qc-menu-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background: #f6f6f6;
+    padding: 14px 0;
+    text-decoration: none;
+    color: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: transparent;
+    cursor: pointer;
   }
-  .qc-shape-square { border-radius: 0; }
-  .qc-shape-rounded { border-radius: 12px; }
-  .qc-shape-circle { border-radius: 9999px; }
-  .qc-shape-soft { border-radius: 24px; }
-  .qc-col-imgwrap img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
+
+  /* Submenu styling */
+  .qc-submenu-list {
+    padding-left: 16px;
+    background: rgba(0,0,0,0.02);
   }
-  .qc-col-title { margin-top: 8px; font-weight: 500; }
+  .qc-menu-link--child,
+  .qc-menu-summary--child {
+    font-size: 15px;
+    font-weight: 400;
+    padding: 12px 0;
+  }
+
+  /* Accordion details */
+  .qc-menu-details summary {
+    list-style: none;
+  }
+  .qc-menu-details summary::-webkit-details-marker {
+    display: none;
+  }
+  .qc-menu-icon {
+    font-size: 10px;
+    transition: transform 0.3s ease;
+  }
+  .qc-menu-details[open] > .qc-menu-summary .qc-menu-icon {
+    transform: rotate(180deg);
+  }
 
   @media (prefers-reduced-motion: reduce) {
     .qc-bottom-sheet__overlay { transition: none; }
@@ -116,32 +148,59 @@
   <div class="qc-bottom-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="{{ sheet_id }}-title">
     <div class="qc-bottom-sheet__header">
       <div id="{{ sheet_id }}-title" class="qc-bottom-sheet__title">
-        {{ section.settings.title | default: "Collections" }}
+        {{ section.settings.title | default: "Menu" }}
       </div>
       <button type="button" class="qc-bottom-sheet__close" aria-label="Close" data-close>
         <span class="svg-wrapper">{{ 'icon-close.svg' | inline_asset_content }}</span>
       </button>
     </div>
 
-    <div class="qc-bottom-sheet__grid">
-      {% for block in section.blocks %}
-        {% assign col = block.settings.collection %}
-        {% if col == blank %}{% continue %}{% endif %}
-        {% assign img = block.settings.custom_image | default: col.featured_image %}
-        {% assign shape = block.settings.image_shape | default: 'rounded' %}
-        <div class="qc-col-item" {{ block.shopify_attributes }}>
-          <a class="qc-col-link" href="{{ col.url }}">
-            <div class="qc-col-imgwrap qc-shape-{{ shape }}">
-              {% if img %}
-                <img src="{{ img | image_url: width: 600 }}" alt="{{ col.title | escape }}" loading="lazy">
-              {% endif %}
-            </div>
-            <div class="qc-col-title" style="color: {{ block.settings.name_color }}; font-size: {{ block.settings.name_size }}px;">
-              {{ col.title }}
-            </div>
-          </a>
-        </div>
-      {% endfor %}
+    <div class="qc-bottom-sheet__menu-wrapper">
+      {%- if section.settings.menu != blank -%}
+        <ul class="qc-menu-list">
+          {%- for link in section.settings.menu.links -%}
+            <li class="qc-menu-item">
+              {%- if link.links != blank -%}
+                <details class="qc-menu-details">
+                  <summary class="qc-menu-summary">
+                    {{ link.title }}
+                    <span class="qc-menu-icon">▼</span>
+                  </summary>
+                  <ul class="qc-submenu-list">
+                    {%- for childlink in link.links -%}
+                      <li class="qc-submenu-item">
+                        {%- if childlink.links != blank -%}
+                          <details class="qc-menu-details">
+                            <summary class="qc-menu-summary qc-menu-summary--child">
+                              {{ childlink.title }}
+                              <span class="qc-menu-icon">▼</span>
+                            </summary>
+                            <ul class="qc-submenu-list">
+                              {%- for grandchildlink in childlink.links -%}
+                                <li>
+                                  <a href="{{ grandchildlink.url }}" class="qc-menu-link qc-menu-link--child" style="padding-left: 16px;">
+                                    {{ grandchildlink.title }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </details>
+                        {%- else -%}
+                          <a href="{{ childlink.url }}" class="qc-menu-link qc-menu-link--child">{{ childlink.title }}</a>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </details>
+              {%- else -%}
+                <a href="{{ link.url }}" class="qc-menu-link">{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p style="padding: 20px 0; text-align: center; opacity: 0.6;">Please select a menu in the theme settings.</p>
+      {%- endif -%}
     </div>
   </div>
 
@@ -187,36 +246,45 @@
 
 {% schema %}
 {
-  "name": "Collection bottom sheet",
+  "name": "Menu bottom sheet",
   "settings": [
-    { "type": "text", "id": "sheet_id", "label": "Sheet ID", "info": "Leave blank to auto-generate. Use this ID in triggers (data-open-sheet-target)." },
-    { "type": "text", "id": "title", "label": "Title", "default": "Collections" },
-    { "type": "color", "id": "panel_bg", "label": "Panel background", "default": "#ffffff" },
-    { "type": "range", "id": "panel_radius", "label": "Panel corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "columns_mobile", "label": "Columns (mobile)", "min": 2, "max": 4, "step": 1, "default": 3 },
-    { "type": "range", "id": "columns_desktop", "label": "Columns (desktop)", "min": 3, "max": 6, "step": 1, "default": 4 },
-    { "type": "range", "id": "grid_gap", "label": "Grid gap", "min": 4, "max": 28, "step": 2, "unit": "px", "default": 12 }
-  ],
-  "blocks": [
+    { 
+      "type": "text", 
+      "id": "sheet_id", 
+      "label": "Sheet ID", 
+      "info": "Leave blank to auto-generate. Use this ID in triggers (data-open-sheet-target)." 
+    },
+    { 
+      "type": "text", 
+      "id": "title", 
+      "label": "Header Title", 
+      "default": "Menu" 
+    },
     {
-      "type": "collection",
-      "name": "Collection",
-      "settings": [
-        { "type": "collection", "id": "collection", "label": "Collection" },
-        { "type": "image_picker", "id": "custom_image", "label": "Override image" },
-        { "type": "select", "id": "image_shape", "label": "Image shape", "options": [
-          { "value": "square", "label": "Square" },
-          { "value": "rounded", "label": "Rounded" },
-          { "value": "circle", "label": "Circle" },
-          { "value": "soft", "label": "Soft rounded" }
-        ], "default": "rounded" },
-        { "type": "color", "id": "name_color", "label": "Name color", "default": "#111111" },
-        { "type": "range", "id": "name_size", "label": "Name font size", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 }
-      ]
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select Menu",
+      "default": "main-menu"
+    },
+    { 
+      "type": "color", 
+      "id": "panel_bg", 
+      "label": "Panel background", 
+      "default": "#ffffff" 
+    },
+    { 
+      "type": "range", 
+      "id": "panel_radius", 
+      "label": "Panel corner radius", 
+      "min": 0, 
+      "max": 32, 
+      "step": 2, 
+      "unit": "px", 
+      "default": 16 
     }
   ],
   "presets": [
-    { "name": "Collection bottom sheet", "blocks": [ { "type": "collection" }, { "type": "collection" }, { "type": "collection" } ] }
+    { "name": "Menu bottom sheet" }
   ]
 }
 {% endschema %}
