@@ -873,9 +873,8 @@
         "craft_card_aEKfL6": {
           "type": "craft_card",
           "settings": {
-            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
             "text": "Banana Fibre",
-            "link": ""
+            "link": "shopify://collections/banana-fibre"
           }
         }
       },
