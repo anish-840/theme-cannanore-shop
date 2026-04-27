@@ -1340,12 +1340,13 @@
     },
     "collection_bottom_sheet_pExMHR": {
       "type": "collection-bottom-sheet",
+      "disabled": true,
       "custom_css": [],
       "name": "Collection bottom sheet",
       "settings": {
         "sheet_id": "bottom_sheet_collection",
         "title": "Categories",
-        "menu": "desktop-categories",
+        "menu": "desktop-categories-old",
         "panel_bg": "#e5d8b8",
         "panel_radius": 0
       }
