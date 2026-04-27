@@ -835,7 +835,7 @@
           "settings": {
             "image": "shopify://shop_images/diffuser_elephant_1.jpg",
             "text": "Dhokra",
-            "link": ""
+            "link": "shopify://collections/dhokra"
           }
         },
         "craft_card_6kRDmR": {
@@ -1346,9 +1346,11 @@
       "settings": {
         "sheet_id": "bottom_sheet_collection",
         "title": "Categories",
-        "menu": "desktop-categories",
         "panel_bg": "#e5d8b8",
-        "panel_radius": 0
+        "panel_radius": 0,
+        "columns_mobile": 3,
+        "columns_desktop": 4,
+        "grid_gap": 12
       }
     }
   },
