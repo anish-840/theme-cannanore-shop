@@ -34,6 +34,30 @@
       "default": 4
     },
     {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Ratio",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape (4:3)"
+        }
+      ],
+      "default": "1 / 1"
+    },
+    {
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
@@ -125,6 +149,7 @@
     --card-radius: {{ section.settings.card_border_radius }}px;
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.image_ratio != 'auto' %}--image-ratio: {{ section.settings.image_ratio }};{% endif %}
   "
 >
   <div class="page-width">
@@ -212,11 +237,19 @@
 .craft-card__image-wrapper {
   overflow: hidden;
   border-radius: var(--card-radius) var(--card-radius) 0 0;
+  {% if section.settings.image_ratio != 'auto' %}
+    aspect-ratio: var(--image-ratio);
+  {% endif %}
 }
 
 .craft-card__image {
   width: 100%;
-  height: auto;
+  {% if section.settings.image_ratio != 'auto' %}
+    height: 100%;
+  {% else %}
+    height: auto;
+  {% endif %}
+  object-fit: cover; /* ensures image isn't squished when forced into ratio */
   display: block;
   transition: transform 0.3s ease;
 }
