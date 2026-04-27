@@ -857,7 +857,7 @@
         "craft_card_wKMfqp": {
           "type": "craft_card",
           "settings": {
-            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
+            "image": "shopify://shop_images/cushion-3_2_e3352320-1027-4cfb-9ec4-3fd5bf3566e4.jpg",
             "text": "Pattu",
             "link": "shopify://collections/pattu"
           }
@@ -865,6 +865,7 @@
         "craft_card_K9Yg8M": {
           "type": "craft_card",
           "settings": {
+            "image": "shopify://shop_images/4ae2e30e-a31b-4eef-a114-e9bdc2cbe634.webp",
             "text": "Crochet",
             "link": "shopify://collections/crochet"
           }
