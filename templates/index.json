@@ -865,7 +865,6 @@
         "craft_card_K9Yg8M": {
           "type": "craft_card",
           "settings": {
-            "image": "shopify://shop_images/diffuser_elephant_1.jpg",
             "text": "Crochet",
             "link": "shopify://collections/crochet"
           }
