@@ -1346,7 +1346,7 @@
       "settings": {
         "sheet_id": "bottom_sheet_collection",
         "title": "Categories",
-        "menu": "desktop-categories-old",
+        "menu": "desktop-categories",
         "panel_bg": "#e5d8b8",
         "panel_radius": 0
       }
