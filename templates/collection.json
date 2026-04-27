@@ -1,1 +1,251 @@
-{"sections":{"banner":{"type":"main-collection-banner","settings":{"show_collection_description":true,"show_collection_image":false,"color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3"}},"product-grid":{"type":"main-collection-product-grid","settings":{"products_per_page":16,"columns_desktop":4,"columns_mobile":"2","color_scheme":"scheme-137bc041-47d0-457f-b303-a9414ac21ea3","image_ratio":"adapt","image_shape":"default","show_secondary_image":false,"show_vendor":false,"show_rating":false,"title_max_lines":1,"quick_add":"none","enable_filtering":true,"filter_type":"horizontal","enable_sorting":true,"padding_top":0,"padding_bottom":36}},"mobile_bottom_navigation":{"type":"mobile-bottom-navigation","settings":{"enable_mobile_nav":true,"nav_order":"home,categories,profile,cart","show_labels":true,"home_label":"Home","home_url":"","home_builtin_icon":"home","categories_label":"Categories","categories_url":"","categories_builtin_icon":"grid","categories_action":"link","categories_sheet_id":"","profile_label":"Profile","profile_url":"","profile_builtin_icon":"user","cart_label":"Cart","cart_builtin_icon":"cart","menu_label":"Menu","menu_url":"","menu_builtin_icon":"menu","background_color":"#e5d8b8","text_color":"#9e0505","border_color":"#e5e5e5","border_width":1,"hover_background_color":"#f5f5f5","hover_text_color":"#333333","active_background_color":"#000000","active_text_color":"#ffffff","badge_color":"#9e0505","badge_text_color":"#ffffff","icon_size":24,"text_size":12,"text_weight":"400","padding_vertical":12,"padding_horizontal":16,"item_spacing":8,"item_padding":8,"item_border_radius":8}},"blocks_xPU47p":{"type":"_blocks","blocks":{"ai_gen_block_e9e1387_eB8cmc":{"type":"ai_gen_block_e9e1387","settings":{"enable_mobile":true,"enable_desktop":false,"show_trigger_button":true,"show_link_info":true,"button_text":"All Categories","button_icon":true,"button_bg_color":"#e5d8b8","button_text_color":"#ffffff","button_hover_bg_color":"#333333","button_hover_text_color":"#ffffff","button_padding":12,"button_border_radius":4,"button_font_size":16,"overlay_title":"All Categories","bottom_offset":80,"mobile_height":65,"desktop_style":"modal","overlay_bg_color":"#e5d8b8","overlay_border_radius":12,"backdrop_color":"#000000","backdrop_opacity":50,"backdrop_close":true,"title_font":"assistant_n4","title_font_size":20,"title_color":"#9e0505","columns_mobile":"3","columns_desktop":4,"grid_gap":16,"item_padding":8,"item_border_radius":8,"image_size":80,"image_border_radius":8,"label_font_size":14,"label_color":"#9e0505","label_font_weight":"500","category_1_enabled":true,"category_1_image":"shopify:\/\/shop_images\/Frame_4.jpg","category_1_label":"Sarees","category_1_link":"shopify:\/\/collections\/sarees","category_2_enabled":true,"category_2_image":"shopify:\/\/shop_images\/Frame_6.jpg","category_2_label":"Skincare","category_2_link":"shopify:\/\/collections\/skincare","category_3_enabled":true,"category_3_image":"shopify:\/\/shop_images\/Frame_7.jpg","category_3_label":"Jewellery","category_3_link":"shopify:\/\/collections\/jewellery-2","category_4_enabled":true,"category_4_image":"shopify:\/\/shop_images\/Bedsheets.jpg","category_4_label":"Bedroom","category_4_link":"shopify:\/\/collections\/bedsheets-1","category_5_enabled":true,"category_5_image":"shopify:\/\/shop_images\/Frame_5.jpg","category_5_label":"Toys","category_5_link":"shopify:\/\/collections\/toys-2","category_6_enabled":true,"category_6_image":"shopify:\/\/shop_images\/wrapped-present.jpg","category_6_label":"Bestsellers","category_6_link":"shopify:\/\/collections","category_7_enabled":false,"category_7_label":"","category_7_link":"","category_8_enabled":false,"category_8_label":"","category_8_link":"","category_9_enabled":false,"category_9_label":"","category_9_link":"","category_10_enabled":false,"category_10_label":"","category_10_link":"","category_11_enabled":false,"category_11_label":"","category_11_link":"","category_12_enabled":false,"category_12_label":"","category_12_link":""},"blocks":{}}},"block_order":["ai_gen_block_e9e1387_eB8cmc"],"disabled":true,"settings":{}},"collection_bottom_sheet_3FTT76":{"type":"collection-bottom-sheet","blocks":{"collection_7EKmHY":{"type":"collection","settings":{"collection":"sarees","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_xMPRCB":{"type":"collection","settings":{"collection":"skincare","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_UM3L4N":{"type":"collection","settings":{"collection":"toys","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_Egnw68":{"type":"collection","settings":{"collection":"jewellery-1","image_shape":"rounded","name_color":"#111111","name_size":12}},"collection_dTEt3a":{"type":"collection","settings":{"collection":"bedsheets","image_shape":"rounded","name_color":"#111111","name_size":12}}},"block_order":["collection_7EKmHY","collection_xMPRCB","collection_UM3L4N","collection_Egnw68","collection_dTEt3a"],"name":"Collection bottom sheet","settings":{"sheet_id":"bottom_sheet_collection","title":"Categories","panel_bg":"#e5d8b8","panel_radius":16,"columns_mobile":3,"columns_desktop":4,"grid_gap":12}}},"order":["banner","product-grid","mobile_bottom_navigation","blocks_xPU47p","collection_bottom_sheet_3FTT76"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "title_max_lines": 1,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "mobile_bottom_navigation": {
+      "type": "mobile-bottom-navigation",
+      "settings": {
+        "enable_mobile_nav": true,
+        "nav_order": "home,categories,profile,cart",
+        "show_labels": true,
+        "home_label": "Home",
+        "home_url": "",
+        "home_builtin_icon": "home",
+        "categories_label": "Categories",
+        "categories_url": "",
+        "categories_builtin_icon": "grid",
+        "categories_action": "link",
+        "categories_sheet_id": "",
+        "profile_label": "Profile",
+        "profile_url": "",
+        "profile_builtin_icon": "user",
+        "cart_label": "Cart",
+        "cart_builtin_icon": "cart",
+        "menu_label": "Menu",
+        "menu_url": "",
+        "menu_builtin_icon": "menu",
+        "background_color": "#e5d8b8",
+        "text_color": "#9e0505",
+        "border_color": "#e5e5e5",
+        "border_width": 1,
+        "hover_background_color": "#f5f5f5",
+        "hover_text_color": "#333333",
+        "active_background_color": "#000000",
+        "active_text_color": "#ffffff",
+        "badge_color": "#9e0505",
+        "badge_text_color": "#ffffff",
+        "icon_size": 24,
+        "text_size": 12,
+        "text_weight": "400",
+        "padding_vertical": 12,
+        "padding_horizontal": 16,
+        "item_spacing": 8,
+        "item_padding": 8,
+        "item_border_radius": 8
+      }
+    },
+    "blocks_xPU47p": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_e9e1387_eB8cmc": {
+          "type": "ai_gen_block_e9e1387",
+          "settings": {
+            "enable_mobile": true,
+            "enable_desktop": false,
+            "show_trigger_button": true,
+            "show_link_info": true,
+            "button_text": "All Categories",
+            "button_icon": true,
+            "button_bg_color": "#e5d8b8",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#333333",
+            "button_hover_text_color": "#ffffff",
+            "button_padding": 12,
+            "button_border_radius": 4,
+            "button_font_size": 16,
+            "overlay_title": "All Categories",
+            "bottom_offset": 80,
+            "mobile_height": 65,
+            "desktop_style": "modal",
+            "overlay_bg_color": "#e5d8b8",
+            "overlay_border_radius": 12,
+            "backdrop_color": "#000000",
+            "backdrop_opacity": 50,
+            "backdrop_close": true,
+            "title_font": "assistant_n4",
+            "title_font_size": 20,
+            "title_color": "#9e0505",
+            "columns_mobile": "3",
+            "columns_desktop": 4,
+            "grid_gap": 16,
+            "item_padding": 8,
+            "item_border_radius": 8,
+            "image_size": 80,
+            "image_border_radius": 8,
+            "label_font_size": 14,
+            "label_color": "#9e0505",
+            "label_font_weight": "500",
+            "category_1_enabled": true,
+            "category_1_image": "shopify://shop_images/Frame_4.jpg",
+            "category_1_label": "Sarees",
+            "category_1_link": "shopify://collections/sarees",
+            "category_2_enabled": true,
+            "category_2_image": "shopify://shop_images/Frame_6.jpg",
+            "category_2_label": "Skincare",
+            "category_2_link": "shopify://collections/skincare",
+            "category_3_enabled": true,
+            "category_3_image": "shopify://shop_images/Frame_7.jpg",
+            "category_3_label": "Jewellery",
+            "category_3_link": "shopify://collections/jewellery-2",
+            "category_4_enabled": true,
+            "category_4_image": "shopify://shop_images/Bedsheets.jpg",
+            "category_4_label": "Bedroom",
+            "category_4_link": "shopify://collections/bedsheets-1",
+            "category_5_enabled": true,
+            "category_5_image": "shopify://shop_images/Frame_5.jpg",
+            "category_5_label": "Toys",
+            "category_5_link": "shopify://collections/toys-2",
+            "category_6_enabled": true,
+            "category_6_image": "shopify://shop_images/wrapped-present.jpg",
+            "category_6_label": "Bestsellers",
+            "category_6_link": "shopify://collections",
+            "category_7_enabled": false,
+            "category_7_label": "",
+            "category_7_link": "",
+            "category_8_enabled": false,
+            "category_8_label": "",
+            "category_8_link": "",
+            "category_9_enabled": false,
+            "category_9_label": "",
+            "category_9_link": "",
+            "category_10_enabled": false,
+            "category_10_label": "",
+            "category_10_link": "",
+            "category_11_enabled": false,
+            "category_11_label": "",
+            "category_11_link": "",
+            "category_12_enabled": false,
+            "category_12_label": "",
+            "category_12_link": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_e9e1387_eB8cmc"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "collection_bottom_sheet_3FTT76": {
+      "type": "collection-bottom-sheet",
+      "blocks": {
+        "collection_7EKmHY": {
+          "type": "collection",
+          "settings": {
+            "collection": "sarees",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_xMPRCB": {
+          "type": "collection",
+          "settings": {
+            "collection": "skincare",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_UM3L4N": {
+          "type": "collection",
+          "settings": {
+            "collection": "toys",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_Egnw68": {
+          "type": "collection",
+          "settings": {
+            "collection": "jewellery-1",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        },
+        "collection_dTEt3a": {
+          "type": "collection",
+          "settings": {
+            "collection": "bedsheets",
+            "image_shape": "rounded",
+            "name_color": "#111111",
+            "name_size": 12
+          }
+        }
+      },
+      "block_order": [
+        "collection_7EKmHY",
+        "collection_xMPRCB",
+        "collection_UM3L4N",
+        "collection_Egnw68",
+        "collection_dTEt3a"
+      ],
+      "name": "Collection bottom sheet",
+      "settings": {
+        "sheet_id": "bottom_sheet_collection",
+        "title": "Categories",
+        "panel_bg": "#e5d8b8",
+        "panel_radius": 16,
+        "columns_mobile": 3,
+        "columns_desktop": 4,
+        "grid_gap": 12
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "mobile_bottom_navigation",
+    "blocks_xPU47p",
+    "collection_bottom_sheet_3FTT76"
+  ]
+}
