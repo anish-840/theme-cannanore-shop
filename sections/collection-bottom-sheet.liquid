@@ -1,9 +1,9 @@
 {% comment %}
-  Collection Bottom Sheet — Full Black Overlay
+  Menu Bottom Sheet — Full Black Overlay
   - Open with [data-open-sheet-target="<sheet_id>"]
   - Overlay: solid black, fades in/out
   - Panel: slides up/down
-  - Header: Title left, close button right
+  - Content: Multi-level accordion menu (Linklist)
 {% endcomment %}
 
 {% assign sheet_id = section.settings.sheet_id | strip %}
@@ -25,7 +25,7 @@
   .qc-bottom-sheet__overlay {
     position: fixed;
     inset: 0;
-    background: #000; /* solid black */
+    background: #000;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0s linear 0.3s;
@@ -48,7 +48,8 @@
     transform: translateY(100%);
     transition: transform 0.3s ease;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.18);
-    padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
   }
   .qc-bottom-sheet.is-open .qc-bottom-sheet__panel {
     transform: translateY(0);
@@ -59,13 +60,14 @@
   .qc-bottom-sheet__header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* ✅ Title left, Close right */
-    gap: 8px;
-    margin-bottom: 8px;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
   }
   .qc-bottom-sheet__title {
     font-size: 16px;
     font-weight: 600;
+    color: {{ section.settings.text_color }};
   }
   .qc-bottom-sheet__close {
     background: transparent;
@@ -73,40 +75,77 @@
     cursor: pointer;
     padding: 8px;
     line-height: 1;
+    color: {{ section.settings.text_color }};
   }
 
-  .qc-bottom-sheet__grid {
-    display: grid;
-    grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
-    gap: {{ section.settings.grid_gap }}px;
+  /* --- MENU STYLES --- */
+  .qc-bottom-sheet__menu {
+    overflow-y: auto;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
   }
-  @media (min-width: 750px) {
-    .qc-bottom-sheet__grid {
-      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-    }
+  .qc-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
-
-  .qc-col-item { text-align: center; }
-  .qc-col-link { display: block; text-decoration: none; color: inherit; }
-  .qc-col-imgwrap {
+  .qc-menu-item {
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .qc-menu-link, .qc-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background: #f6f6f6;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
   }
-  .qc-shape-square { border-radius: 0; }
-  .qc-shape-rounded { border-radius: 12px; }
-  .qc-shape-circle { border-radius: 9999px; }
-  .qc-shape-soft { border-radius: 24px; }
-  .qc-col-imgwrap img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
+  .qc-menu-toggle { font-weight: 500; }
+  
+  /* Nested Level Styling */
+  .qc-level-2 .qc-menu-link, .qc-level-2 .qc-menu-toggle {
+    padding-left: 36px;
+    font-size: 15px;
+    background: rgba(0,0,0,0.02);
   }
-  .qc-col-title { margin-top: 8px; font-weight: 500; }
+  .qc-level-3 .qc-menu-link {
+    padding-left: 52px;
+    font-size: 14px;
+    background: rgba(0,0,0,0.04);
+  }
+
+  /* Caret Animation */
+  .qc-icon-caret {
+    width: 12px;
+    transition: transform 0.3s ease;
+  }
+  .qc-menu-toggle[aria-expanded="true"] .qc-icon-caret {
+    transform: rotate(180deg);
+  }
+
+  /* Accordion Submenus */
+  .qc-submenu {
+    display: none;
+  }
+  .qc-submenu.is-open {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .qc-bottom-sheet__overlay { transition: none; }
-    .qc-bottom-sheet__panel { transition: none; }
+    .qc-bottom-sheet__overlay, .qc-bottom-sheet__panel, .qc-icon-caret { transition: none; }
+    .qc-submenu.is-open { animation: none; }
   }
 {% endstyle %}
 
@@ -116,32 +155,57 @@
   <div class="qc-bottom-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="{{ sheet_id }}-title">
     <div class="qc-bottom-sheet__header">
       <div id="{{ sheet_id }}-title" class="qc-bottom-sheet__title">
-        {{ section.settings.title | default: "Collections" }}
+        {{ section.settings.title | default: "Menu" }}
       </div>
       <button type="button" class="qc-bottom-sheet__close" aria-label="Close" data-close>
-        <span class="svg-wrapper">{{ 'icon-close.svg' | inline_asset_content }}</span>
+        <span class="svg-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </span>
       </button>
     </div>
 
-    <div class="qc-bottom-sheet__grid">
-      {% for block in section.blocks %}
-        {% assign col = block.settings.collection %}
-        {% if col == blank %}{% continue %}{% endif %}
-        {% assign img = block.settings.custom_image | default: col.featured_image %}
-        {% assign shape = block.settings.image_shape | default: 'rounded' %}
-        <div class="qc-col-item" {{ block.shopify_attributes }}>
-          <a class="qc-col-link" href="{{ col.url }}">
-            <div class="qc-col-imgwrap qc-shape-{{ shape }}">
-              {% if img %}
-                <img src="{{ img | image_url: width: 600 }}" alt="{{ col.title | escape }}" loading="lazy">
-              {% endif %}
-            </div>
-            <div class="qc-col-title" style="color: {{ block.settings.name_color }}; font-size: {{ block.settings.name_size }}px;">
-              {{ col.title }}
-            </div>
-          </a>
+    <div class="qc-bottom-sheet__menu">
+      {%- if section.settings.menu != blank -%}
+        <ul class="qc-menu-list qc-level-1">
+          {%- for link in section.settings.menu.links -%}
+            <li class="qc-menu-item">
+              {%- if link.links != blank -%}
+                <button class="qc-menu-toggle" aria-expanded="false">
+                  <span>{{ link.title }}</span>
+                  <svg class="qc-icon-caret" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
+                </button>
+                <ul class="qc-menu-list qc-level-2 qc-submenu" hidden>
+                  {%- for childlink in link.links -%}
+                    <li class="qc-menu-item">
+                      {%- if childlink.links != blank -%}
+                        <button class="qc-menu-toggle" aria-expanded="false">
+                          <span>{{ childlink.title }}</span>
+                          <svg class="qc-icon-caret" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
+                        </button>
+                        <ul class="qc-menu-list qc-level-3 qc-submenu" hidden>
+                          {%- for grandchildlink in childlink.links -%}
+                            <li class="qc-menu-item">
+                              <a href="{{ grandchildlink.url }}" class="qc-menu-link">{{ grandchildlink.title }}</a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- else -%}
+                        <a href="{{ childlink.url }}" class="qc-menu-link">{{ childlink.title }}</a>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- else -%}
+                <a href="{{ link.url }}" class="qc-menu-link">{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <div style="padding: 24px; text-align: center; color: #666;">
+          Please select a menu in the theme editor settings.
         </div>
-      {% endfor %}
+      {%- endif -%}
     </div>
   </div>
 
@@ -152,7 +216,9 @@
       var id = {{ sheet_id | json }};
       var overlay = root.querySelector('.qc-bottom-sheet__overlay');
       var closeBtns = root.querySelectorAll('[data-close]');
+      var toggles = root.querySelectorAll('.qc-menu-toggle');
 
+      // Sheet Open/Close Logic
       function openSheet(){
         root.classList.add('is-open');
         root.setAttribute('aria-hidden', 'false');
@@ -181,42 +247,46 @@
           openSheet();
         }
       });
+
+      // Accordion Submenu Logic
+      toggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          var expanded = this.getAttribute('aria-expanded') === 'true';
+          var submenu = this.nextElementSibling;
+          
+          // Toggle aria state
+          this.setAttribute('aria-expanded', !expanded);
+          
+          // Toggle submenu visibility
+          if (submenu) {
+            if (!expanded) {
+              submenu.classList.add('is-open');
+              submenu.removeAttribute('hidden');
+            } else {
+              submenu.classList.remove('is-open');
+              setTimeout(() => { submenu.setAttribute('hidden', ''); }, 300); // Wait for anim
+            }
+          }
+        });
+      });
     })();
   </script>
 </div>
 
 {% schema %}
 {
-  "name": "Collection bottom sheet",
+  "name": "Menu bottom sheet",
   "settings": [
     { "type": "text", "id": "sheet_id", "label": "Sheet ID", "info": "Leave blank to auto-generate. Use this ID in triggers (data-open-sheet-target)." },
-    { "type": "text", "id": "title", "label": "Title", "default": "Collections" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Categories" },
+    { "type": "link_list", "id": "menu", "label": "Select Menu" },
     { "type": "color", "id": "panel_bg", "label": "Panel background", "default": "#ffffff" },
-    { "type": "range", "id": "panel_radius", "label": "Panel corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "columns_mobile", "label": "Columns (mobile)", "min": 2, "max": 4, "step": 1, "default": 3 },
-    { "type": "range", "id": "columns_desktop", "label": "Columns (desktop)", "min": 3, "max": 6, "step": 1, "default": 4 },
-    { "type": "range", "id": "grid_gap", "label": "Grid gap", "min": 4, "max": 28, "step": 2, "unit": "px", "default": 12 }
-  ],
-  "blocks": [
-    {
-      "type": "collection",
-      "name": "Collection",
-      "settings": [
-        { "type": "collection", "id": "collection", "label": "Collection" },
-        { "type": "image_picker", "id": "custom_image", "label": "Override image" },
-        { "type": "select", "id": "image_shape", "label": "Image shape", "options": [
-          { "value": "square", "label": "Square" },
-          { "value": "rounded", "label": "Rounded" },
-          { "value": "circle", "label": "Circle" },
-          { "value": "soft", "label": "Soft rounded" }
-        ], "default": "rounded" },
-        { "type": "color", "id": "name_color", "label": "Name color", "default": "#111111" },
-        { "type": "range", "id": "name_size", "label": "Name font size", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 }
-      ]
-    }
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
+    { "type": "range", "id": "panel_radius", "label": "Panel corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 }
   ],
   "presets": [
-    { "name": "Collection bottom sheet", "blocks": [ { "type": "collection" }, { "type": "collection" }, { "type": "collection" } ] }
+    { "name": "Menu bottom sheet" }
   ]
 }
 {% endschema %}
