@@ -177,7 +177,7 @@
       "type": "collection-bottom-sheet",
       "name": "Collection bottom sheet",
       "settings": {
-        "sheet_id": "bottom_sheet_collection",
+        "sheet_id": "mobile-menu-sheet",
         "title": "Categories",
         "menu": "desktop-categories",
         "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
