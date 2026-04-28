@@ -263,6 +263,7 @@
 /* CAROUSEL WRAPPER */
 .instagram-carousel-wrapper {
   position: relative;
+  z-index: 1; /* Added to establish stacking context */
   display: flex;
   align-items: center;
 }
@@ -333,7 +334,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 1; /* Lowered from 10 to 1 */
   background: #fff;
   color: #121212;
   border: 1px solid #e0e0e0;
