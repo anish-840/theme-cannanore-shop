@@ -289,3 +289,66 @@
   .na-grid{grid-template-columns:1fr;}
 }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Find all the Add to Cart forms in this specific section
+    const atcForms = document.querySelectorAll('.na-atc-form');
+
+    atcForms.forEach(form => {
+      form.addEventListener('submit', function(e) {
+        // 1. Stop the page from redirecting
+        e.preventDefault(); 
+        
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.innerText;
+        
+        // 2. Change button text to give the user visual feedback
+        submitButton.innerText = 'Adding...';
+        submitButton.disabled = true;
+
+        // 3. Gather the product ID
+        const formData = new FormData(form);
+
+        // 4. Send the product to the Shopify Cart in the background
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Change button to "Added!" briefly
+          submitButton.innerText = 'Added!';
+          setTimeout(() => {
+            submitButton.innerText = originalText;
+            submitButton.disabled = false;
+          }, 2000);
+
+          // 5. Fetch the new cart total to update the numbers
+          return fetch('/cart.js');
+        })
+        .then(response => response.json())
+        .then(cart => {
+          // Update Dawn's native header cart bubble
+          const headerCartBubbles = document.querySelectorAll('.cart-count-bubble span:first-child');
+          headerCartBubbles.forEach(el => {
+            el.innerText = cart.item_count;
+          });
+
+          // Update the custom Mobile Bottom Navigation cart badge we built earlier
+          if (window.publish && window.PUB_SUB_EVENTS) {
+            window.publish(window.PUB_SUB_EVENTS.cartUpdate, { cartData: cart });
+          }
+        })
+        .catch(error => {
+          console.error('Error adding to cart:', error);
+          submitButton.innerText = 'Error';
+          setTimeout(() => {
+            submitButton.innerText = originalText;
+            submitButton.disabled = false;
+          }, 2000);
+        });
+      });
+    });
+  });
+</script>
