@@ -60,10 +60,22 @@
         "item_padding": 8,
         "item_border_radius": 8
       }
+    },
+    "collection_bottom_sheet_hBenwf": {
+      "type": "collection-bottom-sheet",
+      "name": "Menu bottom sheet",
+      "settings": {
+        "sheet_id": "mobile-menu-sheet",
+        "title": "Categories",
+        "menu": "",
+        "color_scheme": "",
+        "panel_radius": 16
+      }
     }
   },
   "order": [
     "main",
-    "mobile_bottom_navigation"
+    "mobile_bottom_navigation",
+    "collection_bottom_sheet_hBenwf"
   ]
 }

@@ -26,7 +26,7 @@
         "categories_url": "",
         "categories_builtin_icon": "grid",
         "categories_action": "open_sheet",
-        "categories_sheet_id": "bottom_sheet_collection",
+        "categories_sheet_id": "mobile-menu-sheet",
         "profile_label": "Profile",
         "profile_url": "",
         "profile_builtin_icon": "user",
