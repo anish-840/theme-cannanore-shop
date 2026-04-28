@@ -3,7 +3,7 @@
   - Open with [data-open-sheet-target="<sheet_id>"]
   - Overlay: solid black, fades in/out
   - Panel: slides up/down
-  - Content: Multi-level accordion menu (Linklist)
+  - Content: Multi-level accordion menu (Linklist) with clickable parent links
 {% endcomment %}
 
 {% assign sheet_id = section.settings.sheet_id | strip %}
@@ -91,28 +91,48 @@
   .qc-menu-item {
     border-bottom: 1px solid rgba(0,0,0,0.04);
   }
-  .qc-menu-link, .qc-menu-toggle {
+  
+  /* Split layout for parent links */
+  .qc-menu-row {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+  }
+  
+  .qc-menu-link {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
     padding: 16px 20px;
     text-decoration: none;
     color: {{ section.settings.text_color }};
-    background: transparent;
-    border: none;
     font-size: 16px;
-    cursor: pointer;
-    text-align: left;
     font-family: inherit;
   }
-  .qc-menu-toggle { font-weight: 500; }
+  
+  .qc-menu-row .qc-menu-link {
+    flex: 1;
+    padding-right: 0; /* Remove right padding so arrow button sits flush */
+  }
+
+  .qc-menu-toggle {
+    background: transparent;
+    border: none;
+    padding: 16px 24px; /* Slightly wider padding for easier tapping */
+    cursor: pointer;
+    color: {{ section.settings.text_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   /* Nested Level Styling */
   .qc-level-2 .qc-menu-link, .qc-level-2 .qc-menu-toggle {
-    padding-left: 36px;
     font-size: 15px;
     background: rgba(0,0,0,0.02);
+  }
+  .qc-level-2 .qc-menu-link {
+    padding-left: 36px;
   }
   .qc-level-3 .qc-menu-link {
     padding-left: 52px;
@@ -170,18 +190,24 @@
           {%- for link in section.settings.menu.links -%}
             <li class="qc-menu-item">
               {%- if link.links != blank -%}
-                <button class="qc-menu-toggle" aria-expanded="false">
-                  <span>{{ link.title }}</span>
-                  <svg class="qc-icon-caret" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
-                </button>
+                <div class="qc-menu-row">
+                  <a href="{{ link.url }}" class="qc-menu-link">{{ link.title }}</a>
+                  <button class="qc-menu-toggle" aria-expanded="false" aria-label="Toggle {{ link.title }}">
+                    <svg class="qc-icon-caret" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
+                  </button>
+                </div>
+                
                 <ul class="qc-menu-list qc-level-2 qc-submenu" hidden>
                   {%- for childlink in link.links -%}
                     <li class="qc-menu-item">
                       {%- if childlink.links != blank -%}
-                        <button class="qc-menu-toggle" aria-expanded="false">
-                          <span>{{ childlink.title }}</span>
-                          <svg class="qc-icon-caret" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
-                        </button>
+                        <div class="qc-menu-row">
+                          <a href="{{ childlink.url }}" class="qc-menu-link">{{ childlink.title }}</a>
+                          <button class="qc-menu-toggle" aria-expanded="false" aria-label="Toggle {{ childlink.title }}">
+                            <svg class="qc-icon-caret" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
+                          </button>
+                        </div>
+                        
                         <ul class="qc-menu-list qc-level-3 qc-submenu" hidden>
                           {%- for grandchildlink in childlink.links -%}
                             <li class="qc-menu-item">
@@ -248,18 +274,20 @@
         }
       });
 
-      // Accordion Submenu Logic
+      // Accordion Submenu Logic (Updated for split layout)
       toggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
           e.preventDefault();
           var expanded = this.getAttribute('aria-expanded') === 'true';
-          var submenu = this.nextElementSibling;
+          
+          // The submenu is now the sibling of the .qc-menu-row container
+          var submenu = this.parentElement.nextElementSibling;
           
           // Toggle aria state
           this.setAttribute('aria-expanded', !expanded);
           
           // Toggle submenu visibility
-          if (submenu) {
+          if (submenu && submenu.classList.contains('qc-submenu')) {
             if (!expanded) {
               submenu.classList.add('is-open');
               submenu.removeAttribute('hidden');
