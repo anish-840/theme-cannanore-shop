@@ -67,8 +67,8 @@
       "settings": {
         "sheet_id": "mobile-menu-sheet",
         "title": "Categories",
-        "menu": "",
-        "color_scheme": "",
+        "menu": "desktop-categories",
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
         "panel_radius": 16
       }
     }
