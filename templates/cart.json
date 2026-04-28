@@ -83,6 +83,7 @@
     },
     "collection_bottom_sheet_A9XPdr": {
       "type": "collection-bottom-sheet",
+      "disabled": true,
       "name": "Collection bottom sheet",
       "settings": {
         "sheet_id": "bottom_sheet_collection",
