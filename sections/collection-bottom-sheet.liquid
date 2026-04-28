@@ -4,6 +4,7 @@
   - Overlay: solid black, fades in/out
   - Panel: slides up/down
   - Content: Multi-level accordion menu (Linklist) with clickable parent links
+  - Colors: Uses Dawn's native color schemes
 {% endcomment %}
 
 {% assign sheet_id = section.settings.sheet_id | strip %}
@@ -41,7 +42,6 @@
     position: fixed;
     left: 0; right: 0; bottom: 0;
     z-index: 1;
-    background: {{ section.settings.panel_bg }};
     border-top-left-radius: {{ section.settings.panel_radius }}px;
     border-top-right-radius: {{ section.settings.panel_radius }}px;
     max-height: calc(85vh + env(safe-area-inset-bottom));
@@ -62,12 +62,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
   }
   .qc-bottom-sheet__title {
     font-size: 16px;
     font-weight: 600;
-    color: {{ section.settings.text_color }};
+    color: inherit;
   }
   .qc-bottom-sheet__close {
     background: transparent;
@@ -75,7 +75,7 @@
     cursor: pointer;
     padding: 8px;
     line-height: 1;
-    color: {{ section.settings.text_color }};
+    color: inherit;
   }
 
   /* --- MENU STYLES --- */
@@ -89,7 +89,7 @@
     margin: 0;
   }
   .qc-menu-item {
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.04);
   }
   
   /* Split layout for parent links */
@@ -105,22 +105,22 @@
     width: 100%;
     padding: 16px 20px;
     text-decoration: none;
-    color: {{ section.settings.text_color }};
+    color: inherit;
     font-size: 16px;
     font-family: inherit;
   }
   
   .qc-menu-row .qc-menu-link {
     flex: 1;
-    padding-right: 0; /* Remove right padding so arrow button sits flush */
+    padding-right: 0;
   }
 
   .qc-menu-toggle {
     background: transparent;
     border: none;
-    padding: 16px 24px; /* Slightly wider padding for easier tapping */
+    padding: 16px 24px;
     cursor: pointer;
-    color: {{ section.settings.text_color }};
+    color: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -129,7 +129,7 @@
   /* Nested Level Styling */
   .qc-level-2 .qc-menu-link, .qc-level-2 .qc-menu-toggle {
     font-size: 15px;
-    background: rgba(0,0,0,0.02);
+    background: rgba(var(--color-foreground), 0.03);
   }
   .qc-level-2 .qc-menu-link {
     padding-left: 36px;
@@ -137,7 +137,7 @@
   .qc-level-3 .qc-menu-link {
     padding-left: 52px;
     font-size: 14px;
-    background: rgba(0,0,0,0.04);
+    background: rgba(var(--color-foreground), 0.06);
   }
 
   /* Caret Animation */
@@ -172,7 +172,7 @@
 <div id="{{ sheet_id }}" class="qc-bottom-sheet" data-sheet aria-hidden="true">
   <div class="qc-bottom-sheet__overlay" data-close></div>
 
-  <div class="qc-bottom-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="{{ sheet_id }}-title">
+  <div class="qc-bottom-sheet__panel color-{{ section.settings.color_scheme }} gradient" role="dialog" aria-modal="true" aria-labelledby="{{ sheet_id }}-title">
     <div class="qc-bottom-sheet__header">
       <div id="{{ sheet_id }}-title" class="qc-bottom-sheet__title">
         {{ section.settings.title | default: "Menu" }}
@@ -228,7 +228,7 @@
           {%- endfor -%}
         </ul>
       {%- else -%}
-        <div style="padding: 24px; text-align: center; color: #666;">
+        <div style="padding: 24px; text-align: center; opacity: 0.7;">
           Please select a menu in the theme editor settings.
         </div>
       {%- endif -%}
@@ -274,26 +274,23 @@
         }
       });
 
-      // Accordion Submenu Logic (Updated for split layout)
+      // Accordion Submenu Logic
       toggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
           e.preventDefault();
           var expanded = this.getAttribute('aria-expanded') === 'true';
           
-          // The submenu is now the sibling of the .qc-menu-row container
           var submenu = this.parentElement.nextElementSibling;
           
-          // Toggle aria state
           this.setAttribute('aria-expanded', !expanded);
           
-          // Toggle submenu visibility
           if (submenu && submenu.classList.contains('qc-submenu')) {
             if (!expanded) {
               submenu.classList.add('is-open');
               submenu.removeAttribute('hidden');
             } else {
               submenu.classList.remove('is-open');
-              setTimeout(() => { submenu.setAttribute('hidden', ''); }, 300); // Wait for anim
+              setTimeout(() => { submenu.setAttribute('hidden', ''); }, 300);
             }
           }
         });
@@ -309,8 +306,7 @@
     { "type": "text", "id": "sheet_id", "label": "Sheet ID", "info": "Leave blank to auto-generate. Use this ID in triggers (data-open-sheet-target)." },
     { "type": "text", "id": "title", "label": "Title", "default": "Categories" },
     { "type": "link_list", "id": "menu", "label": "Select Menu" },
-    { "type": "color", "id": "panel_bg", "label": "Panel background", "default": "#ffffff" },
-    { "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
     { "type": "range", "id": "panel_radius", "label": "Panel corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 }
   ],
   "presets": [
