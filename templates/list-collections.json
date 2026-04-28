@@ -21,6 +21,7 @@
     },
     "mobile_bottom_navigation": {
       "type": "mobile-bottom-navigation",
+      "disabled": true,
       "settings": {
         "enable_mobile_nav": true,
         "nav_order": "home,categories,cart,profile,menu",
@@ -63,6 +64,7 @@
     },
     "collection_bottom_sheet_NHEHYM": {
       "type": "collection-bottom-sheet",
+      "disabled": true,
       "name": "Menu bottom sheet",
       "settings": {
         "sheet_id": "",
