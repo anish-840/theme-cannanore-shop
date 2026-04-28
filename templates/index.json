@@ -1348,8 +1348,7 @@
         "sheet_id": "bottom_sheet_collection",
         "title": "Categories",
         "menu": "desktop-categories",
-        "panel_bg": "#e5d8b8",
-        "text_color": "#111111",
+        "color_scheme": "scheme-137bc041-47d0-457f-b303-a9414ac21ea3",
         "panel_radius": 0
       }
     }
