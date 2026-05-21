@@ -310,6 +310,34 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T83MQXNQ"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+  <script>
+  window.dataLayer = window.dataLayer || [];
+
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. cart_opened (Listens for clicks on the Cart Icon)
+    document.body.addEventListener('click', function(e) {
+      const clickedElement = e.target;
+      if (
+        clickedElement.closest('a[href="/cart"]') || 
+        clickedElement.closest('.header__icon--cart') || 
+        clickedElement.closest('#cart-icon-bubble')
+      ) {
+        window.dataLayer.push({ event: 'cart_opened' });
+      }
+    });
+
+    // 2. cart_gift_message_added (Listens for order notes)
+    document.body.addEventListener('change', function(e) {
+      if (e.target && e.target.name === 'note') {
+        if(e.target.value.trim() !== '') {
+          window.dataLayer.push({ event: 'cart_gift_message_added' });
+        }
+      }
+    });
+    
+  });
+</script>
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
