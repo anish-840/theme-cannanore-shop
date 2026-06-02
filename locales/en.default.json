@@ -543,12 +543,5 @@
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
     }
-  },
-  "shopify": {
-    "checkout": {
-      "payment": {
-        "title": "Payment (** 5% Additional Discount for Razorpay, at the time of payment)"
-      }
-    }
   }
 }
