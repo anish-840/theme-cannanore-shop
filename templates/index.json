@@ -649,7 +649,7 @@
       "name": "New Arrivals",
       "settings": {
         "heading": "New Arrivals",
-        "view_all_link": "shopify://collections/new-arrival",
+        "view_all_link": "shopify://products/chef-s-cast-iron-essentials",
         "view_all_text": "View All Collections",
         "header_color": "#9e0505",
         "view_btn_bg": "#e5d8b8",
@@ -659,7 +659,7 @@
         "view_btn_font_size": 14,
         "padding_top": 40,
         "padding_bottom": 40,
-        "featured_product": "brick-red-floral-cushion-cover",
+        "featured_product": "crochet-rose-pink-silver-dangler-earrings",
         "btn_bg": "#9e0505",
         "btn_text": "#e5d8b8",
         "btn_radius": 4,
