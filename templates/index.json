@@ -556,7 +556,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "all",
+        "collection": "bestseler",
         "products_to_show": 5,
         "title": "Bestsellers",
         "title_max_lines": 1,
