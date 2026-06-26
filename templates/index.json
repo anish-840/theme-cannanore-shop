@@ -649,7 +649,7 @@
       "name": "New Arrivals",
       "settings": {
         "heading": "New Arrivals",
-        "view_all_link": "shopify://collections/bedsheets",
+        "view_all_link": "shopify://collections/new-arrival",
         "view_all_text": "View All Collections",
         "header_color": "#9e0505",
         "view_btn_bg": "#e5d8b8",
